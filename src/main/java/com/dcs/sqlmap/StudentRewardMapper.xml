@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dcs.dao.StudentRewardMapper" >
+  <resultMap id="BaseResultMap" type="com.dcs.pojo.StudentReward" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="student_id" property="studentId" jdbcType="INTEGER" />
+    <result column="grade" property="grade" jdbcType="VARCHAR" />
+    <result column="classroom" property="classroom" jdbcType="VARCHAR" />
+    <result column="reward_name" property="rewardName" jdbcType="VARCHAR" />
+    <result column="reward_grade" property="rewardGrade" jdbcType="VARCHAR" />
+    <result column="reward_time" property="rewardTime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="reward_nature" property="rewardNature" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, student_id, grade, classroom, reward_name, reward_grade, reward_time, remark, 
+    reward_nature
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_student_reward
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_student_reward
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dcs.pojo.StudentReward" >
+    insert into t_student_reward (id, name, student_id, 
+      grade, classroom, reward_name, 
+      reward_grade, reward_time, remark, 
+      reward_nature)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{studentId,jdbcType=INTEGER}, 
+      #{grade,jdbcType=VARCHAR}, #{classroom,jdbcType=VARCHAR}, #{rewardName,jdbcType=VARCHAR}, 
+      #{rewardGrade,jdbcType=VARCHAR}, #{rewardTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, 
+      #{rewardNature,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dcs.pojo.StudentReward" >
+    insert into t_student_reward
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="studentId != null" >
+        student_id,
+      </if>
+      <if test="grade != null" >
+        grade,
+      </if>
+      <if test="classroom != null" >
+        classroom,
+      </if>
+      <if test="rewardName != null" >
+        reward_name,
+      </if>
+      <if test="rewardGrade != null" >
+        reward_grade,
+      </if>
+      <if test="rewardTime != null" >
+        reward_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="rewardNature != null" >
+        reward_nature,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="studentId != null" >
+        #{studentId,jdbcType=INTEGER},
+      </if>
+      <if test="grade != null" >
+        #{grade,jdbcType=VARCHAR},
+      </if>
+      <if test="classroom != null" >
+        #{classroom,jdbcType=VARCHAR},
+      </if>
+      <if test="rewardName != null" >
+        #{rewardName,jdbcType=VARCHAR},
+      </if>
+      <if test="rewardGrade != null" >
+        #{rewardGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="rewardTime != null" >
+        #{rewardTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="rewardNature != null" >
+        #{rewardNature,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dcs.pojo.StudentReward" >
+    update t_student_reward
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="studentId != null" >
+        student_id = #{studentId,jdbcType=INTEGER},
+      </if>
+      <if test="grade != null" >
+        grade = #{grade,jdbcType=VARCHAR},
+      </if>
+      <if test="classroom != null" >
+        classroom = #{classroom,jdbcType=VARCHAR},
+      </if>
+      <if test="rewardName != null" >
+        reward_name = #{rewardName,jdbcType=VARCHAR},
+      </if>
+      <if test="rewardGrade != null" >
+        reward_grade = #{rewardGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="rewardTime != null" >
+        reward_time = #{rewardTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="rewardNature != null" >
+        reward_nature = #{rewardNature,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dcs.pojo.StudentReward" >
+    update t_student_reward
+    set name = #{name,jdbcType=VARCHAR},
+      student_id = #{studentId,jdbcType=INTEGER},
+      grade = #{grade,jdbcType=VARCHAR},
+      classroom = #{classroom,jdbcType=VARCHAR},
+      reward_name = #{rewardName,jdbcType=VARCHAR},
+      reward_grade = #{rewardGrade,jdbcType=VARCHAR},
+      reward_time = #{rewardTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      reward_nature = #{rewardNature,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

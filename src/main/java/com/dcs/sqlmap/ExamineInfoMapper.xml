@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dcs.dao.ExamineInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.dcs.pojo.ExamineInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="info_id" property="infoId" jdbcType="INTEGER" />
+    <result column="counselor" property="counselor" jdbcType="VARCHAR" />
+    <result column="daily_examine" property="dailyExamine" jdbcType="DOUBLE" />
+    <result column="student_examine" property="studentExamine" jdbcType="DOUBLE" />
+    <result column="total_examine" property="totalExamine" jdbcType="DOUBLE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, info_id, counselor, daily_examine, student_examine, total_examine
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_examine_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_examine_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dcs.pojo.ExamineInfo" >
+    insert into t_examine_info (id, info_id, counselor, 
+      daily_examine, student_examine, total_examine
+      )
+    values (#{id,jdbcType=INTEGER}, #{infoId,jdbcType=INTEGER}, #{counselor,jdbcType=VARCHAR}, 
+      #{dailyExamine,jdbcType=DOUBLE}, #{studentExamine,jdbcType=DOUBLE}, #{totalExamine,jdbcType=DOUBLE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.dcs.pojo.ExamineInfo" >
+    insert into t_examine_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="infoId != null" >
+        info_id,
+      </if>
+      <if test="counselor != null" >
+        counselor,
+      </if>
+      <if test="dailyExamine != null" >
+        daily_examine,
+      </if>
+      <if test="studentExamine != null" >
+        student_examine,
+      </if>
+      <if test="totalExamine != null" >
+        total_examine,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="infoId != null" >
+        #{infoId,jdbcType=INTEGER},
+      </if>
+      <if test="counselor != null" >
+        #{counselor,jdbcType=VARCHAR},
+      </if>
+      <if test="dailyExamine != null" >
+        #{dailyExamine,jdbcType=DOUBLE},
+      </if>
+      <if test="studentExamine != null" >
+        #{studentExamine,jdbcType=DOUBLE},
+      </if>
+      <if test="totalExamine != null" >
+        #{totalExamine,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dcs.pojo.ExamineInfo" >
+    update t_examine_info
+    <set >
+      <if test="infoId != null" >
+        info_id = #{infoId,jdbcType=INTEGER},
+      </if>
+      <if test="counselor != null" >
+        counselor = #{counselor,jdbcType=VARCHAR},
+      </if>
+      <if test="dailyExamine != null" >
+        daily_examine = #{dailyExamine,jdbcType=DOUBLE},
+      </if>
+      <if test="studentExamine != null" >
+        student_examine = #{studentExamine,jdbcType=DOUBLE},
+      </if>
+      <if test="totalExamine != null" >
+        total_examine = #{totalExamine,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dcs.pojo.ExamineInfo" >
+    update t_examine_info
+    set info_id = #{infoId,jdbcType=INTEGER},
+      counselor = #{counselor,jdbcType=VARCHAR},
+      daily_examine = #{dailyExamine,jdbcType=DOUBLE},
+      student_examine = #{studentExamine,jdbcType=DOUBLE},
+      total_examine = #{totalExamine,jdbcType=DOUBLE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

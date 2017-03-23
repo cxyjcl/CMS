@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dcs.dao.ListInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.dcs.pojo.ListInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="excel_name" property="excelName" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="list_id" property="listId" jdbcType="INTEGER" />
+    <result column="info_id" property="infoId" jdbcType="INTEGER" />
+    <result column="creator" property="creator" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="reviser" property="reviser" jdbcType="INTEGER" />
+    <result column="revise_time" property="reviseTime" jdbcType="TIMESTAMP" />
+    <result column="user_level" property="userLevel" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, excel_name, title, list_id, info_id, creator, create_time, reviser, revise_time, 
+    user_level
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_list_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_list_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dcs.pojo.ListInfo" >
+    insert into t_list_info (id, excel_name, title, 
+      list_id, info_id, creator, 
+      create_time, reviser, revise_time, 
+      user_level)
+    values (#{id,jdbcType=INTEGER}, #{excelName,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{listId,jdbcType=INTEGER}, #{infoId,jdbcType=INTEGER}, #{creator,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{reviser,jdbcType=INTEGER}, #{reviseTime,jdbcType=TIMESTAMP}, 
+      #{userLevel,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dcs.pojo.ListInfo" >
+    insert into t_list_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="excelName != null" >
+        excel_name,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="listId != null" >
+        list_id,
+      </if>
+      <if test="infoId != null" >
+        info_id,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="reviser != null" >
+        reviser,
+      </if>
+      <if test="reviseTime != null" >
+        revise_time,
+      </if>
+      <if test="userLevel != null" >
+        user_level,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="excelName != null" >
+        #{excelName,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="listId != null" >
+        #{listId,jdbcType=INTEGER},
+      </if>
+      <if test="infoId != null" >
+        #{infoId,jdbcType=INTEGER},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reviser != null" >
+        #{reviser,jdbcType=INTEGER},
+      </if>
+      <if test="reviseTime != null" >
+        #{reviseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userLevel != null" >
+        #{userLevel,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dcs.pojo.ListInfo" >
+    update t_list_info
+    <set >
+      <if test="excelName != null" >
+        excel_name = #{excelName,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="listId != null" >
+        list_id = #{listId,jdbcType=INTEGER},
+      </if>
+      <if test="infoId != null" >
+        info_id = #{infoId,jdbcType=INTEGER},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reviser != null" >
+        reviser = #{reviser,jdbcType=INTEGER},
+      </if>
+      <if test="reviseTime != null" >
+        revise_time = #{reviseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userLevel != null" >
+        user_level = #{userLevel,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dcs.pojo.ListInfo" >
+    update t_list_info
+    set excel_name = #{excelName,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      list_id = #{listId,jdbcType=INTEGER},
+      info_id = #{infoId,jdbcType=INTEGER},
+      creator = #{creator,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      reviser = #{reviser,jdbcType=INTEGER},
+      revise_time = #{reviseTime,jdbcType=TIMESTAMP},
+      user_level = #{userLevel,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
