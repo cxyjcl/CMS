@@ -44,6 +44,7 @@ public class MD5 {
 	}
 
 	public static void main(String[] arg) {
-		System.out.print(MD5.encode("abc这是一个测试123"));
+		String str = null;
+		System.out.println(str);
 	}
 }

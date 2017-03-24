@@ -1,5 +1,7 @@
 package com.dcs.pojo;
 
+import java.util.Date;
+
 public class User {
     private Integer id;
 
@@ -12,6 +14,16 @@ public class User {
     private String password;
 
     private String level;
+
+    private Integer creator;
+
+    private Date createTime;
+
+    private Integer reviser;
+
+    private Date reviserTime;
+    
+    private String dataStatus;
 
     public Integer getId() {
         return id;
@@ -60,4 +72,46 @@ public class User {
     public void setLevel(String level) {
         this.level = level == null ? null : level.trim();
     }
+
+    public Integer getCreator() {
+        return creator;
+    }
+
+    public void setCreator(Integer creator) {
+        this.creator = creator;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Integer getReviser() {
+        return reviser;
+    }
+
+    public void setReviser(Integer reviser) {
+        this.reviser = reviser;
+    }
+
+    public Date getReviserTime() {
+        return reviserTime;
+    }
+
+    public void setReviserTime(Date reviserTime) {
+        this.reviserTime = reviserTime;
+    }
+
+	public String getDataStatus() {
+		return dataStatus;
+	}
+
+	public void setDataStatus(String dataStatus) {
+		this.dataStatus = dataStatus;
+	}
+    
+  
 }

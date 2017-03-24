@@ -3,6 +3,7 @@ package com.dcs.pojo;
 import java.util.Date;
 
 public class ListInfo {
+	
     private Integer id;
 
     private String excelName;
