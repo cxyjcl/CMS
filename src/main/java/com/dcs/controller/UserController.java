@@ -19,7 +19,7 @@ import com.dcs.service.UserService;
 import com.dcs.util.IpUtils;
 import com.dcs.vo.UserVo;
 
-@RequestMapping("/admin")
+@RequestMapping("/user")
 public class UserController {
 
 	@Resource(name = "userService")
