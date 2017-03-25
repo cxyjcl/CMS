@@ -2,9 +2,12 @@ package com.dcs.service.impl;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.dcs.pojo.WordInfo;
 import com.dcs.service.WordInfoService;
 
+@Service("wordInfoServiceImpl")
 public class WordInfoServiceImpl implements WordInfoService {
 
 	@Override

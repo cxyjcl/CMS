@@ -2,9 +2,12 @@ package com.dcs.service.impl;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.dcs.pojo.StudentReward;
 import com.dcs.service.StudentRewardService;
 
+@Service("studentRewardServiceImpl")
 public class StudentRewardServiceImpl implements StudentRewardService {
 
 	@Override

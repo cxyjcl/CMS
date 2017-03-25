@@ -2,9 +2,12 @@ package com.dcs.service.impl;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.dcs.pojo.ChangeInfo;
 import com.dcs.service.ChangeInfoService;
 
+@Service("changeInfoServiceImpl")
 public class ChangeInfoServiceImpl implements ChangeInfoService {
 
 	@Override

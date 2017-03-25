@@ -2,9 +2,12 @@ package com.dcs.service.impl;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.dcs.pojo.MoneyInfo;
 import com.dcs.service.MoneyInfoService;
 
+@Service("moneyInfoServiceImpl")
 public class MoneyInfoServiceImpl implements MoneyInfoService {
 
 	@Override

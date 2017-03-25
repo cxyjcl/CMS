@@ -2,9 +2,12 @@ package com.dcs.service.impl;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.dcs.pojo.ContestInfo;
 import com.dcs.service.ContestInfoService;
 
+@Service("contestInfoServiceImpl")
 public class ContestInfoServiceImpl implements ContestInfoService {
 
 	@Override

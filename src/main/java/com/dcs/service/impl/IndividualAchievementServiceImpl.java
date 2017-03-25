@@ -2,9 +2,12 @@ package com.dcs.service.impl;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.dcs.pojo.IndividualAchievement;
 import com.dcs.service.IndividualAchievementService;
 
+@Service("individualAchievementServiceImpl")
 public class IndividualAchievementServiceImpl implements
 		IndividualAchievementService {
 

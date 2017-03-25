@@ -2,9 +2,12 @@ package com.dcs.service.impl;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.dcs.pojo.TeacherInfo;
 import com.dcs.service.TeacherInfoService;
 
+@Service("teacherInfoServiceImpl")
 public class TeacherInfoServiceImpl implements TeacherInfoService {
 
 	@Override

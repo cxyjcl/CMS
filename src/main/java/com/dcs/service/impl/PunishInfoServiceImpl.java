@@ -2,9 +2,12 @@ package com.dcs.service.impl;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.dcs.pojo.PunishInfo;
 import com.dcs.service.PunishInfoService;
 
+@Service("punishInfoServiceImpl")
 public class PunishInfoServiceImpl implements PunishInfoService {
 
 	@Override

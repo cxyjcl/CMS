@@ -2,9 +2,12 @@ package com.dcs.service.impl;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.dcs.pojo.CadresInfo;
 import com.dcs.service.CadresInfoService;
 
+@Service("cadresInfoServiceImpl")
 public class CadresInfoServiceImpl implements CadresInfoService {
 
 	@Override

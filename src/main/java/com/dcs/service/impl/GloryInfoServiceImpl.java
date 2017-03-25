@@ -2,9 +2,12 @@ package com.dcs.service.impl;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.dcs.pojo.GloryInfo;
 import com.dcs.service.GloryInfoService;
 
+@Service("gloryInfoServiceImpl")
 public class GloryInfoServiceImpl implements GloryInfoService {
 
 	@Override

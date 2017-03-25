@@ -2,9 +2,12 @@ package com.dcs.service.impl;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.dcs.pojo.PartyBuild;
 import com.dcs.service.PartyBuildService;
 
+@Service("partyBuildServiceImpl")
 public class PartyBuildServiceImpl implements PartyBuildService {
 
 	@Override
