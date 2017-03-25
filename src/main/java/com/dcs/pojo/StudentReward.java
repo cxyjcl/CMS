@@ -5,6 +5,8 @@ import java.util.Date;
 public class StudentReward {
     private Integer id;
 
+    private Integer infoId;
+
     private String name;
 
     private Integer studentId;
@@ -29,6 +31,14 @@ public class StudentReward {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getInfoId() {
+        return infoId;
+    }
+
+    public void setInfoId(Integer infoId) {
+        this.infoId = infoId;
     }
 
     public String getName() {

@@ -3,6 +3,8 @@ package com.dcs.pojo;
 public class MoneyInfo {
     private Integer id;
 
+    private Integer infoId;
+
     private String moneyName;
 
     private String name;
@@ -23,6 +25,14 @@ public class MoneyInfo {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getInfoId() {
+        return infoId;
+    }
+
+    public void setInfoId(Integer infoId) {
+        this.infoId = infoId;
     }
 
     public String getMoneyName() {

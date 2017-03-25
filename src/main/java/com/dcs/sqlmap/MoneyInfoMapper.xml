@@ -1,30 +1,167 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.dcs.dao.MoneyInfoMapper" >
-  <resultMap id="BaseResultMap" type="com.dcs.pojo.MoneyInfo" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="money_name" property="moneyName" jdbcType="VARCHAR" />
-    <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="student_id" property="studentId" jdbcType="INTEGER" />
-    <result column="classroom" property="classroom" jdbcType="VARCHAR" />
-    <result column="grade" property="grade" jdbcType="VARCHAR" />
-    <result column="money" property="money" jdbcType="VARCHAR" />
-    <result column="remark" property="remark" jdbcType="VARCHAR" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dcs.dao.MoneyInfoMapper">
+  <resultMap id="BaseResultMap" type="com.dcs.pojo.MoneyInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="info_id" jdbcType="INTEGER" property="infoId" />
+    <result column="money_name" jdbcType="VARCHAR" property="moneyName" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="student_id" jdbcType="INTEGER" property="studentId" />
+    <result column="classroom" jdbcType="VARCHAR" property="classroom" />
+    <result column="grade" jdbcType="VARCHAR" property="grade" />
+    <result column="money" jdbcType="VARCHAR" property="money" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
   </resultMap>
-  <sql id="Base_Column_List" >
-    id, money_name, name, student_id, classroom, grade, money, remark
+  <sql id="Base_Column_List">
+    id, info_id, money_name, name, student_id, classroom, grade, money, remark
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from t_money_info
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from t_money_info
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.dcs.pojo.MoneyInfo" >
+  <insert id="insert" parameterType="com.dcs.pojo.MoneyInfo">
+    insert into t_money_info (id, info_id, money_name, 
+      name, student_id, classroom, 
+      grade, money, remark
+      )
+    values (#{id,jdbcType=INTEGER}, #{infoId,jdbcType=INTEGER}, #{moneyName,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{studentId,jdbcType=INTEGER}, #{classroom,jdbcType=VARCHAR}, 
+      #{grade,jdbcType=VARCHAR}, #{money,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.dcs.pojo.MoneyInfo">
+    insert into t_money_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="infoId != null">
+        info_id,
+      </if>
+      <if test="moneyName != null">
+        money_name,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="studentId != null">
+        student_id,
+      </if>
+      <if test="classroom != null">
+        classroom,
+      </if>
+      <if test="grade != null">
+        grade,
+      </if>
+      <if test="money != null">
+        money,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="infoId != null">
+        #{infoId,jdbcType=INTEGER},
+      </if>
+      <if test="moneyName != null">
+        #{moneyName,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="studentId != null">
+        #{studentId,jdbcType=INTEGER},
+      </if>
+      <if test="classroom != null">
+        #{classroom,jdbcType=VARCHAR},
+      </if>
+      <if test="grade != null">
+        #{grade,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null">
+        #{money,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dcs.pojo.MoneyInfo">
+    update t_money_info
+    <set>
+      <if test="infoId != null">
+        info_id = #{infoId,jdbcType=INTEGER},
+      </if>
+      <if test="moneyName != null">
+        money_name = #{moneyName,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="studentId != null">
+        student_id = #{studentId,jdbcType=INTEGER},
+      </if>
+      <if test="classroom != null">
+        classroom = #{classroom,jdbcType=VARCHAR},
+      </if>
+      <if test="grade != null">
+        grade = #{grade,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null">
+        money = #{money,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dcs.pojo.MoneyInfo">
+    update t_money_info
+    set info_id = #{infoId,jdbcType=INTEGER},
+      money_name = #{moneyName,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      student_id = #{studentId,jdbcType=INTEGER},
+      classroom = #{classroom,jdbcType=VARCHAR},
+      grade = #{grade,jdbcType=VARCHAR},
+      money = #{money,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.dcs.pojo.MoneyInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="money_name" jdbcType="VARCHAR" property="moneyName" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="student_id" jdbcType="INTEGER" property="studentId" />
+    <result column="classroom" jdbcType="VARCHAR" property="classroom" />
+    <result column="grade" jdbcType="VARCHAR" property="grade" />
+    <result column="money" jdbcType="VARCHAR" property="money" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, money_name, name, student_id, classroom, grade, money, remark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_money_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_money_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dcs.pojo.MoneyInfo">
     insert into t_money_info (id, money_name, name, 
       student_id, classroom, grade, 
       money, remark)
@@ -32,89 +169,337 @@
       #{studentId,jdbcType=INTEGER}, #{classroom,jdbcType=VARCHAR}, #{grade,jdbcType=VARCHAR}, 
       #{money,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.dcs.pojo.MoneyInfo" >
+  <insert id="insertSelective" parameterType="com.dcs.pojo.MoneyInfo">
     insert into t_money_info
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         id,
       </if>
-      <if test="moneyName != null" >
+      <if test="moneyName != null">
         money_name,
       </if>
-      <if test="name != null" >
+      <if test="name != null">
         name,
       </if>
-      <if test="studentId != null" >
+      <if test="studentId != null">
         student_id,
       </if>
-      <if test="classroom != null" >
+      <if test="classroom != null">
         classroom,
       </if>
-      <if test="grade != null" >
+      <if test="grade != null">
         grade,
       </if>
-      <if test="money != null" >
+      <if test="money != null">
         money,
       </if>
-      <if test="remark != null" >
+      <if test="remark != null">
         remark,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="moneyName != null" >
+      <if test="moneyName != null">
         #{moneyName,jdbcType=VARCHAR},
       </if>
-      <if test="name != null" >
+      <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="studentId != null" >
+      <if test="studentId != null">
         #{studentId,jdbcType=INTEGER},
       </if>
-      <if test="classroom != null" >
+      <if test="classroom != null">
         #{classroom,jdbcType=VARCHAR},
       </if>
-      <if test="grade != null" >
+      <if test="grade != null">
         #{grade,jdbcType=VARCHAR},
       </if>
-      <if test="money != null" >
+      <if test="money != null">
         #{money,jdbcType=VARCHAR},
       </if>
-      <if test="remark != null" >
+      <if test="remark != null">
         #{remark,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.dcs.pojo.MoneyInfo" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.dcs.pojo.MoneyInfo">
     update t_money_info
-    <set >
-      <if test="moneyName != null" >
+    <set>
+      <if test="moneyName != null">
         money_name = #{moneyName,jdbcType=VARCHAR},
       </if>
-      <if test="name != null" >
+      <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="studentId != null" >
+      <if test="studentId != null">
         student_id = #{studentId,jdbcType=INTEGER},
       </if>
-      <if test="classroom != null" >
+      <if test="classroom != null">
         classroom = #{classroom,jdbcType=VARCHAR},
       </if>
-      <if test="grade != null" >
+      <if test="grade != null">
         grade = #{grade,jdbcType=VARCHAR},
       </if>
-      <if test="money != null" >
+      <if test="money != null">
         money = #{money,jdbcType=VARCHAR},
       </if>
-      <if test="remark != null" >
+      <if test="remark != null">
         remark = #{remark,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.dcs.pojo.MoneyInfo" >
+  <update id="updateByPrimaryKey" parameterType="com.dcs.pojo.MoneyInfo">
+    update t_money_info
+    set money_name = #{moneyName,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      student_id = #{studentId,jdbcType=INTEGER},
+      classroom = #{classroom,jdbcType=VARCHAR},
+      grade = #{grade,jdbcType=VARCHAR},
+      money = #{money,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.dcs.pojo.MoneyInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="money_name" jdbcType="VARCHAR" property="moneyName" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="student_id" jdbcType="INTEGER" property="studentId" />
+    <result column="classroom" jdbcType="VARCHAR" property="classroom" />
+    <result column="grade" jdbcType="VARCHAR" property="grade" />
+    <result column="money" jdbcType="VARCHAR" property="money" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, money_name, name, student_id, classroom, grade, money, remark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_money_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_money_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dcs.pojo.MoneyInfo">
+    insert into t_money_info (id, money_name, name, 
+      student_id, classroom, grade, 
+      money, remark)
+    values (#{id,jdbcType=INTEGER}, #{moneyName,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{studentId,jdbcType=INTEGER}, #{classroom,jdbcType=VARCHAR}, #{grade,jdbcType=VARCHAR}, 
+      #{money,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dcs.pojo.MoneyInfo">
+    insert into t_money_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="moneyName != null">
+        money_name,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="studentId != null">
+        student_id,
+      </if>
+      <if test="classroom != null">
+        classroom,
+      </if>
+      <if test="grade != null">
+        grade,
+      </if>
+      <if test="money != null">
+        money,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="moneyName != null">
+        #{moneyName,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="studentId != null">
+        #{studentId,jdbcType=INTEGER},
+      </if>
+      <if test="classroom != null">
+        #{classroom,jdbcType=VARCHAR},
+      </if>
+      <if test="grade != null">
+        #{grade,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null">
+        #{money,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dcs.pojo.MoneyInfo">
+    update t_money_info
+    <set>
+      <if test="moneyName != null">
+        money_name = #{moneyName,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="studentId != null">
+        student_id = #{studentId,jdbcType=INTEGER},
+      </if>
+      <if test="classroom != null">
+        classroom = #{classroom,jdbcType=VARCHAR},
+      </if>
+      <if test="grade != null">
+        grade = #{grade,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null">
+        money = #{money,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dcs.pojo.MoneyInfo">
+    update t_money_info
+    set money_name = #{moneyName,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      student_id = #{studentId,jdbcType=INTEGER},
+      classroom = #{classroom,jdbcType=VARCHAR},
+      grade = #{grade,jdbcType=VARCHAR},
+      money = #{money,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.dcs.pojo.MoneyInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="money_name" jdbcType="VARCHAR" property="moneyName" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="student_id" jdbcType="INTEGER" property="studentId" />
+    <result column="classroom" jdbcType="VARCHAR" property="classroom" />
+    <result column="grade" jdbcType="VARCHAR" property="grade" />
+    <result column="money" jdbcType="VARCHAR" property="money" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, money_name, name, student_id, classroom, grade, money, remark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_money_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_money_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dcs.pojo.MoneyInfo">
+    insert into t_money_info (id, money_name, name, 
+      student_id, classroom, grade, 
+      money, remark)
+    values (#{id,jdbcType=INTEGER}, #{moneyName,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{studentId,jdbcType=INTEGER}, #{classroom,jdbcType=VARCHAR}, #{grade,jdbcType=VARCHAR}, 
+      #{money,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dcs.pojo.MoneyInfo">
+    insert into t_money_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="moneyName != null">
+        money_name,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="studentId != null">
+        student_id,
+      </if>
+      <if test="classroom != null">
+        classroom,
+      </if>
+      <if test="grade != null">
+        grade,
+      </if>
+      <if test="money != null">
+        money,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="moneyName != null">
+        #{moneyName,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="studentId != null">
+        #{studentId,jdbcType=INTEGER},
+      </if>
+      <if test="classroom != null">
+        #{classroom,jdbcType=VARCHAR},
+      </if>
+      <if test="grade != null">
+        #{grade,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null">
+        #{money,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dcs.pojo.MoneyInfo">
+    update t_money_info
+    <set>
+      <if test="moneyName != null">
+        money_name = #{moneyName,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="studentId != null">
+        student_id = #{studentId,jdbcType=INTEGER},
+      </if>
+      <if test="classroom != null">
+        classroom = #{classroom,jdbcType=VARCHAR},
+      </if>
+      <if test="grade != null">
+        grade = #{grade,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null">
+        money = #{money,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dcs.pojo.MoneyInfo">
     update t_money_info
     set money_name = #{moneyName,jdbcType=VARCHAR},
       name = #{name,jdbcType=VARCHAR},

@@ -6,9 +6,11 @@ import com.dcs.constants.Code;
 
 
 public class Message {
+	
 	private int code;
 	private String msg;
 	private Object data;
+	
 	public Message() {
 		
 	}
