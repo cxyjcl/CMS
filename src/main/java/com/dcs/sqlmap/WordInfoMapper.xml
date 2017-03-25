@@ -1,32 +1,33 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.dcs.dao.PlanConclusionMapper" >
-  <resultMap id="BaseResultMap" type="com.dcs.pojo.PlanConclusion" >
+<mapper namespace="com.dcs.dao.WordInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.dcs.pojo.WordInfo" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="info_id" property="infoId" jdbcType="INTEGER" />
     <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="number" property="number" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, info_id, url
+    id, info_id, url, number
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from t_plan_conclusion
+    from t_word_info
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from t_plan_conclusion
+    delete from t_word_info
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.dcs.pojo.PlanConclusion" >
-    insert into t_plan_conclusion (id, info_id, url
-      )
-    values (#{id,jdbcType=INTEGER}, #{infoId,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}
-      )
+  <insert id="insert" parameterType="com.dcs.pojo.WordInfo" >
+    insert into t_word_info (id, info_id, url, 
+      number)
+    values (#{id,jdbcType=INTEGER}, #{infoId,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, 
+      #{number,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.dcs.pojo.PlanConclusion" >
-    insert into t_plan_conclusion
+  <insert id="insertSelective" parameterType="com.dcs.pojo.WordInfo" >
+    insert into t_word_info
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
@@ -36,6 +37,9 @@
       </if>
       <if test="url != null" >
         url,
+      </if>
+      <if test="number != null" >
+        number,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -48,10 +52,13 @@
       <if test="url != null" >
         #{url,jdbcType=VARCHAR},
       </if>
+      <if test="number != null" >
+        #{number,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.dcs.pojo.PlanConclusion" >
-    update t_plan_conclusion
+  <update id="updateByPrimaryKeySelective" parameterType="com.dcs.pojo.WordInfo" >
+    update t_word_info
     <set >
       <if test="infoId != null" >
         info_id = #{infoId,jdbcType=INTEGER},
@@ -59,13 +66,17 @@
       <if test="url != null" >
         url = #{url,jdbcType=VARCHAR},
       </if>
+      <if test="number != null" >
+        number = #{number,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.dcs.pojo.PlanConclusion" >
-    update t_plan_conclusion
+  <update id="updateByPrimaryKey" parameterType="com.dcs.pojo.WordInfo" >
+    update t_word_info
     set info_id = #{infoId,jdbcType=INTEGER},
-      url = #{url,jdbcType=VARCHAR}
+      url = #{url,jdbcType=VARCHAR},
+      number = #{number,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

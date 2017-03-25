@@ -1,11 +1,13 @@
 package com.dcs.pojo;
 
-public class TotalActivities {
+public class WordInfo {
     private Integer id;
 
     private Integer infoId;
 
     private String url;
+
+    private String number;
 
     public Integer getId() {
         return id;
@@ -29,5 +31,13 @@ public class TotalActivities {
 
     public void setUrl(String url) {
         this.url = url == null ? null : url.trim();
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number == null ? null : number.trim();
     }
 }

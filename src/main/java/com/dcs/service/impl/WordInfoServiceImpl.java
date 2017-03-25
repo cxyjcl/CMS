@@ -2,33 +2,31 @@ package com.dcs.service.impl;
 
 import java.util.List;
 
-import com.dcs.pojo.PlanConclusion;
-import com.dcs.service.PlanConclusionService;
+import com.dcs.pojo.WordInfo;
+import com.dcs.service.WordInfoService;
 
-public class PlanConclusionServiceImpl implements PlanConclusionService {
+public class WordInfoServiceImpl implements WordInfoService {
 
 	@Override
-	public Integer insert(PlanConclusion entity) throws Exception {
+	public Integer insert(WordInfo entity) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Integer insertBatch(List<PlanConclusion> entityList)
-			throws Exception {
+	public Integer insertBatch(List<WordInfo> entityList) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public PlanConclusion selectById(Object id, Object dataStatus)
-			throws Exception {
+	public WordInfo selectById(Object id, Object dataStatus) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<PlanConclusion> selectAll(Object dataStatus) throws Exception {
+	public List<WordInfo> selectAll(Object dataStatus) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -40,13 +38,13 @@ public class PlanConclusionServiceImpl implements PlanConclusionService {
 	}
 
 	@Override
-	public Integer update(PlanConclusion entity) throws Exception {
+	public Integer update(WordInfo entity) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public PlanConclusion find(Object str, Object dataStatus) {
+	public WordInfo find(Object str, Object dataStatus) {
 		// TODO Auto-generated method stub
 		return null;
 	}
