@@ -17,7 +17,7 @@ public class ServiceTest extends BaseTestStarter {
 	@SpringBean(value = "userService")
 	private UserService userService;
 	
-	@Test
+//	@Test
 //	@DataSet("dataSetXls/BookReservationService/insertNewBookReservation.xls")
 //	@ExpectedDataSet("dataSetXls/BookReservationService/insertNewBookReservation.expect.xls")
 	public void addLabel(){
