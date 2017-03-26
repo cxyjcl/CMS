@@ -28,10 +28,4 @@ public class PojoToMappController {
 		}
 		return Message.success("添加成功！");
 	}
-	
-	public static void main(String[] args) {
-		Class instance = User.class;
-		new ArrayList<instance>();
-		new ArrayList<User>();
-	}
 }

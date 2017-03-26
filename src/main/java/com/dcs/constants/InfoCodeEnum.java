@@ -11,8 +11,6 @@ import org.apache.commons.lang.StringUtils;
  */
 public enum InfoCodeEnum {
 	
-	
-	
 	//辅导员
 	GradeInfo("10001", "GradeInfoServiceImpl.class"),//年级信息名单
 	ClassInfo("10002", "ClassInfoServiceImpl.class"),//班级信息名单
