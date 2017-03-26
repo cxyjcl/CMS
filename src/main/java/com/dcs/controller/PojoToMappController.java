@@ -29,14 +29,13 @@ public class PojoToMappController {
 	@RequestMapping("/add")
 	public Message addInfo(@RequestParam("code") String code, MultipartFile uploadFile,HttpSession session){
         int id = Integer.parseInt(session.getAttribute("user").toString());
-        File file = new File("/"+uploadFile.getOriginalFilename());
         try {
-        	uploadFile.transferTo(file);
             String value = InfoCodeEnum.fromCode(code).getValue();
-			pojoToMapperService.insert(value,file,id);
+			pojoToMapperService.insert(value,uploadFile.getInputStream(),id);
         } catch (IOException e) {
 			log.info("用户id是："+JSON.toJSONString(id)+"报错信息是："+e.getStackTrace().toString());
-    		return Message.success("添加失败！");
+			return Message.success("添加失败！");
+    		
         }
 		return Message.success("添加成功！");
 	}

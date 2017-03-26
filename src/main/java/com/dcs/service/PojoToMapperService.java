@@ -1,6 +1,6 @@
 package com.dcs.service;
 
-import java.io.File;
+import java.io.InputStream;
 import java.util.List;
 
 public interface PojoToMapperService {
@@ -11,5 +11,5 @@ public interface PojoToMapperService {
 	
 	public int select(List<String> contents) throws Exception;
 
-	public void insert(String value, File file, int id);
+	public void insert(String value, InputStream inputStream, int id);
 }
