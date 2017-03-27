@@ -31,15 +31,20 @@ public class PojoToMapperServiceImpl implements PojoToMapperService{
 	public int delete(List<String> contents) throws Exception {		
 		return 0;
 	}
-	public int update(List<String> contents) throws Exception {		
-		return 0;
-	}
+
 	public int select(List<String> contents) throws Exception {		
 		return 0;
 	}
 	
 	@Override
 	public void insert(String value, InputStream inputStream, int id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void update(String value, String divCode, String changeValue, int id)
+			throws Exception {
 		// TODO Auto-generated method stub
 		
 	}

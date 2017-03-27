@@ -32,11 +32,26 @@ public class PojoToMappController {
         try {
             String value = InfoCodeEnum.fromCode(code).getValue();
 			pojoToMapperService.insert(value,uploadFile.getInputStream(),id);
-        } catch (IOException e) {
+        } catch (Exception e) {
 			log.info("用户id是："+JSON.toJSONString(id)+"报错信息是："+e.getStackTrace().toString());
-			return Message.success("添加失败！");
-    		
+			return Message.success("添加失败！");    		
         }
 		return Message.success("添加成功！");
 	}
+	
+	@RequestMapping("/update")
+	public Message updateInfo(@RequestParam("code") String code, @RequestParam("div_code") String divCode, @RequestParam("change_value") String changeValue,HttpSession session){
+        int id = Integer.parseInt(session.getAttribute("user").toString());
+        try {
+            String value = InfoCodeEnum.fromCode(code).getValue();
+			pojoToMapperService.update(value,divCode,changeValue,id);
+        } catch (Exception e) {
+			log.info("用户id是："+JSON.toJSONString(id)+"报错信息是："+e.getStackTrace().toString());
+			return Message.success("更新失败！");    		
+        }
+		return Message.success("更新成功！");
+	}
+	
+	
+	
 }

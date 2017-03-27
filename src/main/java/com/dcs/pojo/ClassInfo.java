@@ -100,4 +100,14 @@ public class ClassInfo {
     public void setPartyMember(Boolean partyMember) {
         this.partyMember = partyMember;
     }
+
+	@Override
+	public String toString() {
+		return "ClassInfo [id=" + id + ", infoId=" + infoId + ", studentId="
+				+ studentId + ", name=" + name + ", sex=" + sex
+				+ ", nativePlace=" + nativePlace + ", birthPlace=" + birthPlace
+				+ ", idCard=" + idCard + ", contacts=" + contacts
+				+ ", partyMember=" + partyMember + "]";
+	}
+  
 }
