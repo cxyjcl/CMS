@@ -3,107 +3,107 @@ package com.dcs.pojo;
 import java.util.Date;
 
 public class User {
-    private Integer id;
+	private Integer id;
 
-    private String email;
+	private String email;
 
-    private String loginName;
+	private String loginName;
 
-    private String realName;
+	private String realName;
 
-    private String password;
+	private String password;
 
-    private String level;
+	private String level;
 
-    private Integer creator;
+	private Integer creator;
 
-    private Date createTime;
+	private Date createTime;
 
-    private Integer reviser;
+	private Integer reviser;
 
-    private Date reviserTime;
-    
-    private String dataStatus;
+	private Date reviserTime;
 
-    public Integer getId() {
-        return id;
-    }
+	private String dataStatus;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setEmail(String email) {
-        this.email = email == null ? null : email.trim();
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public String getLoginName() {
-        return loginName;
-    }
+	public void setEmail(String email) {
+		this.email = email == null ? null : email.trim();
+	}
 
-    public void setLoginName(String loginName) {
-        this.loginName = loginName == null ? null : loginName.trim();
-    }
+	public String getLoginName() {
+		return loginName;
+	}
 
-    public String getRealName() {
-        return realName;
-    }
+	public void setLoginName(String loginName) {
+		this.loginName = loginName == null ? null : loginName.trim();
+	}
 
-    public void setRealName(String realName) {
-        this.realName = realName == null ? null : realName.trim();
-    }
+	public String getRealName() {
+		return realName;
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	public void setRealName(String realName) {
+		this.realName = realName == null ? null : realName.trim();
+	}
 
-    public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public String getLevel() {
-        return level;
-    }
+	public void setPassword(String password) {
+		this.password = password == null ? null : password.trim();
+	}
 
-    public void setLevel(String level) {
-        this.level = level == null ? null : level.trim();
-    }
+	public String getLevel() {
+		return level;
+	}
 
-    public Integer getCreator() {
-        return creator;
-    }
+	public void setLevel(String level) {
+		this.level = level == null ? null : level.trim();
+	}
 
-    public void setCreator(Integer creator) {
-        this.creator = creator;
-    }
+	public Integer getCreator() {
+		return creator;
+	}
 
-    public Date getCreateTime() {
-        return createTime;
-    }
+	public void setCreator(Integer creator) {
+		this.creator = creator;
+	}
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
+	public Date getCreateTime() {
+		return createTime;
+	}
 
-    public Integer getReviser() {
-        return reviser;
-    }
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
 
-    public void setReviser(Integer reviser) {
-        this.reviser = reviser;
-    }
+	public Integer getReviser() {
+		return reviser;
+	}
 
-    public Date getReviserTime() {
-        return reviserTime;
-    }
+	public void setReviser(Integer reviser) {
+		this.reviser = reviser;
+	}
 
-    public void setReviserTime(Date reviserTime) {
-        this.reviserTime = reviserTime;
-    }
+	public Date getReviserTime() {
+		return reviserTime;
+	}
+
+	public void setReviserTime(Date reviserTime) {
+		this.reviserTime = reviserTime;
+	}
 
 	public String getDataStatus() {
 		return dataStatus;
@@ -112,6 +112,12 @@ public class User {
 	public void setDataStatus(String dataStatus) {
 		this.dataStatus = dataStatus;
 	}
-    
-  
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", email=" + email + ", loginName=" + loginName + ", realName=" + realName
+				+ ", password=" + password + ", level=" + level + ", creator=" + creator + ", createTime=" + createTime
+				+ ", reviser=" + reviser + ", reviserTime=" + reviserTime + ", dataStatus=" + dataStatus + "]";
+	}
+
 }

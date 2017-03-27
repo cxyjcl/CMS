@@ -3,103 +3,111 @@ package com.dcs.pojo;
 import java.util.Date;
 
 public class GloryInfo {
-    private Integer id;
+	private Integer id;
 
-    private Integer infoId;
+	private Integer infoId;
 
-    private String name;
+	private String name;
 
-    private Integer studentId;
+	private Integer studentId;
 
-    private String classroom;
+	private String classroom;
 
-    private String contestName;
+	private String contestName;
 
-    private String contestGrade;
+	private String contestGrade;
 
-    private Date rewardTime;
+	private Date rewardTime;
 
-    private String remark;
+	private String remark;
 
-    private String rewardNature;
+	private String rewardNature;
 
-    public Integer getId() {
-        return id;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public Integer getInfoId() {
-        return infoId;
-    }
+	public Integer getInfoId() {
+		return infoId;
+	}
 
-    public void setInfoId(Integer infoId) {
-        this.infoId = infoId;
-    }
+	public void setInfoId(Integer infoId) {
+		this.infoId = infoId;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
-    }
+	public void setName(String name) {
+		this.name = name == null ? null : name.trim();
+	}
 
-    public Integer getStudentId() {
-        return studentId;
-    }
+	public Integer getStudentId() {
+		return studentId;
+	}
 
-    public void setStudentId(Integer studentId) {
-        this.studentId = studentId;
-    }
+	public void setStudentId(Integer studentId) {
+		this.studentId = studentId;
+	}
 
-    public String getClassroom() {
-        return classroom;
-    }
+	public String getClassroom() {
+		return classroom;
+	}
 
-    public void setClassroom(String classroom) {
-        this.classroom = classroom == null ? null : classroom.trim();
-    }
+	public void setClassroom(String classroom) {
+		this.classroom = classroom == null ? null : classroom.trim();
+	}
 
-    public String getContestName() {
-        return contestName;
-    }
+	public String getContestName() {
+		return contestName;
+	}
 
-    public void setContestName(String contestName) {
-        this.contestName = contestName == null ? null : contestName.trim();
-    }
+	public void setContestName(String contestName) {
+		this.contestName = contestName == null ? null : contestName.trim();
+	}
 
-    public String getContestGrade() {
-        return contestGrade;
-    }
+	public String getContestGrade() {
+		return contestGrade;
+	}
 
-    public void setContestGrade(String contestGrade) {
-        this.contestGrade = contestGrade == null ? null : contestGrade.trim();
-    }
+	public void setContestGrade(String contestGrade) {
+		this.contestGrade = contestGrade == null ? null : contestGrade.trim();
+	}
 
-    public Date getRewardTime() {
-        return rewardTime;
-    }
+	public Date getRewardTime() {
+		return rewardTime;
+	}
 
-    public void setRewardTime(Date rewardTime) {
-        this.rewardTime = rewardTime;
-    }
+	public void setRewardTime(Date rewardTime) {
+		this.rewardTime = rewardTime;
+	}
 
-    public String getRemark() {
-        return remark;
-    }
+	public String getRemark() {
+		return remark;
+	}
 
-    public void setRemark(String remark) {
-        this.remark = remark == null ? null : remark.trim();
-    }
+	public void setRemark(String remark) {
+		this.remark = remark == null ? null : remark.trim();
+	}
 
-    public String getRewardNature() {
-        return rewardNature;
-    }
+	public String getRewardNature() {
+		return rewardNature;
+	}
 
-    public void setRewardNature(String rewardNature) {
-        this.rewardNature = rewardNature == null ? null : rewardNature.trim();
-    }
+	public void setRewardNature(String rewardNature) {
+		this.rewardNature = rewardNature == null ? null : rewardNature.trim();
+	}
+
+	@Override
+	public String toString() {
+		return "GloryInfo [id=" + id + ", infoId=" + infoId + ", name=" + name + ", studentId=" + studentId
+				+ ", classroom=" + classroom + ", contestName=" + contestName + ", contestGrade=" + contestGrade
+				+ ", rewardTime=" + rewardTime + ", remark=" + remark + ", rewardNature=" + rewardNature + "]";
+	}
+
 }
