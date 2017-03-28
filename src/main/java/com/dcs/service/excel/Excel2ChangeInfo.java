@@ -13,11 +13,11 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.junit.Test;
 
-import com.dcs.pojo.GloryInfo;
+import com.dcs.pojo.ChangeInfo;
 
-public class ExcelGloryInfo {
+public class Excel2ChangeInfo {
 	private int rowIndex = 2; // The row index start from 3 row.
-	private final int column = 8; // All column is 8.
+	private final int column = 5; // All column is 5.
 
 	private HSSFWorkbook workbook;
 	private HSSFSheet sheet;
@@ -26,7 +26,7 @@ public class ExcelGloryInfo {
 	private File file;
 
 	/**
-	 * 年级各种荣誉名单
+	 * 年级学籍异动学生名单和原因
 	 * 
 	 * @param file
 	 * @throws ClassNotFoundException
@@ -34,12 +34,12 @@ public class ExcelGloryInfo {
 	 * @throws IOException
 	 */
 	@Test
-	public void gloryInfoServers() throws IOException {
+	public void ChangeInfoServers() throws IOException {
 
-		ArrayList<GloryInfo> gloryInfoList = new ArrayList<GloryInfo>();
+		ArrayList<ChangeInfo> changeInfoList = new ArrayList<ChangeInfo>();
 
 		// 1.导入excel文件
-		file = new File("excel/年级各种荣誉名单.xls");
+		file = new File("excel/年级学籍异动学生名单和原因.xls");
 
 		if (!file.exists())
 			System.out.println("The file is not exist!");
@@ -48,12 +48,10 @@ public class ExcelGloryInfo {
 		workbook = new HSSFWorkbook(in);// 创建操作Excel的HSSFWorkbook对象
 		sheet = workbook.getSheetAt(0);// 创建HSSFsheet对象。
 
+		row = sheet.getRow(rowIndex);
 		/* 配合表格中的格式，从第rowIndex行开始读取 */
 		// 用HSSFCell对象的getCell()方法取出每一个的值 sheet.getLastRowNum()
-		for (; rowIndex <= sheet.getLastRowNum(); rowIndex++) {
-			row = sheet.getRow(rowIndex);
-			if (row.getCell(0).getStringCellValue() == "" || row.getCell(0).getStringCellValue() == null)
-				continue;
+		while (row != null && row.getCell(0).getStringCellValue() != "") {
 			for (int i = 0; i < column; i++) {
 				if (row.getCell(i) != null)
 					cell[i] = row.getCell(i);
@@ -61,20 +59,18 @@ public class ExcelGloryInfo {
 					cell[i] = null;
 			}
 
-			GloryInfo gloryInfo = new GloryInfo();
-			gloryInfo.setName(cell[1].getStringCellValue());
-			gloryInfo.setStudentId((int) cell[2].getNumericCellValue());
-			gloryInfo.setClassroom(cell[3].getStringCellValue());
-			gloryInfo.setContestName(cell[4].getStringCellValue());
-			gloryInfo.setContestGrade(cell[5].getStringCellValue());
-			gloryInfo.setRewardTime(cell[6].getDateCellValue());
-			gloryInfo.setRemark(cell[7].getStringCellValue());
-			gloryInfo.setRewardNature(cell[0].getStringCellValue());
-			gloryInfoList.add(gloryInfo);
-
+			ChangeInfo changeInfo = new ChangeInfo();
+			changeInfo.setName(cell[0].getStringCellValue());
+			changeInfo.setStudentId((int) cell[1].getNumericCellValue());
+			changeInfo.setClassroom(cell[2].getStringCellValue());
+			changeInfo.setChangeReason(cell[3].getStringCellValue());
+			changeInfo.setChangeTime(cell[4].getDateCellValue());
+			changeInfoList.add(changeInfo);
+			rowIndex++;
+			row = sheet.getRow(rowIndex);
 		}
-		System.out.println("GloryInfo中数据导入完毕.");
-		System.out.println(gloryInfoList);
-		// return gloryInfoList;
+		System.out.println("ChangeInfo中数据导入完毕.");
+		System.out.println(changeInfoList);
+		// return changeInfoList;
 	}
 }

@@ -25,7 +25,7 @@ public class Excel2ClassInfo {
 	private HSSFRow row;
 	private HSSFCell[] cell = new HSSFCell[column];
 	private File file;
-
+	
 	/**
 	 * 学生班级信息一览表
 	 * 
@@ -49,14 +49,10 @@ public class Excel2ClassInfo {
 		workbook = new HSSFWorkbook(in);// 创建操作Excel的HSSFWorkbook对象
 		sheet = workbook.getSheetAt(0);// 创建HSSFsheet对象。
 
+		row = sheet.getRow(rowIndex);
 		/* 配合表格中的格式，从第rowIndex行开始读取 */
 		// 用HSSFCell对象的getCell()方法取出每一个的值 sheet.getLastRowNum()
-		System.out.println( "row"+rowIndex+"num:"+ sheet.getLastRowNum());
-		for (; rowIndex <= sheet.getLastRowNum(); rowIndex++) {
-			row = sheet.getRow(rowIndex);
-			System.out.println(row.getCell(1).getStringCellValue());
-			if (row.getCell(1).getStringCellValue() == "" ||row.getCell(1) == null || row.getCell(1).getStringCellValue() == null)
-				continue;
+		while (row != null && row.getCell(1).getStringCellValue() != "") {
 			for (int i = 0; i < column; i++) {
 				if (row.getCell(i) != null)
 					cell[i] = row.getCell(i);
@@ -77,7 +73,8 @@ public class Excel2ClassInfo {
 			row.getCell(7).setCellType(Cell.CELL_TYPE_BOOLEAN);
 			classInfo.setPartyMember(cell[7].getBooleanCellValue());// boolean
 			classInfoList.add(classInfo);
-
+			rowIndex++;
+			row = sheet.getRow(rowIndex);
 		}
 		System.out.println("ClassInfo中数据导入完毕.");
 		System.out.println(classInfoList);

@@ -11,13 +11,14 @@ import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
 import org.junit.Test;
 
-import com.dcs.pojo.IndividualAchievement;
+import com.dcs.pojo.MoneyInfo;
 
-public class ExcelIndividualAchievement {
-	private int rowIndex = 3; // The row index start from 4 row.
-	private final int column = 4; // All column is 4.
+public class Excel2MoneyInfo {
+	private int rowIndex = 2; // The row index start from 3 row.
+	private final int column = 7; // All column is 7.
 
 	private HSSFWorkbook workbook;
 	private HSSFSheet sheet;
@@ -26,7 +27,7 @@ public class ExcelIndividualAchievement {
 	private File file;
 
 	/**
-	 * 个人成果及获奖情况
+	 * 年级奖、助学金名单
 	 * 
 	 * @param file
 	 * @throws ClassNotFoundException
@@ -34,12 +35,12 @@ public class ExcelIndividualAchievement {
 	 * @throws IOException
 	 */
 	@Test
-	public void individualAchievementServers() throws IOException {
+	public void moneyInfoServers() throws IOException {
 
-		ArrayList<IndividualAchievement> individualAchievementList = new ArrayList<IndividualAchievement>();
+		ArrayList<MoneyInfo> moneyInfoList = new ArrayList<MoneyInfo>();
 
 		// 1.导入excel文件
-		file = new File("excel/个人成果及获奖情况.xls");
+		file = new File("excel/年级奖、助学金名单.xls");
 
 		if (!file.exists())
 			System.out.println("The file is not exist!");
@@ -48,12 +49,10 @@ public class ExcelIndividualAchievement {
 		workbook = new HSSFWorkbook(in);// 创建操作Excel的HSSFWorkbook对象
 		sheet = workbook.getSheetAt(0);// 创建HSSFsheet对象。
 
+		row = sheet.getRow(rowIndex);
 		/* 配合表格中的格式，从第rowIndex行开始读取 */
 		// 用HSSFCell对象的getCell()方法取出每一个的值 sheet.getLastRowNum()
-		for (; rowIndex <= sheet.getLastRowNum(); rowIndex++) {
-			row = sheet.getRow(rowIndex);
-			if (row.getCell(0).getStringCellValue() == "" || row.getCell(0).getStringCellValue() == null)
-				continue;
+		while (row != null && row.getCell(1).getStringCellValue() != "") {
 			for (int i = 0; i < column; i++) {
 				if (row.getCell(i) != null)
 					cell[i] = row.getCell(i);
@@ -61,16 +60,21 @@ public class ExcelIndividualAchievement {
 					cell[i] = null;
 			}
 
-			IndividualAchievement individualAchievement = new IndividualAchievement();
-			individualAchievement.setAchievement(cell[0].getStringCellValue());
-			individualAchievement.setReward(cell[1].getStringCellValue());
-			individualAchievement.setRewardTime(cell[2].getDateCellValue());
-			individualAchievement.setRemark(cell[3].getStringCellValue());
-			individualAchievementList.add(individualAchievement);
-
+			MoneyInfo moneyInfo = new MoneyInfo();
+			moneyInfo.setMoneyName(cell[0].getStringCellValue());
+			moneyInfo.setName(cell[1].getStringCellValue());
+			moneyInfo.setStudentId((int) cell[2].getNumericCellValue());
+			moneyInfo.setClassroom(cell[3].getStringCellValue());
+			moneyInfo.setGrade(cell[4].getStringCellValue());
+			row.getCell(5).setCellType(Cell.CELL_TYPE_STRING);
+			moneyInfo.setMoney(cell[5].getStringCellValue());
+			moneyInfo.setRemark(cell[6].getStringCellValue());
+			moneyInfoList.add(moneyInfo);
+			rowIndex++;
+			row = sheet.getRow(rowIndex);
 		}
-		System.out.println("IndividualAchievement中数据导入完毕.");
-		System.out.println(individualAchievementList);
-		// return individualAchievementList;
+		System.out.println("MoneyInfo中数据导入完毕.");
+		System.out.println(moneyInfoList);
+		// return moneyInfoList;
 	}
 }

@@ -13,11 +13,11 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.junit.Test;
 
-import com.dcs.pojo.ChangeInfo;
+import com.dcs.pojo.IndividualAchievement;
 
-public class ExcelChangeInfo {
-	private int rowIndex = 2; // The row index start from 4 row.
-	private final int column = 5; // All column is 9.
+public class Excel2IndividualAchievement {
+	private int rowIndex = 3; // The row index start from 4 row.
+	private final int column = 4; // All column is 4.
 
 	private HSSFWorkbook workbook;
 	private HSSFSheet sheet;
@@ -26,7 +26,7 @@ public class ExcelChangeInfo {
 	private File file;
 
 	/**
-	 * 年级学籍异动学生名单和原因
+	 * 个人成果及获奖情况
 	 * 
 	 * @param file
 	 * @throws ClassNotFoundException
@@ -34,12 +34,12 @@ public class ExcelChangeInfo {
 	 * @throws IOException
 	 */
 	@Test
-	public void ChangeInfoServers() throws IOException {
+	public void individualAchievementServers() throws IOException {
 
-		ArrayList<ChangeInfo> changeInfoList = new ArrayList<ChangeInfo>();
+		ArrayList<IndividualAchievement> individualAchievementList = new ArrayList<IndividualAchievement>();
 
 		// 1.导入excel文件
-		file = new File("excel/年级学籍异动学生名单和原因.xls");
+		file = new File("excel/个人成果及获奖情况.xls");
 
 		if (!file.exists())
 			System.out.println("The file is not exist!");
@@ -48,12 +48,10 @@ public class ExcelChangeInfo {
 		workbook = new HSSFWorkbook(in);// 创建操作Excel的HSSFWorkbook对象
 		sheet = workbook.getSheetAt(0);// 创建HSSFsheet对象。
 
+		row = sheet.getRow(rowIndex);
 		/* 配合表格中的格式，从第rowIndex行开始读取 */
 		// 用HSSFCell对象的getCell()方法取出每一个的值 sheet.getLastRowNum()
-		for (; rowIndex <= sheet.getLastRowNum(); rowIndex++) {
-			row = sheet.getRow(rowIndex);
-			if (row.getCell(0).getStringCellValue() == "" || row.getCell(0).getStringCellValue() == null)
-				continue;
+		while (row != null && row.getCell(0).getStringCellValue() != "") {
 			for (int i = 0; i < column; i++) {
 				if (row.getCell(i) != null)
 					cell[i] = row.getCell(i);
@@ -61,17 +59,17 @@ public class ExcelChangeInfo {
 					cell[i] = null;
 			}
 
-			ChangeInfo changeInfo = new ChangeInfo();
-			changeInfo.setName(cell[0].getStringCellValue());
-			changeInfo.setStudentId((int) cell[1].getNumericCellValue());
-			changeInfo.setClassroom(cell[2].getStringCellValue());
-			changeInfo.setChangeReason(cell[3].getStringCellValue());
-			changeInfo.setChangeTime(cell[4].getDateCellValue());
-			changeInfoList.add(changeInfo);
-
+			IndividualAchievement individualAchievement = new IndividualAchievement();
+			individualAchievement.setAchievement(cell[0].getStringCellValue());
+			individualAchievement.setReward(cell[1].getStringCellValue());
+			individualAchievement.setRewardTime(cell[2].getDateCellValue());
+			individualAchievement.setRemark(cell[3].getStringCellValue());
+			individualAchievementList.add(individualAchievement);
+			rowIndex++;
+			row = sheet.getRow(rowIndex);
 		}
-		System.out.println("ChangeInfo中数据导入完毕.");
-		System.out.println(changeInfoList);
-		// return changeInfoList;
+		System.out.println("IndividualAchievement中数据导入完毕.");
+		System.out.println(individualAchievementList);
+		// return individualAchievementList;
 	}
 }

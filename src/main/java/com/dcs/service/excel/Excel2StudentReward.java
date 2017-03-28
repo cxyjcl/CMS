@@ -11,14 +11,13 @@ import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
 import org.junit.Test;
 
-import com.dcs.pojo.MoneyInfo;
+import com.dcs.pojo.StudentReward;
 
-public class ExcelMoneyInfo {
+public class Excel2StudentReward {
 	private int rowIndex = 2; // The row index start from 3 row.
-	private final int column = 7; // All column is 7.
+	private final int column = 9; // All column is 9.
 
 	private HSSFWorkbook workbook;
 	private HSSFSheet sheet;
@@ -27,7 +26,7 @@ public class ExcelMoneyInfo {
 	private File file;
 
 	/**
-	 * 年级奖、助学金名单
+	 * 学生荣誉名单（团委）
 	 * 
 	 * @param file
 	 * @throws ClassNotFoundException
@@ -35,12 +34,12 @@ public class ExcelMoneyInfo {
 	 * @throws IOException
 	 */
 	@Test
-	public void moneyInfoServers() throws IOException {
+	public void studentRewardServers() throws IOException {
 
-		ArrayList<MoneyInfo> moneyInfoList = new ArrayList<MoneyInfo>();
+		ArrayList<StudentReward> studentRewardList = new ArrayList<StudentReward>();
 
 		// 1.导入excel文件
-		file = new File("excel/年级奖、助学金名单.xls");
+		file = new File("excel/分团委/学生荣誉名单（团委）.xls");
 
 		if (!file.exists())
 			System.out.println("The file is not exist!");
@@ -49,12 +48,10 @@ public class ExcelMoneyInfo {
 		workbook = new HSSFWorkbook(in);// 创建操作Excel的HSSFWorkbook对象
 		sheet = workbook.getSheetAt(0);// 创建HSSFsheet对象。
 
+		row = sheet.getRow(rowIndex);
 		/* 配合表格中的格式，从第rowIndex行开始读取 */
 		// 用HSSFCell对象的getCell()方法取出每一个的值 sheet.getLastRowNum()
-		for (; rowIndex <= sheet.getLastRowNum(); rowIndex++) {
-			row = sheet.getRow(rowIndex);
-			if (row.getCell(1).getStringCellValue() == "" || row.getCell(1) == null)
-				continue;
+		while (row != null && row.getCell(1).getStringCellValue() != "") {
 			for (int i = 0; i < column; i++) {
 				if (row.getCell(i) != null)
 					cell[i] = row.getCell(i);
@@ -62,20 +59,22 @@ public class ExcelMoneyInfo {
 					cell[i] = null;
 			}
 
-			MoneyInfo moneyInfo = new MoneyInfo();
-			moneyInfo.setMoneyName(cell[0].getStringCellValue());
-			moneyInfo.setName(cell[1].getStringCellValue());
-			moneyInfo.setStudentId((int) cell[2].getNumericCellValue());
-			moneyInfo.setClassroom(cell[3].getStringCellValue());
-			moneyInfo.setGrade(cell[4].getStringCellValue());
-			row.getCell(5).setCellType(Cell.CELL_TYPE_STRING);
-			moneyInfo.setMoney(cell[5].getStringCellValue());
-			moneyInfo.setRemark(cell[6].getStringCellValue());
-			moneyInfoList.add(moneyInfo);
-
+			StudentReward studentReward = new StudentReward();
+			studentReward.setName(cell[1].getStringCellValue());
+			studentReward.setStudentId((int) cell[2].getNumericCellValue());
+			studentReward.setGrade(cell[3].getStringCellValue());
+			studentReward.setClassroom(cell[4].getStringCellValue());
+			studentReward.setRewardName(cell[5].getStringCellValue());
+			studentReward.setRewardGrade(cell[6].getStringCellValue());
+			studentReward.setRewardTime(cell[7].getDateCellValue());
+			studentReward.setRemark(cell[8].getStringCellValue());
+			studentReward.setRewardNature(cell[0].getStringCellValue());
+			studentRewardList.add(studentReward);
+			rowIndex++;
+			row = sheet.getRow(rowIndex);
 		}
-		System.out.println("MoneyInfo中数据导入完毕.");
-		System.out.println(moneyInfoList);
-		// return moneyInfoList;
+		System.out.println("StudentReward中数据导入完毕.");
+		System.out.println(studentRewardList);
+		// return studentRewardList;
 	}
 }

@@ -15,14 +15,14 @@ public interface PojoToMapperDao {
 	
 	Integer deleteInfo(@Param("table")String tableName, @Param("id")Integer id);
 
-	Integer deleteList(@Param("table")String tableName,@Param("listId") Integer listId);
+	Integer deleteList(@Param("infoId") Integer infoId);
 	
 	Integer updateInfo(@Param("table")String tableName,@Param("map")HashMap map, @Param("id")Integer id);
 
-	ListInfo findInfo(@Param("creator")String creator,@Param("listId") Integer listId);
+	List<ListInfo> findListInfo(@Param("creator")String creator,@Param("page")Page page,@Param("listId") Integer listId);
 	
-	ListInfoDto selectInfo(@Param("table")String tableName, @Param("page")Page page);
+	HashMap selectInfo(@Param("table")String tableName,@Param("infoId")String infoId);
 	
-	List<ListInfo> selectListInfo(@Param("listId") Integer listId,@Param("level")String level);
+	List<ListInfo> selectListInfo(@Param("listId") Integer listId,@Param("level")String level,@Param("page")Page page);
 	
 }

@@ -13,9 +13,9 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.junit.Test;
 
-import com.dcs.pojo.PunishInfo;
+import com.dcs.pojo.LectureInfo;
 
-public class ExcelPunishInfo {
+public class Excel2LectureInfo {
 	private int rowIndex = 2; // The row index start from 3 row.
 	private final int column = 6; // All column is 6.
 
@@ -26,7 +26,7 @@ public class ExcelPunishInfo {
 	private File file;
 
 	/**
-	 * 年级受处分学生名单
+	 * 机械工程学院讲座统计表
 	 * 
 	 * @param file
 	 * @throws ClassNotFoundException
@@ -34,12 +34,12 @@ public class ExcelPunishInfo {
 	 * @throws IOException
 	 */
 	@Test
-	public void punishInfoServers() throws IOException {
+	public void lectureInfoServers() throws IOException {
 
-		ArrayList<PunishInfo> punishInfoList = new ArrayList<PunishInfo>();
+		ArrayList<LectureInfo> lectureInfoList = new ArrayList<LectureInfo>();
 
 		// 1.导入excel文件
-		file = new File("excel/年级受处分学生名单.xls");
+		file = new File("excel/机械工程学院讲座统计表.xls");
 
 		if (!file.exists())
 			System.out.println("The file is not exist!");
@@ -48,12 +48,10 @@ public class ExcelPunishInfo {
 		workbook = new HSSFWorkbook(in);// 创建操作Excel的HSSFWorkbook对象
 		sheet = workbook.getSheetAt(0);// 创建HSSFsheet对象。
 
+		row = sheet.getRow(rowIndex);
 		/* 配合表格中的格式，从第rowIndex行开始读取 */
 		// 用HSSFCell对象的getCell()方法取出每一个的值 sheet.getLastRowNum()
-		for (; rowIndex <= sheet.getLastRowNum(); rowIndex++) {
-			row = sheet.getRow(rowIndex);
-			if (row.getCell(0).getStringCellValue() == "" || row.getCell(0).getStringCellValue() == null)
-				continue;
+		while (row != null && row.getCell(0).getStringCellValue() != "") {
 			for (int i = 0; i < column; i++) {
 				if (row.getCell(i) != null)
 					cell[i] = row.getCell(i);
@@ -61,18 +59,19 @@ public class ExcelPunishInfo {
 					cell[i] = null;
 			}
 
-			PunishInfo punishInfo = new PunishInfo();
-			punishInfo.setName(cell[0].getStringCellValue());
-			punishInfo.setStudentId((int) cell[1].getNumericCellValue());
-			punishInfo.setClassroom(cell[2].getStringCellValue());
-			punishInfo.setPunishGrade(cell[3].getStringCellValue());
-			punishInfo.setPunishReason(cell[4].getStringCellValue());
-			punishInfo.setPunishTime(cell[5].getDateCellValue());
-			punishInfoList.add(punishInfo);
-
+			LectureInfo lectureInfo = new LectureInfo();
+			lectureInfo.setPlay(cell[0].getStringCellValue());
+			lectureInfo.setTime(cell[1].getDateCellValue());
+			lectureInfo.setPlace(cell[2].getStringCellValue());
+			lectureInfo.setObject(cell[3].getStringCellValue());
+			lectureInfo.setTalker(cell[4].getStringCellValue());
+			lectureInfo.setParticipants(cell[5].getStringCellValue());
+			lectureInfoList.add(lectureInfo);
+			rowIndex++;
+			row = sheet.getRow(rowIndex);
 		}
-		System.out.println("PunishInfo中数据导入完毕.");
-		System.out.println(punishInfoList);
-		// return punishInfoList;
+		System.out.println("LectureInfo中数据导入完毕.");
+		System.out.println(lectureInfoList);
+		// return lectureInfoList;
 	}
 }
