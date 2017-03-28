@@ -28,8 +28,8 @@
 	<insert id="insertInfo" >
 		insert into ${table}  
          <foreach collection="map.keys" item="key" open="(" close=")" separator="," >  
-            ${key}  
-         </foreach>  
+            ${key} 
+         </foreach>
          values   
          <foreach collection="map.keys"  item="key" open="(" close=")" separator=",">  
             #{map[${key}]}  
@@ -51,5 +51,16 @@
 	<delete id="deleteList">
 		update t_list_info set data_status = "000" where info_id = #{info_id}
 	</delete>
-	
+	<insert>
+		INSERT INTO t_campus_activities (info_id)(
+		SELECT
+			case when MAX(info_id) = NULL THEN
+				0
+			ELSE
+				MAX(info_id + 1)
+			END
+			FROM
+				t_campus_activities
+	)
+	</insert>
 </mapper>

@@ -11,7 +11,7 @@ import com.dcs.pojo.request.Page;
 
 public interface PojoToMapperDao {
 	
-	HashMap insertInfo(@Param("table")String tableName,@Param("map")HashMap map);
+	Integer insertInfo(@Param("table")String tableName,@Param("map")HashMap map);
 	
 	Integer deleteInfo(@Param("table")String tableName, @Param("id")Integer id);
 

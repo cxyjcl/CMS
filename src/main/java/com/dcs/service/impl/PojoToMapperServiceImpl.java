@@ -20,6 +20,7 @@ import com.dcs.pojo.ListInfo;
 import com.dcs.pojo.request.Page;
 import com.dcs.service.PojoToMapperService;
 import com.dcs.service.excel.Excel2CadresInfo;
+import com.dcs.util.TableUtils;
 
 /**
  * 
@@ -56,7 +57,14 @@ public class PojoToMapperServiceImpl implements PojoToMapperService{
 		Object instance = excel.newInstance();
 		Method declaredMethod = excel.getMethod("excel", InputStream.class);
 		ArrayList list = (ArrayList) declaredMethod.invoke(instance, input);
-		HashMap map = (HashMap) BeanUtils.describe(list.get(0));
+		System.out.println(list);
+		HashMap<String,Object> map = (HashMap<String,Object>) BeanUtils.describe(list.get(0));
+		//这里要删除一个class的原因是他在转化的时候会带上一个class键值对
+		map.remove("class");
+		map.remove("id");
+		map.remove("infoId");
+		System.out.println(map);
+		map = TableUtils.upToLow(map);
 		dao.insertInfo(table, map);
 	}
 
