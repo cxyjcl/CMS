@@ -15,7 +15,6 @@ public class Page implements Serializable {
 	// 每页条数
 	private Integer pageSize;
 	// 开始记录
-
 	private Integer pageStart;
 
 	// null或者0分页；1：不分页

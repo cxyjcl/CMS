@@ -17,7 +17,7 @@ import org.junit.Test;
 
 import com.dcs.pojo.ExamineInfo;
 
-public class ExcelExamineInfo {
+public class Excel2ExamineInfo {
 	private int rowIndex = 4; // The row index start from 5 row.
 	private final int column = 5; // All column is 5.
 
@@ -50,12 +50,10 @@ public class ExcelExamineInfo {
 		workbook = new HSSFWorkbook(in);// 创建操作Excel的HSSFWorkbook对象
 		sheet = workbook.getSheetAt(0);// 创建HSSFsheet对象。
 
+		row = sheet.getRow(rowIndex);
 		/* 配合表格中的格式，从第rowIndex行开始读取 */
 		// 用HSSFCell对象的getCell()方法取出每一个的值 sheet.getLastRowNum()
-		for (; rowIndex <= sheet.getLastRowNum(); rowIndex++) {
-			row = sheet.getRow(rowIndex);
-			if (isDigit(row.getCell(1)))
-				continue;
+		while (row != null && isDigit(row.getCell(1))) {
 			for (int i = 0; i < column; i++) {
 				if (row.getCell(i) != null)
 					cell[i] = row.getCell(i);
@@ -69,7 +67,8 @@ public class ExcelExamineInfo {
 			examineInfo.setStudentExamine(cell[2].getNumericCellValue());
 			examineInfo.setTotalExamine(cell[3].getNumericCellValue());
 			examineInfoList.add(examineInfo);
-
+			rowIndex++;
+			row = sheet.getRow(rowIndex);
 		}
 		System.out.println("ExamineInfo中数据导入完毕.");
 		System.out.println(examineInfoList);
@@ -87,12 +86,12 @@ public class ExcelExamineInfo {
 			// Integer.parseInt(null, value.CELL_TYPE_NUMERIC);
 			value.setCellType(Cell.CELL_TYPE_NUMERIC);
 			if (value.getNumericCellValue() > 0)
-				return false;
-			else
 				return true;
+			else
+				return false;
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
-			return true;
+			return false;
 		}
 	}
 

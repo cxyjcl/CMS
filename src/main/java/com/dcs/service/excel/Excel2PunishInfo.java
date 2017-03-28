@@ -11,12 +11,11 @@ import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
 import org.junit.Test;
 
-import com.dcs.pojo.TeacherInfo;
+import com.dcs.pojo.PunishInfo;
 
-public class ExcelTeacherInfo {
+public class Excel2PunishInfo {
 	private int rowIndex = 2; // The row index start from 3 row.
 	private final int column = 6; // All column is 6.
 
@@ -27,7 +26,7 @@ public class ExcelTeacherInfo {
 	private File file;
 
 	/**
-	 * 班主任名单
+	 * 年级受处分学生名单
 	 * 
 	 * @param file
 	 * @throws ClassNotFoundException
@@ -35,12 +34,12 @@ public class ExcelTeacherInfo {
 	 * @throws IOException
 	 */
 	@Test
-	public void teacherInfoServers() throws IOException {
+	public void punishInfoServers() throws IOException {
 
-		ArrayList<TeacherInfo> teacherInfoList = new ArrayList<TeacherInfo>();
+		ArrayList<PunishInfo> punishInfoList = new ArrayList<PunishInfo>();
 
 		// 1.导入excel文件
-		file = new File("excel/学工办/班主任名单.xls");
+		file = new File("excel/年级受处分学生名单.xls");
 
 		if (!file.exists())
 			System.out.println("The file is not exist!");
@@ -49,12 +48,10 @@ public class ExcelTeacherInfo {
 		workbook = new HSSFWorkbook(in);// 创建操作Excel的HSSFWorkbook对象
 		sheet = workbook.getSheetAt(0);// 创建HSSFsheet对象。
 
+		row = sheet.getRow(rowIndex);
 		/* 配合表格中的格式，从第rowIndex行开始读取 */
 		// 用HSSFCell对象的getCell()方法取出每一个的值 sheet.getLastRowNum()
-		for (; rowIndex <= sheet.getLastRowNum(); rowIndex++) {
-			row = sheet.getRow(rowIndex);
-			if (row.getCell(0).getStringCellValue() == "" || row.getCell(0).getStringCellValue() == null)
-				continue;
+		while (row != null && row.getCell(0).getStringCellValue() != "") {
 			for (int i = 0; i < column; i++) {
 				if (row.getCell(i) != null)
 					cell[i] = row.getCell(i);
@@ -62,19 +59,19 @@ public class ExcelTeacherInfo {
 					cell[i] = null;
 			}
 
-			TeacherInfo teacherInfo = new TeacherInfo();
-			teacherInfo.setClassroom(cell[0].getStringCellValue());
-			teacherInfo.setTeacher(cell[1].getStringCellValue());
-			teacherInfo.setSex(cell[2].getStringCellValue());
-			teacherInfo.setNativePlace(cell[3].getStringCellValue());
-			teacherInfo.setBirthPlace(cell[4].getStringCellValue());
-			row.getCell(5).setCellType(Cell.CELL_TYPE_STRING);
-			teacherInfo.setContacts(cell[5].getStringCellValue());
-			teacherInfoList.add(teacherInfo);
-
+			PunishInfo punishInfo = new PunishInfo();
+			punishInfo.setName(cell[0].getStringCellValue());
+			punishInfo.setStudentId((int) cell[1].getNumericCellValue());
+			punishInfo.setClassroom(cell[2].getStringCellValue());
+			punishInfo.setPunishGrade(cell[3].getStringCellValue());
+			punishInfo.setPunishReason(cell[4].getStringCellValue());
+			punishInfo.setPunishTime(cell[5].getDateCellValue());
+			punishInfoList.add(punishInfo);
+			rowIndex++;
+			row = sheet.getRow(rowIndex);
 		}
-		System.out.println("TeacherInfo中数据导入完毕.");
-		System.out.println(teacherInfoList);
-		// return teacherInfoList;
+		System.out.println("PunishInfo中数据导入完毕.");
+		System.out.println(punishInfoList);
+		// return punishInfoList;
 	}
 }

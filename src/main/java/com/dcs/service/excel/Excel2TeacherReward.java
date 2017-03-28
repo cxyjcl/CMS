@@ -13,11 +13,11 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.junit.Test;
 
-import com.dcs.pojo.ContestInfo;
+import com.dcs.pojo.TeacherReward;
 
-public class ExcelContestInfo {
+public class Excel2TeacherReward {
 	private int rowIndex = 2; // The row index start from 3 row.
-	private final int column = 7; // All column is 7.
+	private final int column = 6; // All column is 6.
 
 	private HSSFWorkbook workbook;
 	private HSSFSheet sheet;
@@ -26,7 +26,7 @@ public class ExcelContestInfo {
 	private File file;
 
 	/**
-	 * 学科竞赛统计表
+	 * 教师表彰名单
 	 * 
 	 * @param file
 	 * @throws ClassNotFoundException
@@ -34,12 +34,12 @@ public class ExcelContestInfo {
 	 * @throws IOException
 	 */
 	@Test
-	public void contestInfoServers() throws IOException {
+	public void teacherRewardServers() throws IOException {
 
-		ArrayList<ContestInfo> contestInfoList = new ArrayList<ContestInfo>();
+		ArrayList<TeacherReward> teacherRewardList = new ArrayList<TeacherReward>();
 
 		// 1.导入excel文件
-		file = new File("excel/学科竞赛统计表.xls");
+		file = new File("excel/学工办/教师表彰名单.xls");
 
 		if (!file.exists())
 			System.out.println("The file is not exist!");
@@ -48,12 +48,10 @@ public class ExcelContestInfo {
 		workbook = new HSSFWorkbook(in);// 创建操作Excel的HSSFWorkbook对象
 		sheet = workbook.getSheetAt(0);// 创建HSSFsheet对象。
 
+		row = sheet.getRow(rowIndex);
 		/* 配合表格中的格式，从第rowIndex行开始读取 */
 		// 用HSSFCell对象的getCell()方法取出每一个的值 sheet.getLastRowNum()
-		for (; rowIndex <= sheet.getLastRowNum(); rowIndex++) {
-			row = sheet.getRow(rowIndex);
-			if (row.getCell(0).getStringCellValue() == "" || row.getCell(0).getStringCellValue() == null)
-				continue;
+		while (row != null && row.getCell(1).getStringCellValue() != "") {
 			for (int i = 0; i < column; i++) {
 				if (row.getCell(i) != null)
 					cell[i] = row.getCell(i);
@@ -61,19 +59,19 @@ public class ExcelContestInfo {
 					cell[i] = null;
 			}
 
-			ContestInfo contestInfo = new ContestInfo();
-			contestInfo.setSponsor(cell[0].getStringCellValue());
-			contestInfo.setContestName(cell[1].getStringCellValue());
-			contestInfo.setContestGrade(cell[2].getStringCellValue());
-			contestInfo.setWorkName(cell[3].getStringCellValue());
-			contestInfo.setContestStudent(cell[4].getStringCellValue());
-			contestInfo.setTutor(cell[5].getStringCellValue());
-			contestInfo.setRemark(cell[6].getStringCellValue());
-			contestInfoList.add(contestInfo);
-
+			TeacherReward teacherReward = new TeacherReward();
+			teacherReward.setName(cell[1].getStringCellValue());
+			teacherReward.setRewardName(cell[2].getStringCellValue());
+			teacherReward.setRewardGrade(cell[3].getStringCellValue());
+			teacherReward.setRewardTime(cell[4].getDateCellValue());
+			teacherReward.setRemark(cell[5].getStringCellValue());
+			teacherReward.setRewardNature(cell[0].getStringCellValue());
+			teacherRewardList.add(teacherReward);
+			rowIndex++;
+			row = sheet.getRow(rowIndex);
 		}
-		System.out.println("ContestInfo中数据导入完毕.");
-		System.out.println(contestInfoList);
-		// return contestInfoList;
+		System.out.println("TeacherReward中数据导入完毕.");
+		System.out.println(teacherRewardList);
+		// return teacherRewardList;
 	}
 }

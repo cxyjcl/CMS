@@ -2,7 +2,6 @@ package com.dcs.dto;
 
 import java.util.HashMap;
 
-import com.dcs.pojo.ListInfo;
 import com.dcs.pojo.request.Page;
 
 /**
@@ -14,19 +13,21 @@ import com.dcs.pojo.request.Page;
  */
 public class ListInfoDto{
 	
-	ListInfo info;
-	HashMap voMap = new HashMap();
+	String title;
+	HashMap dtoMap = new HashMap();
 	
-	public ListInfo getInfo() {
-		return info;
+	
+	public String getTitle() {
+		return title;
 	}
-	public void setInfo(ListInfo info) {
-		this.info = info;
+	public void setTitle(String title) {
+		this.title = title;
 	}
-	public HashMap getVoMap() {
-		return voMap;
+	public HashMap getDtoMap() {
+		return dtoMap;
 	}
-	public void setVoMap(HashMap voMap) {
-		this.voMap = voMap;
+	public void setDtoMap(HashMap dtoMap) {
+		this.dtoMap = dtoMap;
 	}
+	
 }

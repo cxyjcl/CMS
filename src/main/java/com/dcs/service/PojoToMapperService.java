@@ -14,14 +14,16 @@ public interface PojoToMapperService {
 	
 	public int deleteList(String value,Integer listId) throws Exception;
 	
-	public ListInfoDto select(String value,Page page) throws Exception;
+	public HashMap selectInfo(String value,String infoId) throws Exception;
 
 	public void insert(String value, InputStream inputStream, int id) throws Exception;
 	
 	public int update(String value, Integer divId, HashMap infoMap) throws Exception ;
-
-	public ListInfo findInfo(String creator,Integer listId) throws Exception;
 	
-	public List<ListInfo> selectListInfo(Integer listId,String level) throws Exception;
+	public ListInfo findListInfo(String creator, Page page, Integer listId)
+			throws Exception;
+
+	List<ListInfo> selectListInfo(Integer listId, String level, Page page)
+			throws Exception;
 	
 }

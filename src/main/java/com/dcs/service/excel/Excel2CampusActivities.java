@@ -15,7 +15,7 @@ import org.junit.Test;
 
 import com.dcs.pojo.CampusActivities;
 
-public class ExcelCampusActivities {
+public class Excel2CampusActivities {
 	private int rowIndex = 3; // The row index start from 4 row.
 	private final int column = 9; // All column is 9.
 
@@ -47,14 +47,11 @@ public class ExcelCampusActivities {
 
 		workbook = new HSSFWorkbook(in);// 创建操作Excel的HSSFWorkbook对象
 		sheet = workbook.getSheetAt(0);// 创建HSSFsheet对象。
-		// row0 = sheet.getRow(0);// 创建第一行标题信息的HSSFRow对象。
 
+		row = sheet.getRow(rowIndex);
 		/* 配合表格中的格式，从第rowIndex行开始读取 */
 		// 用HSSFCell对象的getCell()方法取出每一个的值 sheet.getLastRowNum()
-		for (; rowIndex <= sheet.getLastRowNum(); rowIndex++) {
-			row = sheet.getRow(rowIndex);
-			if (row.getCell(0).getStringCellValue() == "" || row.getCell(0).getStringCellValue() == null)
-				continue;
+		while (row != null && row.getCell(0).getStringCellValue() != "") {
 			for (int i = 0; i < column; i++) {
 				if (row.getCell(i) != null)
 					cell[i] = row.getCell(i);
@@ -74,7 +71,8 @@ public class ExcelCampusActivities {
 			campusActivities.setClassroom(cell[7].getStringCellValue());
 			campusActivities.setRemark(cell[8].getStringCellValue());
 			campusActivitiesList.add(campusActivities);
-
+			rowIndex++;
+			row = sheet.getRow(rowIndex);
 		}
 		System.out.println("CampusActivities中数据导入完毕.");
 		System.out.println(campusActivitiesList);

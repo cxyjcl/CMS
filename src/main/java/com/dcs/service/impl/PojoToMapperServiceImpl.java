@@ -2,18 +2,24 @@ package com.dcs.service.impl;
 
 import java.io.File;
 import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.fastjson.JSON;
 import com.dcs.dao.PojoToMapperDao;
 import com.dcs.dto.ListInfoDto;
 import com.dcs.pojo.ListInfo;
 import com.dcs.pojo.request.Page;
 import com.dcs.service.PojoToMapperService;
+import com.dcs.service.excel.Excel2CadresInfo;
 
 /**
  * 
@@ -29,7 +35,7 @@ public class PojoToMapperServiceImpl implements PojoToMapperService{
 	private PojoToMapperDao dao;
 
 	public int deleteList(String value,Integer listId) throws Exception {		
-		int num = dao.deleteList(value, listId);
+		int num = dao.deleteList(listId);
 		return num;
 	}
 	
@@ -38,14 +44,20 @@ public class PojoToMapperServiceImpl implements PojoToMapperService{
 		return num;
 	}
 
-	public ListInfoDto select(String value,Page page) throws Exception {		
-		ListInfoDto dto = dao.selectInfo(value, page);
-		return dto;
+	public HashMap selectInfo(String value,String infoId) throws Exception {		
+		HashMap map = dao.selectInfo(value,infoId);
+		return map;
 	}
 	
 	@Override
-	public void insert(String value, InputStream inputStream, int id) {
-			
+	public void insert(String value, InputStream input, int id) throws Exception {
+		Class excel= Class.forName("com.dcs.service.excel.Excel2"+value);
+		String table = "t_cadres_info";
+		Object instance = excel.newInstance();
+		Method declaredMethod = excel.getMethod("excel", InputStream.class);
+		ArrayList list = (ArrayList) declaredMethod.invoke(instance, input);
+		HashMap map = (HashMap) BeanUtils.describe(list.get(0));
+		dao.insertInfo(table, map);
 	}
 
 	@Override
@@ -56,13 +68,13 @@ public class PojoToMapperServiceImpl implements PojoToMapperService{
 	}
 
 	@Override
-	public ListInfo findInfo(String creator, Integer listId) throws Exception {
+	public ListInfo findListInfo(String creator,Page page, Integer listId) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<ListInfo> selectListInfo(Integer listId, String level)
+	public List<ListInfo> selectListInfo(Integer listId, String level,Page page)
 			throws Exception {
 		// TODO Auto-generated method stub
 		return null;

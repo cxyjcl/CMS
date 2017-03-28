@@ -1,5 +1,7 @@
 package com.test.service;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.HashMap;
 
 import org.junit.Test;
@@ -13,11 +15,11 @@ public class InfoServieTest extends BaseTestStarter {
 	PojoToMapperService service;
 	
 	@Test
-	public void test(){
+	public void insert(){
 		HashMap infoMap = new HashMap();
 		infoMap.put("info_id", "132");
 		try {
-			service.update("t_cadres_info",1,infoMap);
+			service.insert("CadresInfo",new FileInputStream(new File("excel/分团委/各组织学生干部名单表模板.xls")),1);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

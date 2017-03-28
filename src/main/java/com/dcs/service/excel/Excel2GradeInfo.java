@@ -15,7 +15,7 @@ import org.junit.Test;
 
 import com.dcs.pojo.GradeInfo;
 
-public class ExcelGradeInfo {
+public class Excel2GradeInfo {
 	private int rowIndex = 2; // The row index start from 3 row.
 	private final int column = 16; // All column is 16.
 
@@ -48,13 +48,10 @@ public class ExcelGradeInfo {
 		workbook = new HSSFWorkbook(in);// 创建操作Excel的HSSFWorkbook对象
 		sheet = workbook.getSheetAt(0);// 创建HSSFsheet对象。
 
+		row = sheet.getRow(rowIndex);
 		/* 配合表格中的格式，从第rowIndex行开始读取 */
 		// 用HSSFCell对象的getCell()方法取出每一个的值 sheet.getLastRowNum()
-		System.out.println(rowIndex);
-		System.out.println(sheet.getLastRowNum());
-		for (; rowIndex <= sheet.getLastRowNum()-2; rowIndex++) {
-			if (row.getCell(0)==null || row.getCell(0).getStringCellValue() == "" || row.getCell(0).getStringCellValue() == null)
-				continue;
+		while (row != null && row.getCell(0).getStringCellValue() != "") {
 			for (int i = 0; i < column; i++) {
 				if (row.getCell(i) != null)
 					cell[i] = row.getCell(i);
@@ -79,8 +76,10 @@ public class ExcelGradeInfo {
 			gradeInfo.setPsychologicalCommissary(cell[14].getStringCellValue());
 			gradeInfo.setRemark(cell[15].getStringCellValue());
 			gradeInfoList.add(gradeInfo);
-
+			rowIndex++;
+			row = sheet.getRow(rowIndex);
 		}
+
 		System.out.println("GradeInfo中数据导入完毕.");
 		System.out.println(gradeInfoList);
 		// return gradeInfoList;
