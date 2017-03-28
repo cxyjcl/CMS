@@ -2,31 +2,21 @@ package com.dcs.service.impl;
 
 import java.io.File;
 import java.io.InputStream;
+import java.lang.reflect.Method;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.dcs.dao.DeleteInfoDao;
-import com.dcs.dao.InsertInfoDao;
-import com.dcs.dao.SelectInfoDao;
-import com.dcs.dao.UpdateInfoDao;
+import com.dcs.dao.PojoToMapperDao;
 import com.dcs.service.PojoToMapperService;
 
-@Service
+@Service("infoService")
 public class PojoToMapperServiceImpl implements PojoToMapperService{
 	
 	@Autowired
-	private DeleteInfoDao deleteInfoDao;
-	
-	@Autowired
-	private InsertInfoDao insertInfoDao;
-	
-	@Autowired
-	private SelectInfoDao selectInfoDao;
-	
-	@Autowired
-	private UpdateInfoDao updateInfoDao;
+	private PojoToMapperDao dao;
 
 	public int delete(List<String> contents) throws Exception {		
 		return 0;
@@ -43,11 +33,10 @@ public class PojoToMapperServiceImpl implements PojoToMapperService{
 	}
 
 	@Override
-	public void update(String value, String divCode, String changeValue, int id)
+	public void update(String value, Integer divId, HashMap infoMap)
 			throws Exception {
-		// TODO Auto-generated method stub
-		
+		Integer id= dao.updateInfo(value,infoMap,divId);
+		System.out.println(id);
 	}
-	
 	
 }

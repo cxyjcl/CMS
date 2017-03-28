@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dcs.dao.PojoToMapperDao">
+
+	<insert id="insertInfo" >
+		insert #{table} into tb_news   
+         <foreach collection="map.keys" item="key" open="(" close=")" separator="," >  
+            ${key}  
+         </foreach>  
+         values   
+         <foreach collection="map.keys"  item="key" open="(" close=")" separator=",">  
+            #{map[${key}]}  
+         </foreach>
+	</insert>
+
+	<update id="updateInfo" >
+		update ${table} set 
+		<foreach collection="map.keys" item="key" separator=",">
+			${key} = #{map[${key}]}
+		</foreach>
+		where id = #{id}
+	</update>
+	
+</mapper>

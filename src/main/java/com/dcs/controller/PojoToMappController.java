@@ -1,8 +1,6 @@
 package com.dcs.controller;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
@@ -15,9 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.Message;
 import com.alibaba.fastjson.JSON;
 import com.dcs.constants.InfoCodeEnum;
-import com.dcs.pojo.User;
 import com.dcs.service.PojoToMapperService;
-import com.dcs.util.IpUtils;
 
 public class PojoToMappController {
 	
@@ -40,18 +36,17 @@ public class PojoToMappController {
 	}
 	
 	@RequestMapping("/update")
-	public Message updateInfo(@RequestParam("code") String code, @RequestParam("div_code") String divCode, @RequestParam("change_value") String changeValue,HttpSession session){
-        int id = Integer.parseInt(session.getAttribute("user").toString());
+	public Message updateInfo(@RequestParam("code") String code,@RequestParam("div_id") Integer divId ,@RequestParam("info_map") HashMap infoMap,HttpSession session){
+        //用beanUtils赋值
+		int id = Integer.parseInt(session.getAttribute("user").toString());
         try {
+        	infoMap.put("reviser", id);
             String value = InfoCodeEnum.fromCode(code).getValue();
-			pojoToMapperService.update(value,divCode,changeValue,id);
+			pojoToMapperService.update(value,divId,infoMap);
         } catch (Exception e) {
 			log.info("用户id是："+JSON.toJSONString(id)+"报错信息是："+e.getStackTrace().toString());
 			return Message.success("更新失败！");    		
         }
 		return Message.success("更新成功！");
 	}
-	
-	
-	
 }

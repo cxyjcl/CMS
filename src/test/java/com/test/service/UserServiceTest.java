@@ -13,14 +13,14 @@ import com.dcs.service.UserService;
 import com.test.BaseTestStarter;
 import com.test.component.XlsDataSetBeanFactory;
 
-public class ServiceTest extends BaseTestStarter {
+public class UserServiceTest extends BaseTestStarter {
 	@SpringBean(value = "userService")
 	private UserService userService;
 	
 //	@Test
 //	@DataSet("dataSetXls/BookReservationService/insertNewBookReservation.xls")
 //	@ExpectedDataSet("dataSetXls/BookReservationService/insertNewBookReservation.expect.xls")
-	public void addLabel(){
+	public void user(){
 		try {
 			List<User> users = XlsDataSetBeanFactory.createBeans(
 					"/wtlib.testdatasource.xls", "t_user",
