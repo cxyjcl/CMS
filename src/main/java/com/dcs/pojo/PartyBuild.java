@@ -29,6 +29,16 @@ public class PartyBuild {
 
 	private String numParty;
 
+	private String dataStatus;
+	
+	public String getDataStatus() {
+		return dataStatus;
+	}
+
+	public void setDataStatus(String dataStatus) {
+		this.dataStatus = dataStatus;
+	}
+	
 	public Integer getId() {
 		return id;
 	}

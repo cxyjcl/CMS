@@ -1,6 +1,6 @@
-package com.dcs.vo;
+package com.dcs.dto;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.dcs.pojo.ListInfo;
 import com.dcs.pojo.request.Page;
@@ -12,10 +12,10 @@ import com.dcs.pojo.request.Page;
  * @author pohoulong
  * @date 2017年3月24日 下午5:55:45
  */
-public class ListInfoVo extends Page{
+public class ListInfoDto{
 	
 	ListInfo info;
-	ArrayList voList = new ArrayList();
+	HashMap voMap = new HashMap();
 	
 	public ListInfo getInfo() {
 		return info;
@@ -23,11 +23,10 @@ public class ListInfoVo extends Page{
 	public void setInfo(ListInfo info) {
 		this.info = info;
 	}
-	public ArrayList getVoList() {
-		return voList;
+	public HashMap getVoMap() {
+		return voMap;
 	}
-	public void setVoList(ArrayList voList) {
-		this.voList = voList;
+	public void setVoMap(HashMap voMap) {
+		this.voMap = voMap;
 	}
-	
 }

@@ -22,6 +22,5 @@ public class InfoServieTest extends BaseTestStarter {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
 }

@@ -27,7 +27,7 @@ import com.dcs.pojo.WordInfo;
  * @author pohoulong
  * @date 2017年3月25日 下午1:41:25
  */
-public enum InfoCodeEnum {
+public enum ListCodeEnum {
 	
 	//辅导员
 	_GradeInfo("10001", "t_grade_info",GradeInfo.class),//年级信息名单
@@ -62,7 +62,7 @@ public enum InfoCodeEnum {
 	private final String value;
 	private Object instance;
 	
-	InfoCodeEnum(String code, String v , Object instance) {
+	ListCodeEnum(String code, String v , Object instance) {
 		this.code = code;
 		value = v;
 		this.instance = instance;
@@ -94,8 +94,8 @@ public enum InfoCodeEnum {
 		return value;
 	}
 
-	public static InfoCodeEnum fromCode(String code) {
-		for (InfoCodeEnum c : InfoCodeEnum.values()) {
+	public static ListCodeEnum fromCode(String code) {
+		for (ListCodeEnum c : ListCodeEnum.values()) {
 			if (StringUtils.equals(c.getCode(), code)) {
 				return c;
 			}
@@ -104,7 +104,7 @@ public enum InfoCodeEnum {
 	}
 	
 	public static void main(String[] args) {
-		InfoCodeEnum c = fromCode("10001");
+		ListCodeEnum c = fromCode("10001");
 		System.out.println(c.getValue());
 	}
 	

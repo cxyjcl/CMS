@@ -20,5 +20,9 @@
 		</foreach>
 		where id = #{id}
 	</update>
+		
+	<delete id="deleteInfo">
+		update ${table} set data_status = "000" where id = #{id}
+	</delete>
 	
 </mapper>

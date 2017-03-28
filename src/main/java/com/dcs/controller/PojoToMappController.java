@@ -12,7 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.Message;
 import com.alibaba.fastjson.JSON;
-import com.dcs.constants.InfoCodeEnum;
+import com.dcs.constants.ListCodeEnum;
 import com.dcs.service.PojoToMapperService;
 
 public class PojoToMappController {
@@ -26,7 +26,7 @@ public class PojoToMappController {
 	public Message addInfo(@RequestParam("code") String code, MultipartFile uploadFile,HttpSession session){
         int id = Integer.parseInt(session.getAttribute("user").toString());
         try {
-            String value = InfoCodeEnum.fromCode(code).getValue();
+            String value = ListCodeEnum.fromCode(code).getValue();
 			pojoToMapperService.insert(value,uploadFile.getInputStream(),id);
         } catch (Exception e) {
 			log.info("用户id是："+JSON.toJSONString(id)+"报错信息是："+e.getStackTrace().toString());
@@ -41,7 +41,7 @@ public class PojoToMappController {
 		int id = Integer.parseInt(session.getAttribute("user").toString());
         try {
         	infoMap.put("reviser", id);
-            String value = InfoCodeEnum.fromCode(code).getValue();
+            String value = ListCodeEnum.fromCode(code).getValue();
 			pojoToMapperService.update(value,divId,infoMap);
         } catch (Exception e) {
 			log.info("用户id是："+JSON.toJSONString(id)+"报错信息是："+e.getStackTrace().toString());
