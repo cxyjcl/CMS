@@ -23,6 +23,8 @@ public class ListInfo {
 	private Date reviseTime;
 
 	private String userLevel;
+	
+	private String dataStatus;
 
 	public Integer getId() {
 		return id;
@@ -102,6 +104,14 @@ public class ListInfo {
 
 	public void setUserLevel(String userLevel) {
 		this.userLevel = userLevel == null ? null : userLevel.trim();
+	}
+	
+	public String getDataStatus() {
+		return dataStatus;
+	}
+
+	public void setDataStatus(String dataStatus) {
+		this.dataStatus = dataStatus;
 	}
 
 	@Override

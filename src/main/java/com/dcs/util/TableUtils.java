@@ -21,7 +21,6 @@ public class TableUtils {
 			}
 			newMap.put(newKey,map.get(key));
 		}
-		System.out.println(newMap);
 		return newMap;
 	}
 }

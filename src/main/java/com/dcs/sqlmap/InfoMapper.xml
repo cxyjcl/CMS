@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.dcs.dao.PojoToMapperDao">
-
+  <resultMap id="InfoResultMap" type="com.dcs.pojo.ListInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="excel_name" jdbcType="VARCHAR" property="excelName" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="list_id" jdbcType="INTEGER" property="listId" />
+    <result column="info_id" jdbcType="INTEGER" property="infoId" />
+    <result column="creator" jdbcType="INTEGER" property="creator" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="reviser" jdbcType="INTEGER" property="reviser" />
+    <result column="revise_time" jdbcType="TIMESTAMP" property="reviseTime" />
+    <result column="user_level" jdbcType="VARCHAR" property="userLevel" />
+    <result column="data_status" jdbcType="VARCHAR" property="dataStatus" />
+  </resultMap>
 	<select id="findListInfo" resultType="com.dcs.pojo.ListInfo">
 		select * from t_list_info where creator = #{creator} and list_id = #{listId}
 		and data_status = "001"
@@ -24,7 +36,69 @@
 		and data_status = "001"
 		order by ${sortField} ${orderType} limit #{page.pageIndex-1},#{page.pageSize} 
 	</select>
-	
+<insert id="insertList" parameterType="com.dcs.pojo.ListInfo">
+    insert into t_list_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="excelName != null">
+        excel_name,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="listId != null">
+        list_id,
+      </if>
+      <if test="infoId != null">
+        info_id,
+      </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="reviser != null">
+        reviser,
+      </if>
+      <if test="reviseTime != null">
+        revise_time,
+      </if>
+      <if test="userLevel != null">
+        user_level,
+      </if>
+      create_time,data_status
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="excelName != null">
+        #{excelName,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="listId != null">
+        #{listId,jdbcType=INTEGER},
+      </if>
+      <if test="infoId != null">
+        #{infoId,jdbcType=INTEGER},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="reviser != null">
+        #{reviser,jdbcType=INTEGER},
+      </if>
+      <if test="reviseTime != null">
+        #{reviseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userLevel != null">
+        #{userLevel,jdbcType=VARCHAR},
+      </if>
+      now(),"001"
+    </trim>
+  </insert>
 	<insert id="insertInfo" >
 		insert into ${table}  
          <foreach collection="map.keys" item="key" open="(" close=")" separator="," >  
@@ -45,22 +119,13 @@
 	</update>
 		
 	<delete id="deleteInfo">
-		update ${table} set data_status = "000" where id = #{id}
+		update ${table} set data_status = "000",reviser=#{reviser} where id = #{id}
 	</delete>
 	
 	<delete id="deleteList">
-		update t_list_info set data_status = "000" where info_id = #{info_id}
+		update t_list_info set data_status = "000",reviser=#{reviser},update_time=now() where id = #{id};
 	</delete>
-	<insert>
-		INSERT INTO t_campus_activities (info_id)(
-		SELECT
-			case when MAX(info_id) = NULL THEN
-				0
-			ELSE
-				MAX(info_id + 1)
-			END
-			FROM
-				t_campus_activities
-	)
-	</insert>
+	<select id ="selectMax" resultType="java.lang.Integer">
+		SELECT max(info_id) FROM ${table} where data_status = "001";
+	</select>
 </mapper>

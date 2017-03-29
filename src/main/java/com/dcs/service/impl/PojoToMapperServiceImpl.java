@@ -14,11 +14,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
+import com.dcs.constants.ListCodeEnum;
 import com.dcs.dao.PojoToMapperDao;
 import com.dcs.dto.ListInfoDto;
 import com.dcs.pojo.ListInfo;
 import com.dcs.pojo.request.Page;
 import com.dcs.service.PojoToMapperService;
+import com.dcs.service.UserService;
 import com.dcs.service.excel.Excel2CadresInfo;
 import com.dcs.util.TableUtils;
 
@@ -35,15 +37,8 @@ public class PojoToMapperServiceImpl implements PojoToMapperService{
 	@Autowired
 	private PojoToMapperDao dao;
 
-	public int deleteList(String value,Integer listId) throws Exception {		
-		int num = dao.deleteList(listId);
-		return num;
-	}
-	
-	public int delete(String value,Integer infoId) throws Exception{
-		int num = dao.deleteInfo(value, infoId);
-		return num;
-	}
+	@Autowired
+	private UserService userService;
 
 	public HashMap selectInfo(String value,String infoId) throws Exception {		
 		HashMap map = dao.selectInfo(value,infoId);
@@ -51,25 +46,37 @@ public class PojoToMapperServiceImpl implements PojoToMapperService{
 	}
 	
 	@Override
-	public void insert(String value, InputStream input, int id) throws Exception {
+	public int insert(String code, InputStream input,ListInfo listInfo) throws Exception{
+		ListCodeEnum codeEnum = ListCodeEnum.fromCode(code);
+		String value = codeEnum.getInstance();
 		Class excel= Class.forName("com.dcs.service.excel.Excel2"+value);
-		String table = "t_cadres_info";
+		String table = codeEnum.getValue();
 		Object instance = excel.newInstance();
 		Method declaredMethod = excel.getMethod("excel", InputStream.class);
 		ArrayList list = (ArrayList) declaredMethod.invoke(instance, input);
-		System.out.println(list);
 		HashMap<String,Object> map = (HashMap<String,Object>) BeanUtils.describe(list.get(0));
 		//这里要删除一个class的原因是他在转化的时候会带上一个class键值对
 		map.remove("class");
 		map.remove("id");
-		map.remove("infoId");
-		System.out.println(map);
+		Integer max = dao.selectMax(table);
+		if(max==null){
+			max=0;
+		}
+		Integer infoId = max+1;
 		map = TableUtils.upToLow(map);
+		map.put("info_id", infoId);
+		map.put("data_status", "001");
 		dao.insertInfo(table, map);
+		Integer id = listInfo.getCreator();
+		String level = userService.selectLevel(id);
+		listInfo.setInfoId(infoId);
+		listInfo.setUserLevel(level);
+		Integer num = dao.insertList(listInfo);
+		return num;
 	}
 
 	@Override
-	public int update(String value, Integer divId, HashMap infoMap)
+	public int update(String value, Integer divId, HashMap infoMap,ListInfo listInfo)
 			throws Exception {
 		Integer id= dao.updateInfo(value,infoMap,divId);
 		return id;
@@ -86,6 +93,18 @@ public class PojoToMapperServiceImpl implements PojoToMapperService{
 			throws Exception {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public int deleteList(Integer id, Integer reviser) throws Exception {
+		Integer num = dao.deleteList(id,reviser);
+		return num;
+	}
+
+	@Override
+	public int delete(String table, int id,Integer reviser) throws Exception {
+		Integer num = dao.deleteInfo(table,id,reviser);
+		return num;
 	}
 	
 }

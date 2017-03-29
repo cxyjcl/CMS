@@ -86,5 +86,9 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
+	public String selectLevel(Integer userId){
+		return userMapper.selectLevel(userId);
+	}
+	
 }

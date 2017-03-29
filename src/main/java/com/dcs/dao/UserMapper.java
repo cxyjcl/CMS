@@ -3,7 +3,6 @@ package com.dcs.dao;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 
 import com.dcs.pojo.User;
 
@@ -22,5 +21,7 @@ public interface UserMapper{
 	public int update(User entity) throws Exception;
 
 	Integer confirm(@Param("user")User user,@Param("dataStatus") Object dataStatus);
+
+	public String selectLevel(Integer id);
 
 }

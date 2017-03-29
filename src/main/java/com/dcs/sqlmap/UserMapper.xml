@@ -136,5 +136,7 @@
     from t_user
     where password=#{user.password} and login_name=#{user.loginName} and data_status = #{dataStatus}
   </select>
-	
+<select id="selectLevel" parameterType="java.lang.Integer" resultType="java.lang.String">
+	select level from t_user where id = #{id}
+</select>
 </mapper>

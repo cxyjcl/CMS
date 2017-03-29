@@ -7,6 +7,7 @@ import java.util.HashMap;
 import org.junit.Test;
 import org.unitils.spring.annotation.SpringBean;
 
+import com.dcs.pojo.ListInfo;
 import com.dcs.service.PojoToMapperService;
 import com.test.BaseTestStarter;
 
@@ -19,7 +20,12 @@ public class InfoServieTest extends BaseTestStarter {
 		HashMap infoMap = new HashMap();
 		infoMap.put("info_id", "132");
 		try {
-			service.insert("CadresInfo",new FileInputStream(new File("excel/分团委/各组织学生干部名单表模板.xls")),1);
+			ListInfo list = new ListInfo();
+			list.setCreator(1);
+			list.setExcelName("各组织学生干部名单表模板.xls");
+			list.setTitle("2017各组织学生干部名单表");
+			list.setListId(20001);
+			service.insert("20001",new FileInputStream(new File("excel/分团委/各组织学生干部名单表模板.xls")),list);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
