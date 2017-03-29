@@ -37,6 +37,7 @@ public class PojoToMapperServiceImpl implements PojoToMapperService{
 	@Autowired
 	private PojoToMapperDao dao;
 
+
 	@Autowired
 	private UserService userService;
 
@@ -46,6 +47,7 @@ public class PojoToMapperServiceImpl implements PojoToMapperService{
 	}
 	
 	@Override
+
 	public int insert(String code, InputStream input,ListInfo listInfo) throws Exception{
 		ListCodeEnum codeEnum = ListCodeEnum.fromCode(code);
 		String value = codeEnum.getInstance();

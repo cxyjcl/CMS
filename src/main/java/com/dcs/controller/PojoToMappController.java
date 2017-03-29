@@ -84,7 +84,7 @@ public class PojoToMappController {
 		return Message.success("删除成功！");
 	}
 	
-	@RequestMapping("/delete")
+	@RequestMapping("/select_info")
 	public Message selectInfo(@RequestParam("code") String code,@RequestParam("id") Integer id ,HttpSession session){
         //用beanUtils赋值
 		int reviser = Integer.parseInt(session.getAttribute("user").toString());
@@ -98,7 +98,7 @@ public class PojoToMappController {
 		return Message.success("删除成功！");
 	}
 	
-	@RequestMapping("/delete")
+	@RequestMapping("/select_list")
 	public Message selectListInfo(@RequestParam("code") String code,@RequestParam("id") Integer id ,HttpSession session){
         //用beanUtils赋值
 		int reviser = Integer.parseInt(session.getAttribute("user").toString());
@@ -112,7 +112,7 @@ public class PojoToMappController {
 		return Message.success("删除成功！");
 	}
 	
-	@RequestMapping("/delete")
+	@RequestMapping("/find_list")
 	public Message findListInfo(@RequestParam("code") String code,@RequestParam("id") Integer id ,HttpSession session){
         //用beanUtils赋值
 		int reviser = Integer.parseInt(session.getAttribute("user").toString());
