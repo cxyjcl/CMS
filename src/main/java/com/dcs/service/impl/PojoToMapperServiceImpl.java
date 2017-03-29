@@ -41,9 +41,9 @@ public class PojoToMapperServiceImpl implements PojoToMapperService{
 	@Autowired
 	private UserService userService;
 
-	public HashMap selectInfo(String value,String infoId) throws Exception {		
-		HashMap map = dao.selectInfo(value,infoId);
-		return map;
+	public List<HashMap> selectInfo(String value,Integer infoId) throws Exception {		
+		List<HashMap> mapList = dao.selectInfo(value,infoId);
+		return mapList;
 	}
 	
 	@Override
@@ -85,16 +85,14 @@ public class PojoToMapperServiceImpl implements PojoToMapperService{
 	}
 
 	@Override
-	public ListInfo findListInfo(String creator,Page page, Integer listId) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public List<ListInfo> findListInfo(Integer creator,Page page, String listId) throws Exception {
+		return dao.findListInfo(creator, page, listId);
 	}
 
 	@Override
 	public List<ListInfo> selectListInfo(Integer listId, String level,Page page)
 			throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.selectListInfo(listId, level, page);
 	}
 
 	@Override

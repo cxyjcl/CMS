@@ -17,7 +17,7 @@
 	<select id="findListInfo" resultType="com.dcs.pojo.ListInfo">
 		select * from t_list_info where creator = #{creator} and list_id = #{listId}
 		and data_status = "001"
-		order by ${sortField} ${orderType} limit #{page.pageIndex-1},#{page.pageSize}  
+		order by ${page.sortField} ${page.orderType} limit #{page.pageIndex},#{page.pageSize}  
 	</select>
 	
 	<select id="selectInfo" resultType="java.util.HashMap">
@@ -32,9 +32,9 @@
 	</select>
 	
 	<select id="selectListInfo" resultType="com.dcs.pojo.ListInfo">
-		elect * from t_list_info where user_level = #{level} and list_id = #{listId}
+		select * from t_list_info where user_level = #{level} and list_id = #{listId}
 		and data_status = "001"
-		order by ${sortField} ${orderType} limit #{page.pageIndex-1},#{page.pageSize} 
+		order by ${page.sortField} ${page.orderType} limit #{page.pageIndex},#{page.pageSize} 
 	</select>
 <insert id="insertList" parameterType="com.dcs.pojo.ListInfo">
     insert into t_list_info
@@ -119,11 +119,18 @@
 	</update>
 		
 	<delete id="deleteInfo">
-		update ${table} set data_status = "000",reviser=#{reviser} where id = #{id}
-	</delete>
+		UPDATE ${table},
+		 t_list_info
+		SET t_cadres_info.data_status = "000",
+		 reviser = ${reviser},
+		 revise_time = now()
+		WHERE
+			t_cadres_info.id = #{id}
+		  and t_cadres_info.info_id = t_list_info.info_id
+  	</delete>
 	
 	<delete id="deleteList">
-		update t_list_info set data_status = "000",reviser=#{reviser},update_time=now() where id = #{id};
+		update t_list_info set data_status = "000",reviser=#{reviser},revise_time=now() where id = #{id};
 	</delete>
 	<select id ="selectMax" resultType="java.lang.Integer">
 		SELECT max(info_id) FROM ${table} where data_status = "001";

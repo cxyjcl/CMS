@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.unitils.spring.annotation.SpringBean;
 
 import com.dcs.pojo.ListInfo;
+import com.dcs.pojo.request.Page;
 import com.dcs.service.PojoToMapperService;
 import com.test.BaseTestStarter;
 
@@ -20,12 +21,17 @@ public class InfoServieTest extends BaseTestStarter {
 		HashMap infoMap = new HashMap();
 		infoMap.put("info_id", "132");
 		try {
-			ListInfo list = new ListInfo();
-			list.setCreator(1);
-			list.setExcelName("各组织学生干部名单表模板.xls");
-			list.setTitle("2017各组织学生干部名单表");
-			list.setListId(20001);
-			service.insert("20001",new FileInputStream(new File("excel/分团委/各组织学生干部名单表模板.xls")),list);
+//			ListInfo list = new ListInfo();
+//			list.setCreator(1);
+//			list.setExcelName("各组织学生干部名单表模板.xls");
+//			list.setTitle("2017各组织学生干部名单表");
+//			list.setListId(20001);
+			Page page = new Page();
+			page.setPageIndex(0);
+			page.setPageSize(10);
+			page.setOrderType("desc");
+			page.setSortField("id");
+			System.out.println(service.delete("t_cadres_info", 1, 1));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

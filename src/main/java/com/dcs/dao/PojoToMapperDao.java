@@ -19,9 +19,9 @@ public interface PojoToMapperDao {
 	
 	Integer updateInfo(@Param("table")String tableName,@Param("map")HashMap map, @Param("id")Integer id);
 
-	List<ListInfo> findListInfo(@Param("creator")String creator,@Param("page")Page page,@Param("listId") Integer listId);
+	List<ListInfo> findListInfo(@Param("creator")Integer creator,@Param("page")Page page,@Param("listId") String listId);
 	
-	HashMap selectInfo(@Param("table")String tableName,@Param("infoId")String infoId);
+	List<HashMap> selectInfo(@Param("table")String tableName,@Param("infoId")Integer infoId);
 	
 	List<ListInfo> selectListInfo(@Param("listId") Integer listId,@Param("level")String level,@Param("page")Page page);
 	
