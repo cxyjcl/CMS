@@ -107,7 +107,7 @@ public class PojoToMappController {
         	List<ListInfo> list = pojoToMapperService.selectLimit();
         	message = Message.success("查找成功！",list);
         	view.addObject("message",message);
-        	view.setViewName("/view/component/default.jsp");
+        	view.setViewName("view/component/default.jsp");
 			return view;
         } catch (Exception e) {
 			log.info("报错信息是："+e.getStackTrace().toString());

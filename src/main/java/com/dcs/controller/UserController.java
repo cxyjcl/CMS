@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,24 +32,24 @@ public class UserController {
 
 	@RequestMapping("/index")
 	public String index(){
-		return "forward:/WEB-INF/view/user/login.jsp";
+		return "view/user/login";
 	}
 	
 	// login
 	@RequestMapping("/login")
+	@ResponseBody
 	public Message login(@RequestBody UserVo vo, HttpSession session,
 			HttpServletRequest request) {
-		User user = vo.getUser();
-		String password = user.getPassword();
-		String loginId = user.getLoginName();
+		String password = vo.getPassword();
+		String loginId = vo.getLoginName();
 		String code = vo.getCode();
-		String generatorCode = session.getAttribute("generatorCode").toString();
+		String generatorCode = session.getAttribute("generateCode").toString();
 		// 其他的null都提示的是不得为空，只有这里会记录ip的原因是防止入侵。
 		if (password == null || loginId == null) {
 			// 恶意侵入，记录ip，并禁止其再次登录
 			String ip = IpUtils.getIp(request);
 			log.error("ip:" + JSON.toJSON(ip) + "\n\t username:"
-					+ user.getLoginName());
+					+ vo.getLoginName());
 			return Message.error(Code.FATAL_ERROR, "别搞事情", ip);
 		}
 		if (password.matches("^.*[\\s]+.*$")) {
@@ -60,9 +61,11 @@ public class UserController {
 		if (!code.equals(generatorCode)){
 			return Message.error(Code.PARAMATER, "验证码错误");
 		}
+		User user = new User();
 		try {
+			BeanUtils.copyProperties(user, vo);
 			Integer id = userService.confirm(user,DataStatusEnum.NORMAL_USED.getCode());
-			session.setAttribute("user", id);// 这里不安全。肯定要改。要么用https要么就加密
+			session.setAttribute("user", id);
 			session.setMaxInactiveInterval(60 * 30);
 			log.info(JSON.toJSONString(user) + "登陆了\n\t ip:"
 					+ IpUtils.getIp(request));

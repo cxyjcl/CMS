@@ -35,12 +35,16 @@ $("#submitButton").click(function(){
     }
     else{
         $("#errorMessage").html("请稍等....");
-        var _data={
-            'username':userValue,
-            'password':wordValue,
-            'verifyCode':codeValue
+        var _data={	
+	            'loginName':userValue,
+	            'password':wordValue,
+	            'code':codeValue
         };
         $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
             url:"http://localhost:8080/dcs/user/login",
             type: "POST",
             contentType: "application/json",
@@ -50,10 +54,10 @@ $("#submitButton").click(function(){
                 console.log(data);
                 console.log(data.content);
                 if(data.code!="10000"){
-                    $("#errorMessage").html(data.content);
+                    $("#errorMessage").html(data.msg);
                     $("#verify_img").attr("src","http://localhost:8080/dcs/verify_code?time="+new Date().getTime());
                 }else{
-                    window.location.href="http://localhost:8080/dcs/select_limit"
+                    window.location.href="http://localhost:8080/dcs/excel/select_limit"
                 }
             }
         });

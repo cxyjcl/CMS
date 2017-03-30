@@ -9,9 +9,9 @@ public class User {
 
 	private String loginName;
 
-	private String realName;
-
 	private String password;
+	
+	private String realName;
 
 	private String level;
 

@@ -4,14 +4,24 @@ import com.dcs.pojo.User;
 
 public class UserVo {
 	
-	User user;
-	String code;
+	private String loginName;
+
+	private String password;
 	
-	public User getUser() {
-		return user;
+	private String code;
+	
+	
+	public String getLoginName() {
+		return loginName;
 	}
-	public void setUser(User user) {
-		this.user = user;
+	public void setLoginName(String loginName) {
+		this.loginName = loginName;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	public String getCode() {
 		return code;
