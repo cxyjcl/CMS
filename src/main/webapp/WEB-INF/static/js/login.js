@@ -8,7 +8,7 @@ $("#forget-a").click(function () {
     $("#login").hide();
 });
 $("#change").click(function(){
-    $("#verify_img").attr("src","http://localhost:8080/verifyCode?time="+new Date().getTime());
+    $("#verify_img").attr("src","http://localhost:8080/dcs/verify_code?time="+new Date().getTime());
 })
 $("#submitButton").click(function(){
     var userValue=$("#username").val();
@@ -41,11 +41,7 @@ $("#submitButton").click(function(){
             'verifyCode':codeValue
         };
         $.ajax({
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            url:"http://localhost:8080/user/login.do",
+            url:"http://localhost:8080/dcs/user/login",
             type: "POST",
             contentType: "application/json",
             dataType: "json",
@@ -55,9 +51,9 @@ $("#submitButton").click(function(){
                 console.log(data.content);
                 if(data.code!="10000"){
                     $("#errorMessage").html(data.content);
-                    $("#verify_img").attr("src","http://localhost:8080/verifyCode?time="+new Date().getTime());
+                    $("#verify_img").attr("src","http://localhost:8080/dcs/verify_code?time="+new Date().getTime());
                 }else{
-                    window.location.href="http://localhost:8080/view/component/default.html"
+                    window.location.href="http://localhost:8080/dcs/select_limit"
                 }
             }
         });
@@ -105,7 +101,7 @@ $("#findButton").click(function(){
                 'Content-Type': 'application/json'
             },
             contentType: "application/json",
-            url:"http://localhost:8080/user/forgetPassword.do",
+            url:"http://localhost:8080/dcs/user/forgetPassword.do",
             dataType: "json",
             type: "POST",
             data:JSON.stringify(_data),

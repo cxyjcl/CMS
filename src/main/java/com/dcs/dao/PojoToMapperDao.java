@@ -29,4 +29,6 @@ public interface PojoToMapperDao {
 
 	Integer deleteList(@Param("id")Integer id,@Param("reviser") int reviser);
 
+	List<ListInfo> selectLimit();
+
 }

@@ -7,9 +7,11 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.Message;
 import com.alibaba.fastjson.JSON;
@@ -18,6 +20,7 @@ import com.dcs.pojo.ListInfo;
 import com.dcs.pojo.request.Page;
 import com.dcs.service.PojoToMapperService;
 
+@Controller
 @RequestMapping("/excel")
 public class PojoToMappController {
 	
@@ -93,6 +96,25 @@ public class PojoToMappController {
         } catch (Exception e) {
 			log.info("查找list的iD是"+infoId+"报错信息是："+e.getStackTrace().toString());
 			return Message.error("查找失败！");    		
+        }
+	}
+	
+	@RequestMapping("/select_limit")
+	public ModelAndView selectLimit(){
+		Message message;
+		ModelAndView view = new ModelAndView();
+		try {
+        	List<ListInfo> list = pojoToMapperService.selectLimit();
+        	message = Message.success("查找成功！",list);
+        	view.addObject("message",message);
+        	view.setViewName("/view/component/default.jsp");
+			return view;
+        } catch (Exception e) {
+			log.info("报错信息是："+e.getStackTrace().toString());
+			message = Message.error("查找失败！");
+			view.setViewName("/view/error/error.jsp");
+			view.addObject("message",message);
+			return view;
         }
 	}
 	

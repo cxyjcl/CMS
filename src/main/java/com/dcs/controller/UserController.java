@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,6 +20,7 @@ import com.dcs.service.UserService;
 import com.dcs.util.IpUtils;
 import com.dcs.vo.UserVo;
 
+@Controller
 @RequestMapping("/user")
 public class UserController {
 
@@ -27,6 +29,11 @@ public class UserController {
 
 	Logger log = Logger.getLogger(UserController.class);
 
+	@RequestMapping("/index")
+	public String index(){
+		return "forward:/WEB-INF/view/user/login.jsp";
+	}
+	
 	// login
 	@RequestMapping("/login")
 	public Message login(@RequestBody UserVo vo, HttpSession session,

@@ -135,4 +135,7 @@
 	<select id ="selectMax" resultType="java.lang.Integer">
 		SELECT max(info_id) FROM ${table} where data_status = "001";
 	</select>
+	<select id="selectLimit" resultType="com.dcs.pojo.ListInfo">
+		select * from t_list_info order by id desc limit 0,10 
+	</select>
 </mapper>

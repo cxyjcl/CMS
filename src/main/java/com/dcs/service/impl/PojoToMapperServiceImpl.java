@@ -106,5 +106,10 @@ public class PojoToMapperServiceImpl implements PojoToMapperService{
 		Integer num = dao.deleteInfo(table,id,reviser);
 		return num;
 	}
+
+	@Override
+	public List<ListInfo> selectLimit() {
+		return dao.selectLimit();
+	}
 	
 }
