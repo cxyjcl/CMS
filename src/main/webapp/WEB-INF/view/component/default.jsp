@@ -51,7 +51,6 @@
             </thead>
             <tbody>
               <c:forEach items="${list}" var="info">
-              
                 <tr>
                     <td><a href="/excel/select_info/code=${info.listId}&info_id=${info.infoId}">${info.excelName}</a></td>
                     <td>${info.creator}</td>

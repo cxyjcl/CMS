@@ -42,7 +42,7 @@
 		AND t_cadres_info.info_id = t_list_info.info_id
 	</select>
 	
-	<select id="selectListInfo" resultType="com.dcs.pojo.ListInfo">
+	<select id="selectListInfo" resultMap="InfoResultMap">
 		select * from t_list_info where user_level = #{level} and list_id = #{listId}
 		and data_status = "001"
 		order by ${page.sortField} ${page.orderType} limit #{page.pageIndex},#{page.pageSize} 

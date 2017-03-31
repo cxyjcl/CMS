@@ -99,4 +99,13 @@ public class Page implements Serializable {
 		this.orderType = orderType;
 	}
 
+	@Override
+	public String toString() {
+		return "Page [pageIndex=" + pageIndex + ", pageSize=" + pageSize
+				+ ", pageStart=" + pageStart + ", all=" + all + ", startDate="
+				+ startDate + ", endDate=" + endDate + ", sortField="
+				+ sortField + ", orderType=" + orderType + "]";
+	}
+
+	
 }

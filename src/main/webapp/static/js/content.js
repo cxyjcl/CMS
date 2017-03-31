@@ -23,6 +23,7 @@ window.onload=function(){
     //     }
     // });
 };
+
 window.onresize=function(){
     resize();
 };
@@ -30,6 +31,37 @@ window.onresize=function(){
 var resize=function(){
     document.getElementById('container').style.width=document.body.clientWidth-200+"px"
 };
+
 $("#log-out").click(function(){
     location.href="../user/login.html";
 })
+//$("#group a").click(function(){
+//	var code=$(this).parent().attr('id');
+//	var level=$(this).parent().parent().attr("id");
+//	if(level=="student"){
+//		console.log("dfadfa");
+//		var _data ={
+//	        	"code":code,
+//	        	"level":"学工办",
+//	        	"page":{
+//	        		"pageIndex":"1",
+//	        		"pageSize":"10",
+//	        		"sortField":"id",
+//	        		"orderType":"asc"
+//	        	}
+//		}
+//		 $.ajax({
+//			 contentType: "application/json; charset=utf-8",
+//			 dataType:"json",
+//	         type: "POST",
+//	         url:"/dcs/excel/select_list",
+//	         data: JSON.stringify(_data),
+//	         success: function(data) {
+//	            console.log(data);
+//	         },
+//	         error: function (data) {
+//	        	 
+//	         }
+//	     });
+//	}
+//})

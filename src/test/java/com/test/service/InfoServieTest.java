@@ -31,7 +31,7 @@ public class InfoServieTest extends BaseTestStarter {
 			page.setPageSize(10);
 			page.setOrderType("desc");
 			page.setSortField("id");
-			System.out.println(service.selectLimit());
+			System.out.println(service.selectListInfo(10002, "学工办", page));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

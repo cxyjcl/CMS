@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,85 +62,32 @@
     <div class="group">
         <table class="table table-striped">
             <thead>
-            <tr>
-                <th>序号</th>
-                <th>表格名字</th>
-                <th>提交人</th>
-                <th>提交时间</th>
-                <th>删除</th>
-            </tr>
+            	<tr>
+                    <th>表格名字</th>
+                    <th>提交人</th>
+                    <th>提交时间</th>
+                    <th>修改人</th>
+                    <th>修改时间</th>
+                    <th>状态</th>
+                </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>1</td>
-                <td><a href="info.html">学期学生情况一览表</a></td>
-                <td>admin</td>
-                <td>2017/3/14</td>
-                <td><input type="checkbox"/></td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>学期学生情况一览表</td>
-                <td>admin</td>
-                <td>2017/3/14</td>
-                <td><input type="checkbox"/></td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>学期学生情况一览表</td>
-                <td>admin</td>
-                <td>2017/3/14</td>
-                <td><input type="checkbox"/></td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td>学期学生情况一览表</td>
-                <td>admin</td>
-                <td>2017/3/14</td>
-                <td><input type="checkbox"/></td>
-            </tr>
-            <tr>
-                <td>5</td>
-                <td>学期学生情况一览表</td>
-                <td>admin</td>
-                <td>2017/3/14</td>
-                <td><input type="checkbox"/></td>
-            </tr>
-            <tr>
-                <td>6</td>
-                <td>学期学生情况一览表</td>
-                <td>admin</td>
-                <td>2017/3/14</td>
-                <td><input type="checkbox"/></td>
-            </tr>
-            <tr>
-                <td>7</td>
-                <td>学期学生情况一览表</td>
-                <td>admin</td>
-                <td>2017/3/14</td>
-                <td><input type="checkbox"/></td>
-            </tr>
-            <tr>
-                <td>8</td>
-                <td>学期学生情况一览表</td>
-                <td>admin</td>
-                <td>2017/3/14</td>
-                <td><input type="checkbox"/></td>
-            </tr>
-            <tr>
-                <td>9</td>
-                <td>学期学生情况一览表</td>
-                <td>admin</td>
-                <td>2017/3/14</td>
-                <td><input type="checkbox"/></td>
-            </tr>
-            <tr>
-                <td>10</td>
-                <td>学期学生情况一览表</td>
-                <td>admin</td>
-                <td>2017/3/14</td>
-                <td><input type="checkbox"/></td>
-            </tr>
+            <script>console.log(${list})</script>
+              <c:forEach items="${list}" var="info">
+                <tr>
+                    <td><a href="/excel/select_info/code=${info.listId}&info_id=${info.infoId}">${info.excelName}</a></td>
+                    <td>${info.creator}</td>
+                    <td><fmt:formatDate value="${info.createTime}" pattern="yyyy-MM-dd"/></td>
+               		<td>${info.reviser}</td>
+               		<td><fmt:formatDate value="${info.reviseTime}" pattern="yyyy-MM-dd"/></td>
+               		<c:if test="${info.dataStatus eq '000'}">
+               			<td class="red">删除</td>
+               		</c:if>
+               		<c:if test="${info.dataStatus eq '001'}">
+               			<td>创建</td>
+               		</c:if>
+                </tr>
+              </c:forEach>
             </tbody>
         </table>
     </div>
