@@ -26,6 +26,6 @@ public interface PojoToMapperService {
 
 	int delete(String table, int id,Integer reviser) throws Exception;
 
-	public List<ListInfo> selectLimit();
+	public List<ListInfoDto> selectLimit();
 	
 }

@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.Message;
 import com.alibaba.fastjson.JSON;
 import com.dcs.constants.ListCodeEnum;
+import com.dcs.dto.ListInfoDto;
 import com.dcs.pojo.ListInfo;
 import com.dcs.pojo.request.Page;
 import com.dcs.service.PojoToMapperService;
@@ -28,6 +29,21 @@ public class PojoToMappController {
 	private PojoToMapperService pojoToMapperService;
 	
 	Logger log = Logger.getLogger(PojoToMappController.class);
+	
+	@RequestMapping("/counsellor")
+	public String counsellor(){
+		return "view/component/counsellor";
+	}
+	
+	@RequestMapping("/student_office")
+	public String studentOffice(){
+		return "view/component/student_office";
+	}
+
+	@RequestMapping("/subcommittee")
+	public String subcommittee(){
+		return "view/component/subcommittee";
+	}
 	
 	@RequestMapping("/add")
 	public Message addInfo(@RequestParam("code") Integer code,@RequestParam("excel") MultipartFile uploadFile,HttpSession session){
@@ -104,10 +120,11 @@ public class PojoToMappController {
 		Message message;
 		ModelAndView view = new ModelAndView();
 		try {
-        	List<ListInfo> list = pojoToMapperService.selectLimit();
-        	message = Message.success("查找成功！",list);
+        	List<ListInfoDto> list = pojoToMapperService.selectLimit();
+        	message = Message.success("查找成功！"); 
         	view.addObject("message",message);
-        	view.setViewName("view/component/default.jsp");
+        	view.addObject("list",list);
+        	view.setViewName("/view/component/default");
 			return view;
         } catch (Exception e) {
 			log.info("报错信息是："+e.getStackTrace().toString());

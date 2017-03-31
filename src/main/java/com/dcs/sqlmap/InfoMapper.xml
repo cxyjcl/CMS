@@ -14,6 +14,17 @@
     <result column="user_level" jdbcType="VARCHAR" property="userLevel" />
     <result column="data_status" jdbcType="VARCHAR" property="dataStatus" />
   </resultMap>
+    <resultMap id="ListResultMap" type="com.dcs.dto.ListInfoDto">
+    <result column="excel_name" jdbcType="VARCHAR" property="excelName" />
+    <result column="list_id" jdbcType="INTEGER" property="listId" />
+    <result column="info_id" jdbcType="INTEGER" property="infoId" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="reviser" jdbcType="VARCHAR" property="reviser" />
+    <result column="revise_time" jdbcType="TIMESTAMP" property="reviseTime" />
+    <result column="user_level" jdbcType="VARCHAR" property="userLevel" />
+    <result column="data_status" jdbcType="VARCHAR" property="dataStatus" />
+  </resultMap>
 	<select id="findListInfo" resultType="com.dcs.pojo.ListInfo">
 		select * from t_list_info where creator = #{creator} and list_id = #{listId}
 		and data_status = "001"
@@ -135,7 +146,25 @@
 	<select id ="selectMax" resultType="java.lang.Integer">
 		SELECT max(info_id) FROM ${table} where data_status = "001";
 	</select>
-	<select id="selectLimit" resultType="com.dcs.pojo.ListInfo">
-		select * from t_list_info order by id desc limit 0,10 
+	<select id="selectLimit" resultMap="ListResultMap">
+		SELECT
+			excel_name,
+			list_id,
+			info_id,
+			tu1.real_name as reviser,
+			tu2.real_name as creator,
+			t_list_info.create_time,
+			t_list_info.revise_time,
+			user_level,
+			t_list_info.data_status
+		FROM
+			t_list_info left join 
+			t_user as tu1 on tu1.id = t_list_info.reviser,
+			t_user as tu2
+		where tu2.id = t_list_info.creator
+		ORDER BY
+			t_list_info.id DESC
+		LIMIT 0,
+		 10
 	</select>
 </mapper>

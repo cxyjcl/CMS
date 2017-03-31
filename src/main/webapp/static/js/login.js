@@ -8,7 +8,7 @@ $("#forget-a").click(function () {
     $("#login").hide();
 });
 $("#change").click(function(){
-    $("#verify_img").attr("src","http://localhost:8080/dcs/verify_code?time="+new Date().getTime());
+    $("#verify_img").attr("src","/dcs/verify_code?time="+new Date().getTime());
 })
 $("#submitButton").click(function(){
     var userValue=$("#username").val();
@@ -45,7 +45,7 @@ $("#submitButton").click(function(){
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            url:"http://localhost:8080/dcs/user/login",
+            url:"/dcs/user/login",
             type: "POST",
             contentType: "application/json",
             dataType: "json",
@@ -55,9 +55,9 @@ $("#submitButton").click(function(){
                 console.log(data.content);
                 if(data.code!="10000"){
                     $("#errorMessage").html(data.msg);
-                    $("#verify_img").attr("src","http://localhost:8080/dcs/verify_code?time="+new Date().getTime());
+                    $("#verify_img").attr("src","/dcs/verify_code?time="+new Date().getTime());
                 }else{
-                    window.location.href="http://localhost:8080/dcs/excel/select_limit"
+                    window.location.href="/dcs/excel/select_limit"
                 }
             }
         });
@@ -105,7 +105,7 @@ $("#findButton").click(function(){
                 'Content-Type': 'application/json'
             },
             contentType: "application/json",
-            url:"http://localhost:8080/dcs/user/forgetPassword.do",
+            url:"/dcs/user/forgetPassword.do",
             dataType: "json",
             type: "POST",
             data:JSON.stringify(_data),
@@ -152,7 +152,7 @@ $("#send").click(function(){
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            url:"http://localhost:8080/user/sendEmail.do",
+            url:"dcs/user/sendEmail.do",
             contentType: "application/json",
             dataType: "json",
             type: "POST",

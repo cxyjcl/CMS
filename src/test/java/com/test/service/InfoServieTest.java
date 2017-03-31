@@ -31,7 +31,7 @@ public class InfoServieTest extends BaseTestStarter {
 			page.setPageSize(10);
 			page.setOrderType("desc");
 			page.setSortField("id");
-			System.out.println(service.delete("t_cadres_info", 1, 1));
+			System.out.println(service.selectLimit());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

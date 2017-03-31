@@ -22,7 +22,7 @@
         <input type="text" class="input w-100" id="username" placeholder="用户名">
         <input type="password" class="input w-100" id="password" placeholder="密码">
         <input type="text" class="input w-30" id="verifyCode" placeholder="验证码">
-        <img src="http://localhost:8080/dcs/verify_code" id="verify_img"/>
+        <img src="/dcs/verify_code" id="verify_img"/>
         <a href="#" id="change">看不清,换一张</a>
         <a id="submitButton" class="btn btn-100">登录</a>
     </form>

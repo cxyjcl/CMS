@@ -13,7 +13,6 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.alibaba.fastjson.JSON;
 import com.dcs.constants.ListCodeEnum;
 import com.dcs.dao.PojoToMapperDao;
 import com.dcs.dto.ListInfoDto;
@@ -21,7 +20,6 @@ import com.dcs.pojo.ListInfo;
 import com.dcs.pojo.request.Page;
 import com.dcs.service.PojoToMapperService;
 import com.dcs.service.UserService;
-import com.dcs.service.excel.Excel2CadresInfo;
 import com.dcs.util.TableUtils;
 
 /**
@@ -108,7 +106,7 @@ public class PojoToMapperServiceImpl implements PojoToMapperService{
 	}
 
 	@Override
-	public List<ListInfo> selectLimit() {
+	public List<ListInfoDto> selectLimit() {
 		return dao.selectLimit();
 	}
 	

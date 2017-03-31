@@ -131,3 +131,6 @@ th,td{
 .static{
     position:static !important;
 }
+.red{
+	color:red;
+}

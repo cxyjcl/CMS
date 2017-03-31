@@ -35,6 +35,16 @@ public class UserController {
 		return "view/user/login";
 	}
 	
+	@RequestMapping("/change")
+	public String change(){
+		return "view/user/change";
+	}
+	
+	@RequestMapping("/management")
+	public String user(){
+		return "view/user/management";
+	}
+	
 	// login
 	@RequestMapping("/login")
 	@ResponseBody
