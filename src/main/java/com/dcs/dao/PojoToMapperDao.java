@@ -32,4 +32,6 @@ public interface PojoToMapperDao {
 
 	List<ListInfoDto> selectLimit();
 
+	String selectTitle(@Param("listId")String listId, @Param("infoId")Integer infoId);
+
 }

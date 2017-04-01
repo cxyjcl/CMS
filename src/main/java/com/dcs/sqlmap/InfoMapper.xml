@@ -31,9 +31,13 @@
 		<include refid="global.page-pagination"/>
 	</select>
 	
+	<select id="selectTitle" resultType="java.lang.String">
+		select title from t_list_info where info_id = #{infoId} and list_id = #{listId}
+	</select>
+	
 	<select id="selectInfo" resultType="java.util.LinkedHashMap">
 		SELECT
-			title,t_cadres_info.*
+			${table}.*
 		FROM
 			t_list_info,
 			${table}

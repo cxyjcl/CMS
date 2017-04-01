@@ -119,10 +119,12 @@ public class PojoToMappController {
         	System.out.println(table);
         	LinkedHashMap mapString = pojoToMapperService.selectCol(code);
 			List<LinkedHashMap> map = pojoToMapperService.selectInfo(code, infoId);
+			String title = pojoToMapperService.selectTitle(code,infoId);
 			view.addObject("map",mapString);
         	message = Message.success("查找成功！");
         	view.addObject("message",message);
         	view.addObject("list",map);
+        	view.addObject("title",title);
         	view.setViewName("/view/component/info");
 			return view;
         } catch (Exception e) {

@@ -120,5 +120,10 @@ public class PojoToMapperServiceImpl implements PojoToMapperService{
 	public List<ListInfoDto> selectLimit() {
 		return dao.selectLimit();
 	}
+
+	@Override
+	public String selectTitle(String code, Integer infoId) {
+		return dao.selectTitle(code,infoId);
+	}
 	
 }

@@ -30,5 +30,7 @@ public interface PojoToMapperService {
 	public List<ListInfoDto> selectLimit();
 	
 	public LinkedHashMap selectCol(String code) throws Exception;
+
+	public String selectTitle(String code, Integer infoId);
 	
 }

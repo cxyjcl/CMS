@@ -50,7 +50,7 @@
     </div>
     <div class="group">
         <table class="table table-striped">
-            <caption class="text-center">机 械 1501 班 基 本 情 况</caption>
+            <caption class="text-center">${title}</caption>
             <thead>
             	<tr>
              <c:forEach items="${map}" var="map">
@@ -60,10 +60,10 @@
             </thead>
             <tbody>
               <c:forEach items="${list}" var="info">
-                <tr>
+                <tr id="${info.id}">
                 	<c:forEach items="${info}" var="item">
-                		<c:if test="${item.key ne 'title' && item.key ne 'id' &&item.key ne 'infoId' && item.key ne 'dataStatus'}">
-			                <td>
+                		<c:if test="${item.key ne 'id' &&item.key ne 'info_id' && item.key ne 'data_status'}">
+			                <td class="${item.key}">
 		                		${item.value}
 			                </td>
 		                </c:if>
