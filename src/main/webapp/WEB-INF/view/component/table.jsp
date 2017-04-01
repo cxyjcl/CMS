@@ -73,7 +73,11 @@
             <tbody>
               <c:forEach items="${list}" var="info">
                 <tr>
-					${info.value}
+                    <td><a href="/dcs/excel/select_info?code=${info.listId}&info_id=${info.infoId}">${info.excelName}</a></td>
+                    <td>${info.creator}</td>
+                    <td><fmt:formatDate value="${info.createTime}" pattern="yyyy-MM-dd"/></td>
+               		<td>${info.reviser}</td>
+               		<td><fmt:formatDate value="${info.reviseTime}" pattern="yyyy-MM-dd"/></td>
                 </tr>
               </c:forEach>
             </tbody>

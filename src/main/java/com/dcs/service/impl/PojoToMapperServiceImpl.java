@@ -6,6 +6,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -40,17 +41,17 @@ public class PojoToMapperServiceImpl implements PojoToMapperService{
 	@Autowired
 	private UserService userService;
 
-	public List<HashMap> selectInfo(String code,Integer infoId) throws Exception {		
+	public List<LinkedHashMap> selectInfo(String code,Integer infoId) throws Exception {		
     	String table = ListCodeEnum.fromCode(code).getValue();
-		List<HashMap> mapList = dao.selectInfo(table,infoId);
+		List<LinkedHashMap> mapList = dao.selectInfo(table,infoId);
 		return mapList;
 	}
 	
-	public HashMap selectCol(String code) throws Exception{
+	public LinkedHashMap selectCol(String code) throws Exception{
 		String name = ListCodeEnum.fromCode(code).getInstance();
 		Class instance= Class.forName("com.dcs.pojo."+name);
 		Object obj = instance.newInstance();
-		HashMap mapString = StringToMap.getData(obj.toString());
+		LinkedHashMap mapString = StringToMap.getData(obj.toString());
 		return mapString;
 	}
 	

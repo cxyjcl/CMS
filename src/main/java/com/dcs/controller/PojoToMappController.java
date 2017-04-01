@@ -1,6 +1,7 @@
 package com.dcs.controller;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -116,8 +117,8 @@ public class PojoToMappController {
 		try {
         	String table = ListCodeEnum.fromCode(code).getValue();
         	System.out.println(table);
-        	HashMap mapString = pojoToMapperService.selectCol(code);
-			List<HashMap> map = pojoToMapperService.selectInfo(code, infoId);
+        	LinkedHashMap mapString = pojoToMapperService.selectCol(code);
+			List<LinkedHashMap> map = pojoToMapperService.selectInfo(code, infoId);
 			view.addObject("map",mapString);
         	message = Message.success("查找成功！");
         	view.addObject("message",message);

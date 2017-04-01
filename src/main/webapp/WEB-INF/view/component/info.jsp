@@ -61,11 +61,13 @@
             <tbody>
               <c:forEach items="${list}" var="info">
                 <tr>
-                    <td><a href="/dcs/excel/select_info?code=${info.listId}&info_id=${info.infoId}">${info.excelName}</a></td>
-                    <td>${info.creator}</td>
-                    <td><fmt:formatDate value="${info.createTime}" pattern="yyyy-MM-dd"/></td>
-               		<td>${info.reviser}</td>
-               		<td><fmt:formatDate value="${info.reviseTime}" pattern="yyyy-MM-dd"/></td>
+                	<c:forEach items="${info}" var="item">
+                		<c:if test="${item.key ne 'title' && item.key ne 'id' &&item.key ne 'infoId' && item.key ne 'dataStatus'}">
+			                <td>
+		                		${item.value}
+			                </td>
+		                </c:if>
+	                </c:forEach>
                 </tr>
               </c:forEach>
             </tbody>
