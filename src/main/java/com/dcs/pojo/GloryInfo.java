@@ -1,7 +1,5 @@
 package com.dcs.pojo;
 
-import java.util.Date;
-
 public class GloryInfo {
 	private Integer id;
 
@@ -17,7 +15,7 @@ public class GloryInfo {
 
 	private String contestGrade;
 
-	private Date rewardTime;
+	private String rewardTime;
 
 	private String remark;
 
@@ -89,11 +87,11 @@ public class GloryInfo {
 		this.contestGrade = contestGrade == null ? null : contestGrade.trim();
 	}
 
-	public Date getRewardTime() {
+	public String getRewardTime() {
 		return rewardTime;
 	}
 
-	public void setRewardTime(Date rewardTime) {
+	public void setRewardTime(String rewardTime) {
 		this.rewardTime = rewardTime;
 	}
 
@@ -115,9 +113,8 @@ public class GloryInfo {
 
 	@Override
 	public String toString() {
-		return "GloryInfo [id=" + id + ", infoId=" + infoId + ", name=" + name + ", studentId=" + studentId
-				+ ", classroom=" + classroom + ", contestName=" + contestName + ", contestGrade=" + contestGrade
-				+ ", rewardTime=" + rewardTime + ", remark=" + remark + ", rewardNature=" + rewardNature + "]";
+		return "{name=姓名,studentId=学号,classroom=班级,contestName=比赛名称,"
+				+"contestGrade=获奖等级,rewardTime=获奖时间,remark=备注,rewardNature=获奖性质}";
 	}
 
 }

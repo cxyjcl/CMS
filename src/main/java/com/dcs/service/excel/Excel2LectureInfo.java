@@ -61,7 +61,7 @@ public class Excel2LectureInfo {
 
 			LectureInfo lectureInfo = new LectureInfo();
 			lectureInfo.setPlay(cell[0].getStringCellValue());
-			lectureInfo.setTime(cell[1].getDateCellValue());
+			lectureInfo.setTime(cell[1].getStringCellValue());
 			lectureInfo.setPlace(cell[2].getStringCellValue());
 			lectureInfo.setObject(cell[3].getStringCellValue());
 			lectureInfo.setTalker(cell[4].getStringCellValue());

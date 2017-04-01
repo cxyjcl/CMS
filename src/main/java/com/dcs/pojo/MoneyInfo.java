@@ -103,9 +103,8 @@ public class MoneyInfo {
 
 	@Override
 	public String toString() {
-		return "MoneyInfo [id=" + id + ", infoId=" + infoId + ", moneyName=" + moneyName + ", name=" + name
-				+ ", studentId=" + studentId + ", classroom=" + classroom + ", grade=" + grade + ", money=" + money
-				+ ", remark=" + remark + "]";
+		return "{moneyName=性质,name=姓名,studentId=学号,classroom=行政班级,"
+				+"grade=等级,money=金额,remark=备注}";
 	}
 
 }

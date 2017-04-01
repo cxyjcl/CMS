@@ -62,7 +62,7 @@ public class Excel2IndividualAchievement {
 			IndividualAchievement individualAchievement = new IndividualAchievement();
 			individualAchievement.setAchievement(cell[0].getStringCellValue());
 			individualAchievement.setReward(cell[1].getStringCellValue());
-			individualAchievement.setRewardTime(cell[2].getDateCellValue());
+			individualAchievement.setRewardTime(cell[2].getStringCellValue());
 			individualAchievement.setRemark(cell[3].getStringCellValue());
 			individualAchievementList.add(individualAchievement);
 			rowIndex++;

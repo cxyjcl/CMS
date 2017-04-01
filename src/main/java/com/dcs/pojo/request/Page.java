@@ -1,22 +1,28 @@
 package com.dcs.pojo.request;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+
+import org.apache.commons.lang.StringUtils;
 
 /**
+ * ClassName: Request
+ * 
  * @Description: 请求分页参数基类
- * @author cbjcl
+ * @author zongzi
  * @date 2016年7月27日 下午2:03:38
  */
 public class Page implements Serializable {
-	private static final long serialVersionUID = -4527112189386545207L;
+
+	/**
+	 */
+	private static final long serialVersionUID = -4459581002535608627L;
 	// 当前页
 	private Integer pageIndex;
 	// 每页条数
 	private Integer pageSize;
 	// 开始记录
+	@SuppressWarnings("unused")
 	private Integer pageStart;
-
 	// null或者0分页；1：不分页
 	private Integer all;
 	private String startDate;
@@ -25,7 +31,7 @@ public class Page implements Serializable {
 	private String sortField;
 	// desc or asc
 	private String orderType;
-	
+
 	public Integer getPageIndex() {
 		if (pageIndex == null || pageIndex == 0) {
 			return 1;
@@ -88,7 +94,11 @@ public class Page implements Serializable {
 	}
 
 	public void setSortField(String sortField) {
-		this.sortField = sortField;
+		if (pageIndex == null) {
+			this.sortField="id";
+		} else{
+			this.sortField = sortField;
+		}
 	}
 
 	public String getOrderType() {
@@ -96,16 +106,11 @@ public class Page implements Serializable {
 	}
 
 	public void setOrderType(String orderType) {
-		this.orderType = orderType;
+		if (pageIndex == null) {
+			this.sortField="asc";
+		} else{
+			this.sortField = orderType;
+		}
 	}
 
-	@Override
-	public String toString() {
-		return "Page [pageIndex=" + pageIndex + ", pageSize=" + pageSize
-				+ ", pageStart=" + pageStart + ", all=" + all + ", startDate="
-				+ startDate + ", endDate=" + endDate + ", sortField="
-				+ sortField + ", orderType=" + orderType + "]";
-	}
-
-	
 }

@@ -1,8 +1,9 @@
 package com.dcs.pojo;
 
-import java.util.Date;
 
-public class ListInfo {
+import com.dcs.pojo.request.Page;
+
+public class ListInfo extends Page{
 
 	private Integer id;
 
@@ -16,11 +17,11 @@ public class ListInfo {
 
 	private Integer creator;
 
-	private Date createTime;
+	private String createTime;
 
 	private Integer reviser;
 
-	private Date reviseTime;
+	private String reviseTime;
 
 	private String userLevel;
 	
@@ -74,11 +75,11 @@ public class ListInfo {
 		this.creator = creator;
 	}
 
-	public Date getCreateTime() {
+	public String getCreateTime() {
 		return createTime;
 	}
 
-	public void setCreateTime(Date createTime) {
+	public void setCreateTime(String createTime) {
 		this.createTime = createTime;
 	}
 
@@ -90,11 +91,11 @@ public class ListInfo {
 		this.reviser = reviser;
 	}
 
-	public Date getReviseTime() {
+	public String getReviseTime() {
 		return reviseTime;
 	}
 
-	public void setReviseTime(Date reviseTime) {
+	public void setReviseTime(String reviseTime) {
 		this.reviseTime = reviseTime;
 	}
 

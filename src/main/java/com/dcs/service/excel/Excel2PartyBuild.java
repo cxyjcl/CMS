@@ -68,8 +68,8 @@ public class Excel2PartyBuild {
 			partyBuild.setSex(cell[4].getStringCellValue());
 			partyBuild.setPartyBranch(cell[5].getStringCellValue());
 			partyBuild.setBirthday(cell[6].getStringCellValue());
-			partyBuild.setProbationaryPartyMemberDate(cell[7].getDateCellValue());
-			partyBuild.setRegularPartyMemberDate(cell[8].getDateCellValue());
+			partyBuild.setProbationaryPartyMemberDate(cell[7].getStringCellValue());
+			partyBuild.setRegularPartyMemberDate(cell[8].getStringCellValue());
 			partyBuild.setNation(cell[9].getStringCellValue());
 			row.getCell(10).setCellType(Cell.CELL_TYPE_STRING);
 			partyBuild.setIdCard(cell[10].getStringCellValue());

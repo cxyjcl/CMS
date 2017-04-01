@@ -68,24 +68,12 @@
                     <th>提交时间</th>
                     <th>修改人</th>
                     <th>修改时间</th>
-                    <th>状态</th>
                 </tr>
             </thead>
             <tbody>
-            <script>console.log(${list})</script>
               <c:forEach items="${list}" var="info">
                 <tr>
-                    <td><a href="/excel/select_info/code=${info.listId}&info_id=${info.infoId}">${info.excelName}</a></td>
-                    <td>${info.creator}</td>
-                    <td><fmt:formatDate value="${info.createTime}" pattern="yyyy-MM-dd"/></td>
-               		<td>${info.reviser}</td>
-               		<td><fmt:formatDate value="${info.reviseTime}" pattern="yyyy-MM-dd"/></td>
-               		<c:if test="${info.dataStatus eq '000'}">
-               			<td class="red">删除</td>
-               		</c:if>
-               		<c:if test="${info.dataStatus eq '001'}">
-               			<td>创建</td>
-               		</c:if>
+					${info.value}
                 </tr>
               </c:forEach>
             </tbody>

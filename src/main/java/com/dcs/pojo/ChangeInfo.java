@@ -15,7 +15,7 @@ public class ChangeInfo {
 
 	private String changeReason;
 
-	private Date changeTime;
+	private String changeTime;
 
 	private String dataStatus;
 	
@@ -75,17 +75,17 @@ public class ChangeInfo {
 		this.changeReason = changeReason == null ? null : changeReason.trim();
 	}
 
-	public Date getChangeTime() {
+	public String getChangeTime() {
 		return changeTime;
 	}
 
-	public void setChangeTime(Date changeTime) {
+	public void setChangeTime(String changeTime) {
 		this.changeTime = changeTime;
 	}
 
 	@Override
 	public String toString() {
-		return "ChangeInfo [id=" + id + ", infoId=" + infoId + ", name=" + name + ", studentId=" + studentId
-				+ ", classroom=" + classroom + ", changeReason=" + changeReason + ", changeTime=" + changeTime + "]";
-	}
+		return "{name=姓名,studentId=学号,classroom=班级,changeReason=异动原因,"
+				+"changeTime=异动时间}";
+		}
 }

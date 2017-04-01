@@ -123,10 +123,9 @@ public class CampusActivities {
 
 	@Override
 	public String toString() {
-		return "CampusActivities [id=" + id + ", infoId=" + infoId + ", contextName=" + contextName + ", project="
-				+ project + ", contextGrade=" + contextGrade + ", studentId=" + studentId + ", reward=" + reward
-				+ ", studentName=" + studentName + ", grade=" + grade + ", classroom=" + classroom + ", remark="
-				+ remark + "]";
+		return "{contextName=比赛名称,project=项目,contextGrade=级别,studentId=获奖者学号,"
+				+"reward=奖项,studentName=获奖者,grade=年级,classroom=班级"
+				+ ",remark=备注}";
 	}
 
 }

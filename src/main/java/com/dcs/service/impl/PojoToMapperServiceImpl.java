@@ -20,6 +20,7 @@ import com.dcs.pojo.ListInfo;
 import com.dcs.pojo.request.Page;
 import com.dcs.service.PojoToMapperService;
 import com.dcs.service.UserService;
+import com.dcs.util.StringToMap;
 import com.dcs.util.TableUtils;
 
 /**
@@ -39,9 +40,18 @@ public class PojoToMapperServiceImpl implements PojoToMapperService{
 	@Autowired
 	private UserService userService;
 
-	public List<HashMap> selectInfo(String value,Integer infoId) throws Exception {		
-		List<HashMap> mapList = dao.selectInfo(value,infoId);
+	public List<HashMap> selectInfo(String code,Integer infoId) throws Exception {		
+    	String table = ListCodeEnum.fromCode(code).getValue();
+		List<HashMap> mapList = dao.selectInfo(table,infoId);
 		return mapList;
+	}
+	
+	public HashMap selectCol(String code) throws Exception{
+		String name = ListCodeEnum.fromCode(code).getInstance();
+		Class instance= Class.forName("com.dcs.pojo."+name);
+		Object obj = instance.newInstance();
+		HashMap mapString = StringToMap.getData(obj.toString());
+		return mapString;
 	}
 	
 	@Override

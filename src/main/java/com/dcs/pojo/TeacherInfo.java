@@ -93,9 +93,8 @@ public class TeacherInfo {
 
 	@Override
 	public String toString() {
-		return "TeacherInfo [id=" + id + ", infoId=" + infoId + ", classroom=" + classroom + ", teacher=" + teacher
-				+ ", sex=" + sex + ", nativePlace=" + nativePlace + ", birthPlace=" + birthPlace + ", contacts="
-				+ contacts + "]";
+		return "{classroom=班级,teacher=班主任,sex=性别,nativePlace=籍贯,"
+				+"birthPlace=出生地,contacts=联系方式}";
 	}
 
 }

@@ -64,7 +64,7 @@ public class Excel2ChangeInfo {
 			changeInfo.setStudentId((int) cell[1].getNumericCellValue());
 			changeInfo.setClassroom(cell[2].getStringCellValue());
 			changeInfo.setChangeReason(cell[3].getStringCellValue());
-			changeInfo.setChangeTime(cell[4].getDateCellValue());
+			changeInfo.setChangeTime(cell[4].getStringCellValue());
 			changeInfoList.add(changeInfo);
 			rowIndex++;
 			row = sheet.getRow(rowIndex);

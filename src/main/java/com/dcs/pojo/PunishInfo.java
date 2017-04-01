@@ -1,6 +1,5 @@
 package com.dcs.pojo;
 
-import java.util.Date;
 
 public class PunishInfo {
 	private Integer id;
@@ -17,7 +16,7 @@ public class PunishInfo {
 
 	private String punishReason;
 
-	private Date punishTime;
+	private String punishTime;
 
 	private String dataStatus;
 	
@@ -85,19 +84,18 @@ public class PunishInfo {
 		this.punishReason = punishReason == null ? null : punishReason.trim();
 	}
 
-	public Date getPunishTime() {
+	public String getPunishTime() {
 		return punishTime;
 	}
 
-	public void setPunishTime(Date punishTime) {
+	public void setPunishTime(String punishTime) {
 		this.punishTime = punishTime;
 	}
 
 	@Override
 	public String toString() {
-		return "PunishInfo [id=" + id + ", infoId=" + infoId + ", name=" + name + ", studentId=" + studentId
-				+ ", classroom=" + classroom + ", punishGrade=" + punishGrade + ", punishReason=" + punishReason
-				+ ", punishTime=" + punishTime + "]";
+		return "{name=姓名,studentId=学号,classroom=班级,punishGrade=处分等级,"
+				+"punishReason=处分原因,punishTime=处分时间}";
 	}
 
 }

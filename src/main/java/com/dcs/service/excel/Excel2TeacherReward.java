@@ -63,7 +63,7 @@ public class Excel2TeacherReward {
 			teacherReward.setName(cell[1].getStringCellValue());
 			teacherReward.setRewardName(cell[2].getStringCellValue());
 			teacherReward.setRewardGrade(cell[3].getStringCellValue());
-			teacherReward.setRewardTime(cell[4].getDateCellValue());
+			teacherReward.setRewardTime(cell[4].getStringCellValue());
 			teacherReward.setRemark(cell[5].getStringCellValue());
 			teacherReward.setRewardNature(cell[0].getStringCellValue());
 			teacherRewardList.add(teacherReward);

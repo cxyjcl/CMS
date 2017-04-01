@@ -113,9 +113,9 @@ public class ClassInfo {
 
 	@Override
 	public String toString() {
-		return "ClassInfo [id=" + id + ", infoId=" + infoId + ", studentId=" + studentId + ", name=" + name + ", sex="
-				+ sex + ", nativePlace=" + nativePlace + ", birthPlace=" + birthPlace + ", idCard=" + idCard
-				+ ", contacts=" + contacts + ", partyMember=" + partyMember + "]";
+		return "{studentId=学号,name=姓名,sex=性别,nativePlace=籍贯,"
+				+"birthPlace=出生地,idCard=身份证号,contacts=联系方式"
+				+ ",partyMember=备注（党员√）}";
 	}
 
 }

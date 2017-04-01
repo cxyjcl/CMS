@@ -115,8 +115,11 @@ public class PojoToMappController {
 		ModelAndView view = new ModelAndView();
 		try {
         	String table = ListCodeEnum.fromCode(code).getValue();
-			List<HashMap> map = pojoToMapperService.selectInfo(table, infoId);
-        	message = Message.success("查找成功！"); 
+        	System.out.println(table);
+        	HashMap mapString = pojoToMapperService.selectCol(code);
+			List<HashMap> map = pojoToMapperService.selectInfo(code, infoId);
+			view.addObject("map",mapString);
+        	message = Message.success("查找成功！");
         	view.addObject("message",message);
         	view.addObject("list",map);
         	view.setViewName("/view/component/info");

@@ -1,6 +1,5 @@
 package com.dcs.pojo;
 
-import java.util.Date;
 
 public class LectureInfo {
 	private Integer id;
@@ -9,7 +8,7 @@ public class LectureInfo {
 
 	private String play;
 
-	private Date time;
+	private String time;
 
 	private String place;
 
@@ -53,11 +52,11 @@ public class LectureInfo {
 		this.play = play == null ? null : play.trim();
 	}
 
-	public Date getTime() {
+	public String getTime() {
 		return time;
 	}
 
-	public void setTime(Date time) {
+	public void setTime(String time) {
 		this.time = time;
 	}
 
@@ -95,8 +94,8 @@ public class LectureInfo {
 
 	@Override
 	public String toString() {
-		return "LectureInfo [id=" + id + ", infoId=" + infoId + ", play=" + play + ", time=" + time + ", place=" + place
-				+ ", object=" + object + ", talker=" + talker + ", participants=" + participants + "]";
+		return "{play=场次,time=时间,time=级别,place=地点,object=主题"
+				+"talker=主讲人,participants=参加人员}";
 	}
 
 }

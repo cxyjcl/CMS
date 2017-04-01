@@ -12,7 +12,7 @@ public interface PojoToMapperService {
 		
 	public int deleteList(Integer id, Integer reviser) throws Exception;
 	
-	public List<HashMap> selectInfo(String value,Integer infoId) throws Exception;
+	public List<HashMap> selectInfo(String code,Integer infoId) throws Exception;
 
 	public int insert(String code, InputStream inputStream,ListInfo listInfo) throws Exception;
 	
@@ -27,5 +27,7 @@ public interface PojoToMapperService {
 	int delete(String table, int id,Integer reviser) throws Exception;
 
 	public List<ListInfoDto> selectLimit();
+	
+	public HashMap selectCol(String code) throws Exception;
 	
 }

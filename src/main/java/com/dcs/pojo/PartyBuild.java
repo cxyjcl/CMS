@@ -1,6 +1,5 @@
 package com.dcs.pojo;
 
-import java.util.Date;
 
 public class PartyBuild {
 	private Integer id;
@@ -19,9 +18,9 @@ public class PartyBuild {
 
 	private String birthday;
 
-	private Date probationaryPartyMemberDate;
+	private String probationaryPartyMemberDate;
 
-	private Date regularPartyMemberDate;
+	private String regularPartyMemberDate;
 
 	private String nation;
 
@@ -30,6 +29,8 @@ public class PartyBuild {
 	private String numParty;
 
 	private String dataStatus;
+	
+	private String partyNature;
 	
 	public String getDataStatus() {
 		return dataStatus;
@@ -103,20 +104,20 @@ public class PartyBuild {
 		this.birthday = birthday == null ? null : birthday.trim();
 	}
 
-	public Date getProbationaryPartyMemberDate() {
+	public String getProbationaryPartyMemberDate() {
 		return probationaryPartyMemberDate;
 	}
 
-	public void setProbationaryPartyMemberDate(Date probationaryPartyMemberDate) {
+	public void setProbationaryPartyMemberDate(String probationaryPartyMemberDate) {
 		this.probationaryPartyMemberDate = probationaryPartyMemberDate;
 	}
 
-	public Date getRegularPartyMemberDate() {
-		return regularPartyMemberDate;
+	public String getRegularPartyMemberDate() {
+		return probationaryPartyMemberDate;
 	}
 
-	public void setRegularPartyMemberDate(Date regularPartyMemberDate) {
-		this.regularPartyMemberDate = regularPartyMemberDate;
+	public void setRegularPartyMemberDate(String probationaryPartyMemberDate) {
+		this.probationaryPartyMemberDate = probationaryPartyMemberDate;
 	}
 
 	public String getNation() {
@@ -142,14 +143,21 @@ public class PartyBuild {
 	public void setNumParty(String numParty) {
 		this.numParty = numParty == null ? null : numParty.trim();
 	}
+	
+	public String getPartyNature() {
+		return partyNature;
+	}
+
+	public void setPartyNature(String partyNature) {
+		this.partyNature = partyNature;
+	}
 
 	@Override
 	public String toString() {
-		return "PartyBuild [id=" + id + ", infoId=" + infoId + ", studentId=" + studentId + ", name=" + name
-				+ ", classroom=" + classroom + ", sex=" + sex + ", partyBranch=" + partyBranch + ", birthday="
-				+ birthday + ", probationaryPartyMemberDate=" + probationaryPartyMemberDate
-				+ ", regularPartyMemberDate=" + regularPartyMemberDate + ", nation=" + nation + ", idCard=" + idCard
-				+ ", numParty=" + numParty + "]";
+		return "{studentId=学号,name=姓名,classroom=班级,sex=性别,"
+				+"partyBranch=党支部,birthday=出生年月,probationaryPartyMemberString=成为预备党员时间,"
+				+ "regularPartyMemberDate=转正时间"
+				+ ",nation=民族,idCard=身份证号码,numParty=党校期数,partyNature=党员性质}";
 	}
 
 }

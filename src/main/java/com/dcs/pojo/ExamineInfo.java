@@ -11,6 +11,8 @@ public class ExamineInfo {
 
 	private Double studentExamine;
 
+	private Double evaluationExamine;
+	
 	private Double totalExamine;
 
 	private String dataStatus;
@@ -71,10 +73,17 @@ public class ExamineInfo {
 		this.totalExamine = totalExamine;
 	}
 
+	public Double getEvaluationExamine() {
+		return evaluationExamine;
+	}
+
+	public void setEvaluationExamine(Double evaluationExamine) {
+		this.evaluationExamine = evaluationExamine;
+	}
+
 	@Override
 	public String toString() {
-		return "ExamineInfo [id=" + id + ", infoId=" + infoId + ", counselor=" + counselor + ", dailyExamine="
-				+ dailyExamine + ", studentExamine=" + studentExamine + ", totalExamine=" + totalExamine + "]";
+		return "{counselor=辅导员,dailyExamine=日常考核（100分）,studentExamine=学生测评（100分）,evaluationExamine=绩效考核（100分）,totalExamine=综合得分}";
 	}
 
 }

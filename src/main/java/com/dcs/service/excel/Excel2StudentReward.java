@@ -66,7 +66,7 @@ public class Excel2StudentReward {
 			studentReward.setClassroom(cell[4].getStringCellValue());
 			studentReward.setRewardName(cell[5].getStringCellValue());
 			studentReward.setRewardGrade(cell[6].getStringCellValue());
-			studentReward.setRewardTime(cell[7].getDateCellValue());
+			studentReward.setRewardTime(cell[7].getStringCellValue());
 			studentReward.setRemark(cell[8].getStringCellValue());
 			studentReward.setRewardNature(cell[0].getStringCellValue());
 			studentRewardList.add(studentReward);

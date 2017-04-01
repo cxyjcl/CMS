@@ -103,9 +103,8 @@ public class ContestInfo {
 
 	@Override
 	public String toString() {
-		return "ContestInfo [id=" + id + ", infoId=" + infoId + ", sponsor=" + sponsor + ", contestName=" + contestName
-				+ ", contestGrade=" + contestGrade + ", workName=" + workName + ", contestStudent=" + contestStudent
-				+ ", tutor=" + tutor + ", remark=" + remark + "]";
+		return "{sponsor=主办单位,contestName=比赛名称,contextGrade=获奖等级,workName=作品名称,"
+				+"contestStudent=获奖学生,tutor=指导老师,remark=备注";
 	}
 
 }

@@ -65,7 +65,7 @@ public class Excel2PunishInfo {
 			punishInfo.setClassroom(cell[2].getStringCellValue());
 			punishInfo.setPunishGrade(cell[3].getStringCellValue());
 			punishInfo.setPunishReason(cell[4].getStringCellValue());
-			punishInfo.setPunishTime(cell[5].getDateCellValue());
+			punishInfo.setPunishTime(cell[5].getStringCellValue());
 			punishInfoList.add(punishInfo);
 			rowIndex++;
 			row = sheet.getRow(rowIndex);

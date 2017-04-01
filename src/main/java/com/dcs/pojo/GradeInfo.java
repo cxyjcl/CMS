@@ -193,13 +193,11 @@ public class GradeInfo {
 
 	@Override
 	public String toString() {
-		return "GradeInfo [id=" + id + ", infoId=" + infoId + ", classroom=" + classroom + ", people=" + people
-				+ ", male=" + male + ", female=" + female + ", partyMember=" + partyMember + ", activist=" + activist
-				+ ", teacher=" + teacher + ", monitor=" + monitor + ", leagueSecretary=" + leagueSecretary
-				+ ", studiesCommissary=" + studiesCommissary + ", sportsCommissary=" + sportsCommissary
-				+ ", affairCommissary=" + affairCommissary + ", organizationCommissary=" + organizationCommissary
-				+ ", publicityCommissary=" + publicityCommissary + ", psychologicalCommissary="
-				+ psychologicalCommissary + ", remark=" + remark + "]";
+		return "{classroom=班级,people=人数,male=男生,female=女生,"
+				+"partyMember=党员,activist=积极分子,teacher=班主任,monitor=班长"
+				+ ",leagueSecretary=团支书,studiesCommissary=学委,"
+				+ "sportsCommissary=体育委员,affairCommissary=生活委员,organizationCommissary=组织委员,"
+				+ "publicityCommissary=宣传委员,psychologicalCommissary=心理委员,remark=备注}";
 	}
 
 }

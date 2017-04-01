@@ -65,7 +65,7 @@ public class Excel2GloryInfo {
 			gloryInfo.setClassroom(cell[3].getStringCellValue());
 			gloryInfo.setContestName(cell[4].getStringCellValue());
 			gloryInfo.setContestGrade(cell[5].getStringCellValue());
-			gloryInfo.setRewardTime(cell[6].getDateCellValue());
+			gloryInfo.setRewardTime(cell[6].getStringCellValue());
 			gloryInfo.setRemark(cell[7].getStringCellValue());
 			gloryInfo.setRewardNature(cell[0].getStringCellValue());
 			gloryInfoList.add(gloryInfo);

@@ -123,11 +123,9 @@ public class CadresInfo {
 
 	@Override
 	public String toString() {
-		return "CadresInfo [id=" + id + ", infoId=" + infoId + ", nameChairman=" + nameChairman + ", functionChairman="
-				+ functionChairman + ", contactsChairman=" + contactsChairman + ", departmentCharge=" + departmentCharge
-				+ ", nameSecretary=" + nameSecretary + ", functionSecretary=" + functionSecretary
-				+ ", contactsSecretary=" + contactsSecretary + ", studentOrganization=" + studentOrganization
-				+ ", remark=" + remark + "]";
+		return "{nameChairman=姓名（主席团）,functionChairman=职务,contactsChairman=联系方式,departmentCharge=分管部门,"
+				+"nameSecretary=姓名（部长）,functionSecretary=职务,contactsSecretary=联系方式,studentOrganization=所在学生组织"
+				+ ",remark=备注}";
 	}
 
 }
