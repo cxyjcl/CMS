@@ -1,4 +1,3 @@
-
 $("#login-a").click(function () {
     $("#login").show();
     $("#forget").hide();
@@ -45,7 +44,7 @@ $("#submitButton").click(function(){
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            url:"/dcs/user/login",
+            url:"/dcs/login",
             type: "POST",
             contentType: "application/json",
             dataType: "json",

@@ -11,6 +11,7 @@ import org.springframework.util.Assert;
 
 import com.dcs.dao.UserMapper;
 import com.dcs.pojo.User;
+import com.dcs.pojo.request.Page;
 import com.dcs.service.UserService;
 import com.dcs.util.MD5;
 
@@ -67,9 +68,8 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public List<User> selectAll(Object dataStatus) throws Exception {
-		List<User> userList= userMapper.selectAll(dataStatus);
-
+	public List<User> selectAll(Page page) throws Exception {
+		List<User> userList= userMapper.selectAll(page);
 		  return userList;
 	}
 

@@ -139,4 +139,8 @@
 <select id="selectLevel" parameterType="java.lang.Integer" resultType="java.lang.String">
 	select level from t_user where id = #{id}
 </select>
+<select id="selectAll" parameterType="com.dcs.pojo.request.Page" resultMap="UserMap">
+	select email,login_name,real_name,level,creator,create_time,reviser,reviser_time,data_status from t_user 
+	<include refid="global.mysql-pagination"/>
+</select>
 </mapper>

@@ -3,6 +3,7 @@ package com.dcs.service;
 import java.util.List;
 
 import com.dcs.pojo.User;
+import com.dcs.pojo.request.Page;
 
 public interface UserService{
 
@@ -12,7 +13,7 @@ public interface UserService{
 
 	public User selectById(Object id,Object dataStatus) throws Exception;
 
-	public List<User> selectAll(Object dataStatus) throws Exception;
+	public List<User> selectAll(Page page) throws Exception;
 
 	public Integer deleteById(Object id) throws Exception;
 

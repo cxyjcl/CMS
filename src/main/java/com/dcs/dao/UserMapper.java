@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.dcs.pojo.User;
+import com.dcs.pojo.request.Page;
 
 public interface UserMapper{
 
@@ -14,7 +15,7 @@ public interface UserMapper{
 
 	public User selectById(@Param("id")Object id,@Param("dataStatus") Object dataStatus) throws Exception;
 
-	public List<User> selectAll(Object dataStatus) throws Exception;
+	public List<User> selectAll(Page page) throws Exception;
 
 	public int deleteById(@Param("id")Object id,@Param("reviser")Object reviser) throws Exception;
 

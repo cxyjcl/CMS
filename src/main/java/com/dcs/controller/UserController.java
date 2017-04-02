@@ -1,5 +1,7 @@
 package com.dcs.controller;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -12,17 +14,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+
+
+
+
+import org.springframework.web.servlet.ModelAndView;
+
 import com.Message;
 import com.alibaba.fastjson.JSON;
 import com.dcs.constants.Code;
 import com.dcs.constants.DataStatusEnum;
 import com.dcs.pojo.User;
+import com.dcs.pojo.request.Page;
 import com.dcs.service.UserService;
 import com.dcs.util.IpUtils;
 import com.dcs.vo.UserVo;
 
 @Controller
-@RequestMapping("/user")
 public class UserController {
 
 	@Resource(name = "userService")
@@ -90,25 +98,24 @@ public class UserController {
 	@RequestMapping("/add/user")
 	@ResponseBody
 	public Message addUser(@RequestBody User user, HttpSession session) {
-		String id = session.getAttribute("id").toString();// 以后会改
+		String id = session.getAttribute("id").toString();
 		String password = user.getPassword();
 		String loginId = user.getLoginName();
-		if (loginId == null || password == null) {
+		String email = user.getEmail();
+		String realName = user.getRealName();
+		if (loginId == null || password == null || realName == null) {
 			return Message.error(Code.PARAMATER, "不得为空");
 		}
 		if (password.matches("^.*[\\s]+.*$")) {
 			return Message.error(Code.PARAMATER, "密码不能包含空格、制表符、换页符等空白字符");
 		}
-		if ((!password.contains("@"))
-				&& (!password.matches("^[1]([0-9][0-9])[0-9]{8}$"))) {
-			return Message.error(Code.PARAMATER, "手机号码错误");
-		}
-		if (password.contains("@")
-				&& password
-						.matches("^([a-z0-9A-Z]+[-|_|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$")) {
+		if (email.matches("^([a-z0-9A-Z]+[-|_|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$")) {
 			return Message.error(Code.PARAMATER, "邮箱不正确");
 		}
 		if (loginId.matches("^.*[\\s]+.*$")) {
+			return Message.error(Code.PARAMATER, "账号不能包含空格、制表符、换页符等空白字符");
+		}
+		if (realName.matches("^.*[\\s]+.*$")) {
 			return Message.error(Code.PARAMATER, "账号不能包含空格、制表符、换页符等空白字符");
 		}
 		user.setCreator(new Integer(id));
@@ -140,26 +147,22 @@ public class UserController {
 	public Message updateUser(@RequestBody User user, HttpServletRequest session) {
 		String password = user.getPassword();
 		String loginId = user.getLoginName();
-		String id = session.getAttribute("id").toString();// 以后会改
-		if (loginId == null || password == null) {
+		String email = user.getEmail();
+		String id = session.getAttribute("id").toString();
+		if (loginId == null || password == null ||email == null) {
 			return Message.error(Code.PARAMATER, "不得为空");
 		}
 		if (password.matches("^.*[\\s]+.*$")) {
 			return Message.error(Code.PARAMATER, "密码不能包含空格、制表符、换页符等空白字符");
 		}
-		if ((!password.contains("@"))
-				&& (!password.matches("^[1]([0-9][0-9])[0-9]{8}$"))) {
-			return Message.error(Code.PARAMATER, "手机号码错误");
-		}
-		if (password.contains("@")
-				&& password
-						.matches("^([a-z0-9A-Z]+[-|_|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$")) {
+		if (email.matches("^([a-z0-9A-Z]+[-|_|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$")) {
 			return Message.error(Code.PARAMATER, "邮箱不正确");
 		}
 		if (loginId.matches("^.*[\\s]+.*$")) {
 			return Message.error(Code.PARAMATER, "账号不能包含空格、制表符、换页符等空白字符");
 		}
 		try {
+			user.setId(new Integer(id));
 			user.setReviser(new Integer(id));
 			userService.update(user);
 			return Message.success("更新成功", Code.SUCCESS);
@@ -176,12 +179,32 @@ public class UserController {
 			return Message.error(Code.PARAMATER, "账号为空");
 		}
 		try {
-			User dto = userService.find(loginId,
+			user= userService.find(loginId,
 					DataStatusEnum.NORMAL_USED.getCode());
-			return Message.success(Code.SUCCESS, "查找成功", dto);
+			return Message.success(Code.SUCCESS, "查找成功", user);
 		} catch (Exception e) {
 			log.error(JSON.toJSONString(user) + "\n\t" + e.toString());
 			return Message.error(Code.ERROR_CONNECTION, "找不到此用户！");
+		}
+	}
+	
+	@RequestMapping("/get/user")
+	public ModelAndView getUser(Page page){
+		ModelAndView view = new ModelAndView();
+		Message message = new Message();
+		try {
+			List<User> userList = userService.selectAll(page);
+			message = Message.success("查找成功");
+			view.addObject("list",userList);
+			view.addObject("message",message);
+			view.setViewName("/view/user/list");
+			return view;
+		} catch (Exception e) {
+			log.error(e.toString());
+			view.setViewName("/view/error/error");
+			message = Message.error(Code.ERROR_CONNECTION, "查询数据库失败");
+			view.addObject("message",message);
+			return view;
 		}
 	}
 }

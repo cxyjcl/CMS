@@ -15,8 +15,8 @@
         <li><a href="/dcs/excel/student_office">学工办</a></li>
         <li><a href="/dcs/excel/subcommittee">分团委</a></li>
         <li><a href="/dcs/excel/counsellor">辅导员</a></li>
-        <li><a href="/dcs/user/management">用户管理</a></li>
-        <li><a href="/dcs/user/change">修改密码</a></li>
+        <li><a href="/dcs/management">用户管理</a></li>
+        <li><a href="/dcs/change">修改密码</a></li>
     </ul>
 </div>
 <div class="header">

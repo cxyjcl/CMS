@@ -2,7 +2,9 @@ package com.dcs.pojo;
 
 import java.util.Date;
 
-public class User {
+import com.dcs.pojo.request.Page;
+
+public class User extends Page{
 	private Integer id;
 
 	private String email;

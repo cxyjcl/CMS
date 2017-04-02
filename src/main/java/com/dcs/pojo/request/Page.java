@@ -32,6 +32,8 @@ public class Page implements Serializable {
 	// desc or asc
 	private String orderType;
 
+	public Page(){}
+	
 	public Integer getPageIndex() {
 		if (pageIndex == null || pageIndex == 0) {
 			return 1;

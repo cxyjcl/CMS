@@ -17,8 +17,8 @@
         <li><a href="/dcs/excel/student_office">学工办</a></li>
         <li><a href="/dcs/excel/subcommittee">分团委</a></li>
         <li><a href="/dcs/excel/counsellor">辅导员</a></li>
-        <li><a href="/dcs/user/management">用户管理</a></li>
-        <li><a href="/dcs/user/change">修改密码</a></li>
+        <li><a href="/dcs/management">用户管理</a></li>
+        <li><a href="/dcs/change">修改密码</a></li>
     </ul>
 </div>
 <div class="header">
@@ -64,7 +64,7 @@
                 	<c:forEach items="${info}" var="item">
                 		<c:if test="${item.key ne 'id' &&item.key ne 'info_id' && item.key ne 'data_status'}">
 			                <td class="${item.key}">
-		                		${item.value}
+		                		<a tabindex="0" role="button" data-toggle="popover" data-placement="top" data-toggle="popover" data-content="<div class='row'><div class='col-sm-9 col-xs-9'><input type='text' class='form-control' placeholder='请输入姓名'/></div><div class='col-sm-1 md-1'><button type='button' class='btn btn-primary confirm'>√</button></div></div>">${item.value}</a>
 			                </td>
 		                </c:if>
 	                </c:forEach>
@@ -77,10 +77,6 @@
 <script src="../static/js/jquery-1.3.2.min.js" charset="utf-8"></script>
 <script src="../static/js/content.js" charset="utf-8"></script>
 <script src="https://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script>
-    $(function (){
-        $("[data-toggle='popover']").popover({html : true });
-    });
-</script>
+<script src="../static/js/info.js" charset="utf-8"></script>
 </body>
 </html>
