@@ -90,6 +90,7 @@ public class PojoToMapperServiceImpl implements PojoToMapperService{
 	public int update(String value, Integer divId, HashMap infoMap,ListInfo listInfo)
 			throws Exception {
 		Integer id= dao.updateInfo(value,infoMap,divId);
+		System.out.println(id);
 		return id;
 	}
 

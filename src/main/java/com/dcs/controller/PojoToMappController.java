@@ -70,18 +70,19 @@ public class PojoToMappController {
 	}
 	
 	@RequestMapping("/update")
-	public Message updateInfo(@RequestParam("code") String code,@RequestParam("div_id") Integer divId ,@RequestParam("info_map") HashMap infoMap,HttpSession session){
+	public Message updateInfo(String code,Integer divId ,HashMap infoMap,HttpSession session){
 		int id = Integer.parseInt(session.getAttribute("user").toString());
         try {
+        	System.out.println("fafdas");
         	String value = ListCodeEnum.fromCode(code).getValue();
             ListInfo listInfo = new ListInfo();
             listInfo.setReviser(id);
 			pojoToMapperService.update(value,divId,infoMap,listInfo);
+			return Message.success("更新成功！");
         } catch (Exception e) {
 			log.info("用户id是："+JSON.toJSONString(id)+"报错信息是："+e.getStackTrace().toString());
 			return Message.error("更新失败！");    		
         }
-		return Message.success("更新成功！");
 	}
 
 	@RequestMapping("/delete_list")
@@ -124,6 +125,7 @@ public class PojoToMappController {
         	message = Message.success("查找成功！");
         	view.addObject("message",message);
         	view.addObject("list",map);
+        	view.addObject("code",code);
         	view.addObject("title",title);
         	view.setViewName("/view/component/info");
 			return view;

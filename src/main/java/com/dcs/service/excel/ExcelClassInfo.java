@@ -2,8 +2,11 @@ package com.dcs.service.excel;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -16,7 +19,7 @@ import org.junit.Test;
 
 import com.dcs.pojo.ClassInfo;
 
-public class Excel2ClassInfo {
+public class ExcelClassInfo {
 	private int rowIndex = 2; // The row index start from 3 row.
 	private final int column = 8; // All column is 8.
 
@@ -25,7 +28,7 @@ public class Excel2ClassInfo {
 	private HSSFRow row;
 	private HSSFCell[] cell = new HSSFCell[column];
 	private File file;
-	
+
 	/**
 	 * 学生班级信息一览表
 	 * 
@@ -35,7 +38,7 @@ public class Excel2ClassInfo {
 	 * @throws IOException
 	 */
 	@Test
-	public void ClassInfoServers() throws IOException {
+	public ArrayList<ClassInfo> upload() throws IOException {
 
 		ArrayList<ClassInfo> classInfoList = new ArrayList<ClassInfo>();
 
@@ -78,6 +81,51 @@ public class Excel2ClassInfo {
 		}
 		System.out.println("ClassInfo中数据导入完毕.");
 		System.out.println(classInfoList);
-		// return classInfoList;
+		return classInfoList;
+	}
+
+	public OutputStream download(ArrayList<ClassInfo> classInfoList) throws FileNotFoundException, IOException {
+		// 选择文件
+		file = new File("tempExcel/学生班级信息一览表.xls");
+		workbook = new HSSFWorkbook(new FileInputStream(file));// 创建操作Excel的HSSFWorkbook对象
+		sheet = workbook.getSheetAt(0);
+
+		int size = classInfoList.size();
+		for (int i = 0; i < size; i++) {// 循环，控制总行数
+			HSSFRow row = sheet.createRow(i + rowIndex);
+			ClassInfo classInfo = classInfoList.get(i);
+			HSSFCell cell = row.createCell(0);
+			cell.setCellValue(classInfo.getStudentId());
+			cell = row.createCell(1);
+			cell.setCellValue(classInfo.getName());
+			cell = row.createCell(2);
+			cell.setCellValue(classInfo.getSex());
+			cell = row.createCell(3);
+			cell.setCellValue(classInfo.getNativePlace());
+			cell = row.createCell(4);
+			cell.setCellValue(classInfo.getBirthPlace());
+			cell = row.createCell(5);
+			cell.setCellValue(classInfo.getIdCard());
+			cell = row.createCell(6);
+			cell.setCellValue(classInfo.getContacts());
+			cell = row.createCell(7);
+			cell.setCellValue(classInfo.getPartyMember());
+
+		}
+
+		// 利用数据流写入
+		OutputStream out = null;
+		out = new FileOutputStream(file);
+		// try {
+		// workbook.write(out);
+		// out.close();
+		// } catch (FileNotFoundException e) {
+		// e.printStackTrace();
+		// } catch (IOException e) {
+		// e.printStackTrace();
+		// }
+
+		System.out.println("数据已经写入excel中。");
+		return out;
 	}
 }

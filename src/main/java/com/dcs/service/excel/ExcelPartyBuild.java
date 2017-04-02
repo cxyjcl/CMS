@@ -2,8 +2,11 @@ package com.dcs.service.excel;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -16,7 +19,7 @@ import org.junit.Test;
 
 import com.dcs.pojo.PartyBuild;
 
-public class Excel2PartyBuild {
+public class ExcelPartyBuild {
 	private int rowIndex = 2; // The row index start from 3 row.
 	private final int column = 12; // All column is 12.
 
@@ -35,7 +38,7 @@ public class Excel2PartyBuild {
 	 * @throws IOException
 	 */
 	@Test
-	public void partyBuildServers() throws IOException {
+	public ArrayList<PartyBuild> upload() throws IOException {
 
 		ArrayList<PartyBuild> partyBuildList = new ArrayList<PartyBuild>();
 
@@ -81,6 +84,60 @@ public class Excel2PartyBuild {
 		}
 		System.out.println("PartyBuild中数据导入完毕.");
 		System.out.println(partyBuildList);
-		// return partyBuildList;
+		return partyBuildList;
 	}
+
+	public OutputStream download(ArrayList<PartyBuild> partyBuildList) throws FileNotFoundException, IOException {
+		// 选择文件
+		file = new File("tempExcel/年级本学期党建学生名单.xls");
+		workbook = new HSSFWorkbook(new FileInputStream(file));// 创建操作Excel的HSSFWorkbook对象
+		sheet = workbook.getSheetAt(0);
+
+		int size = partyBuildList.size();
+		for (int i = 0; i < size; i++) {// 循环，控制总行数
+			HSSFRow row = sheet.createRow(i + rowIndex);
+			PartyBuild partyBuild = partyBuildList.get(i);
+			HSSFCell cell = row.createCell(1);
+			cell.setCellValue(partyBuild.getStudentId());
+			cell = row.createCell(2);
+			cell.setCellValue(partyBuild.getName());
+			cell = row.createCell(3);
+			cell.setCellValue(partyBuild.getClassroom());
+			cell = row.createCell(4);
+			cell.setCellValue(partyBuild.getSex());
+			cell = row.createCell(5);
+			cell.setCellValue(partyBuild.getPartyBranch());
+			cell = row.createCell(6);
+			cell.setCellValue(partyBuild.getBirthday());
+			cell = row.createCell(7);
+			cell.setCellValue(partyBuild.getProbationaryPartyMemberDate());
+			cell = row.createCell(8);
+			cell.setCellValue(partyBuild.getRegularPartyMemberDate());
+			cell = row.createCell(9);
+			cell.setCellValue(partyBuild.getNation());
+			cell = row.createCell(10);
+			cell.setCellValue(partyBuild.getIdCard());
+			cell = row.createCell(11);
+			cell.setCellValue(partyBuild.getNumParty());
+			cell = row.createCell(0);
+			cell.setCellValue(partyBuild.getPartyNature());
+
+		}
+
+		// 利用数据流写入
+		OutputStream out = null;
+		out = new FileOutputStream(file);
+		// try {
+		// workbook.write(out);
+		// out.close();
+		// } catch (FileNotFoundException e) {
+		// e.printStackTrace();
+		// } catch (IOException e) {
+		// e.printStackTrace();
+		// }
+
+		System.out.println("数据已经写入excel中。");
+		return out;
+	}
+
 }

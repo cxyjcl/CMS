@@ -2,8 +2,11 @@ package com.dcs.service.excel;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -15,7 +18,7 @@ import org.junit.Test;
 
 import com.dcs.pojo.CampusActivities;
 
-public class Excel2CampusActivities {
+public class ExcelCampusActivities {
 	private int rowIndex = 3; // The row index start from 4 row.
 	private final int column = 9; // All column is 9.
 
@@ -34,7 +37,7 @@ public class Excel2CampusActivities {
 	 * @throws IOException
 	 */
 	@Test
-	public void CampusActivitiesServers() throws IOException {
+	public ArrayList<CampusActivities> upload() throws IOException {
 
 		ArrayList<CampusActivities> campusActivitiesList = new ArrayList<CampusActivities>();
 
@@ -76,6 +79,54 @@ public class Excel2CampusActivities {
 		}
 		System.out.println("CampusActivities中数据导入完毕.");
 		System.out.println(campusActivitiesList);
-		// return campusActivitiesList;
+		return campusActivitiesList;
+	}
+
+	public OutputStream download(ArrayList<CampusActivities> campusActivitiesList)
+			throws FileNotFoundException, IOException {
+		// 选择文件
+		file = new File("tempExcel/校园活动获奖名单模板.xls");
+		workbook = new HSSFWorkbook(new FileInputStream(file));// 创建操作Excel的HSSFWorkbook对象
+		sheet = workbook.getSheetAt(0);
+
+		int size = campusActivitiesList.size();
+		for (int i = 0; i < size; i++) {// 循环，控制总行数
+			HSSFRow row = sheet.createRow(i + rowIndex);
+			CampusActivities campusActivities = campusActivitiesList.get(i);
+			HSSFCell cell = row.createCell(0);
+			cell.setCellValue(campusActivities.getContextName());
+			cell = row.createCell(1);
+			cell.setCellValue(campusActivities.getProject());
+			cell = row.createCell(2);
+			cell.setCellValue(campusActivities.getContextGrade());
+			cell = row.createCell(3);
+			cell.setCellValue(campusActivities.getStudentId());
+			cell = row.createCell(4);
+			cell.setCellValue(campusActivities.getReward());
+			cell = row.createCell(5);
+			cell.setCellValue(campusActivities.getStudentName());
+			cell = row.createCell(6);
+			cell.setCellValue(campusActivities.getGrade());
+			cell = row.createCell(7);
+			cell.setCellValue(campusActivities.getClassroom());
+			cell = row.createCell(8);
+			cell.setCellValue(campusActivities.getRemark());
+
+		}
+
+		// 利用数据流写入
+		OutputStream out = null;
+		out = new FileOutputStream(file);
+		// try {
+		// workbook.write(out);
+		// out.close();
+		// } catch (FileNotFoundException e) {
+		// e.printStackTrace();
+		// } catch (IOException e) {
+		// e.printStackTrace();
+		// }
+
+		System.out.println("数据已经写入excel中。");
+		return out;
 	}
 }

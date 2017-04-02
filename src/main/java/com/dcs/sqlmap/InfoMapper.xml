@@ -127,8 +127,8 @@
 
 	<update id="updateInfo" >
 		update ${table} set 
-		<foreach collection="map.keys" item="key" separator=",">
-			${key} = #{map[${key}]}
+		<foreach collection="map.keys" item="key" separator="=">
+			$#{map[${key}]}
 		</foreach>
 		where id = #{id}
 	</update>

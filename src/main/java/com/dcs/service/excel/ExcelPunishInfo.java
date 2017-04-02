@@ -2,8 +2,11 @@ package com.dcs.service.excel;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -15,7 +18,7 @@ import org.junit.Test;
 
 import com.dcs.pojo.PunishInfo;
 
-public class Excel2PunishInfo {
+public class ExcelPunishInfo {
 	private int rowIndex = 2; // The row index start from 3 row.
 	private final int column = 6; // All column is 6.
 
@@ -34,7 +37,7 @@ public class Excel2PunishInfo {
 	 * @throws IOException
 	 */
 	@Test
-	public void punishInfoServers() throws IOException {
+	public ArrayList<PunishInfo> upload() throws IOException {
 
 		ArrayList<PunishInfo> punishInfoList = new ArrayList<PunishInfo>();
 
@@ -72,6 +75,48 @@ public class Excel2PunishInfo {
 		}
 		System.out.println("PunishInfo中数据导入完毕.");
 		System.out.println(punishInfoList);
-		// return punishInfoList;
+		return punishInfoList;
 	}
+
+	public OutputStream download(ArrayList<PunishInfo> punishInfoList) throws FileNotFoundException, IOException {
+		// 选择文件
+		file = new File("tempExcel/年级受处分学生名单.xls");
+		workbook = new HSSFWorkbook(new FileInputStream(file));// 创建操作Excel的HSSFWorkbook对象
+		sheet = workbook.getSheetAt(0);
+
+		int size = punishInfoList.size();
+		for (int i = 0; i < size; i++) {// 循环，控制总行数
+			HSSFRow row = sheet.createRow(i + rowIndex);
+			PunishInfo punishInfo = punishInfoList.get(i);
+			HSSFCell cell = row.createCell(0);
+			cell.setCellValue(punishInfo.getName());
+			cell = row.createCell(1);
+			cell.setCellValue(punishInfo.getStudentId());
+			cell = row.createCell(2);
+			cell.setCellValue(punishInfo.getClassroom());
+			cell = row.createCell(3);
+			cell.setCellValue(punishInfo.getPunishGrade());
+			cell = row.createCell(4);
+			cell.setCellValue(punishInfo.getPunishReason());
+			cell = row.createCell(5);
+			cell.setCellValue(punishInfo.getPunishTime());
+
+		}
+
+		// 利用数据流写入
+		OutputStream out = null;
+		out = new FileOutputStream(file);
+		// try {
+		// workbook.write(out);
+		// out.close();
+		// } catch (FileNotFoundException e) {
+		// e.printStackTrace();
+		// } catch (IOException e) {
+		// e.printStackTrace();
+		// }
+
+		System.out.println("数据已经写入excel中。");
+		return out;
+	}
+
 }

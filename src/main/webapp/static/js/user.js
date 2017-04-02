@@ -1,3 +1,4 @@
+var id;
 $("#confirm").click(function (){
 	var email=$("#email").val();
 	var login_id=$("#login-id").val();
@@ -51,4 +52,54 @@ $("#confirm").click(function (){
             }
         });
     }
+})
+$("#all").click(function() {
+    var box = $(":checked").size();
+    alert(box);
+    if(box<10)
+        $(":checkbox").prop("checked",'true');
+    else{
+        $(":checkbox").removeAttr("checked",'false');
+        // $(":checkbox").removeAttr("checked");
+    }
+})
+$("#delete").click(function(){
+    var box = $("input:checkbox");
+    for(var i = 0 ;i<box.size();i++){
+        if(true==box[i].checked)
+            $(box[i]).parent().parent().remove();
+    };
+
+})
+$(".toggle-button").click(function(){
+	 id = $(this).closest("tr").attr("id");
+	 console.log(id);
+})
+$("#change-buton").click(function(){
+	var email=$("#email").val();
+	var login_id=$("#login-id").val();
+    var real_name=$("#real_name").val();
+    var password=$("#password").val();
+    var level = $("#select-id").find("option:selected").text();
+    var _data = {
+    		"email":email,
+    		"loginId":login_id,
+    		"realName":real_name,
+    		"password":password,
+    		"level":level,
+    		"id":id
+    }
+    $.ajax({
+        url: "http://localhost:8080/update/user",
+        type: "POST",
+        contentType: "application/json",
+        dataType: "json",
+        data: JSON.stringify(_data),
+        success: function (data) {
+             $("#error-message").html("添加成功！");
+        },
+       error: function (data) {
+            $("#error-message").html("添加数据库失败！")
+       }
+    });
 })

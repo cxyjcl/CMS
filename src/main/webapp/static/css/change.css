@@ -1,3 +1,6 @@
 .user-form{
     margin:30px;
 }
+.change-div{
+	z-index:999;
+}

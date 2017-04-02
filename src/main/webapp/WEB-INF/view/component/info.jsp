@@ -49,7 +49,7 @@
         </div>
     </div>
     <div class="group">
-        <table class="table table-striped">
+        <table class="table table-striped" id="${code}">
             <caption class="text-center">${title}</caption>
             <thead>
             	<tr>
@@ -64,7 +64,7 @@
                 	<c:forEach items="${info}" var="item">
                 		<c:if test="${item.key ne 'id' &&item.key ne 'info_id' && item.key ne 'data_status'}">
 			                <td class="${item.key}">
-		                		<a tabindex="0" role="button" data-toggle="popover" data-placement="top" data-toggle="popover" data-content="<div class='row'><div class='col-sm-9 col-xs-9'><input type='text' class='form-control' placeholder='请输入姓名'/></div><div class='col-sm-1 md-1'><button type='button' class='btn btn-primary confirm'>√</button></div></div>">${item.value}</a>
+		                		<a tabindex="0" role="button" data-toggle="popover" data-placement="top" data-toggle="popover" data-content="<div class='row change-div'><div class='col-sm-9 col-xs-9'><input type='text' class='form-control' placeholder='请输入姓名'/></div><div class='col-sm-1 md-1'><button type='button' class='btn btn-primary' onclick=change(this)>√</button></div></div>">${item.value}</a>
 			                </td>
 		                </c:if>
 	                </c:forEach>

@@ -2,8 +2,11 @@ package com.dcs.service.excel;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -15,7 +18,7 @@ import org.junit.Test;
 
 import com.dcs.pojo.GradeInfo;
 
-public class Excel2GradeInfo {
+public class ExcelGradeInfo {
 	private int rowIndex = 2; // The row index start from 3 row.
 	private final int column = 16; // All column is 16.
 
@@ -34,7 +37,7 @@ public class Excel2GradeInfo {
 	 * @throws IOException
 	 */
 	@Test
-	public void gradeInfoServers() throws IOException {
+	public ArrayList<GradeInfo> upload() throws IOException {
 
 		ArrayList<GradeInfo> gradeInfoList = new ArrayList<GradeInfo>();
 
@@ -82,6 +85,67 @@ public class Excel2GradeInfo {
 
 		System.out.println("GradeInfo中数据导入完毕.");
 		System.out.println(gradeInfoList);
-		// return gradeInfoList;
+		return gradeInfoList;
+	}
+
+	public OutputStream download(ArrayList<GradeInfo> gradeInfoList) throws FileNotFoundException, IOException {
+		// 选择文件
+		file = new File("tempExcel/年级信息一览表.xls");
+		workbook = new HSSFWorkbook(new FileInputStream(file));// 创建操作Excel的HSSFWorkbook对象
+		sheet = workbook.getSheetAt(0);
+
+		int size = gradeInfoList.size();
+		for (int i = 0; i < size; i++) {// 循环，控制总行数
+			HSSFRow row = sheet.createRow(i + rowIndex);
+			GradeInfo gradeInfo = gradeInfoList.get(i);
+			HSSFCell cell = row.createCell(0);
+			cell.setCellValue(gradeInfo.getClassroom());
+			cell = row.createCell(1);
+			cell.setCellValue(gradeInfo.getPeople());
+			cell = row.createCell(2);
+			cell.setCellValue(gradeInfo.getMale());
+			cell = row.createCell(3);
+			cell.setCellValue(gradeInfo.getFemale());
+			cell = row.createCell(4);
+			cell.setCellValue(gradeInfo.getPartyMember());
+			cell = row.createCell(5);
+			cell.setCellValue(gradeInfo.getActivist());
+			cell = row.createCell(6);
+			cell.setCellValue(gradeInfo.getTeacher());
+			cell = row.createCell(7);
+			cell.setCellValue(gradeInfo.getMonitor());
+			cell = row.createCell(8);
+			cell.setCellValue(gradeInfo.getLeagueSecretary());
+			cell = row.createCell(9);
+			cell.setCellValue(gradeInfo.getStudiesCommissary());
+			cell = row.createCell(10);
+			cell.setCellValue(gradeInfo.getSportsCommissary());
+			cell = row.createCell(11);
+			cell.setCellValue(gradeInfo.getAffairCommissary());
+			cell = row.createCell(12);
+			cell.setCellValue(gradeInfo.getOrganizationCommissary());
+			cell = row.createCell(13);
+			cell.setCellValue(gradeInfo.getPublicityCommissary());
+			cell = row.createCell(14);
+			cell.setCellValue(gradeInfo.getPsychologicalCommissary());
+			cell = row.createCell(15);
+			cell.setCellValue(gradeInfo.getRemark());
+
+		}
+
+		// 利用数据流写入
+		OutputStream out = null;
+		out = new FileOutputStream(file);
+		// try {
+		// workbook.write(out);
+		// out.close();
+		// } catch (FileNotFoundException e) {
+		// e.printStackTrace();
+		// } catch (IOException e) {
+		// e.printStackTrace();
+		// }
+
+		System.out.println("数据已经写入excel中。");
+		return out;
 	}
 }
