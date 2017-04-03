@@ -7,8 +7,8 @@
 <head>
     <meta charset="UTF-8">
     <title>资料集锦管理系统</title>
-    <link rel="stylesheet" href="./static/css/user.css" media="screen" title="no title" charset="utf-8">
-    <link rel="stylesheet" href="./static/css/main.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="../static/css/user.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="../static/css/main.css" media="screen" title="no title" charset="utf-8">
     <link rel="stylesheet" href="https://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <body>
@@ -81,7 +81,10 @@
 	               			<td class="red">删除</td>
 	               		</c:if>
 	               		<c:if test="${user.dataStatus eq '001'}">
-	               			<td>创建</td>
+	               			<td>正常可用</td>
+	               		</c:if>
+	               		<c:if test="${user.dataStatus eq '002'}">
+	               			<td>禁用</td>
 	               		</c:if>
 	               		<td><input type="checkbox"/></td>
                     	<td><button type="button" class="toggle-button btn-danger pd-5" data-toggle="modal" data-target="#myModal">更改</button></td>
@@ -139,6 +142,16 @@
 		                    </select>
 		                </div>
 		            </div>
+		            <div class="form-group">
+		                <label class="col-sm-3 col-sm-offset-1  static control-label">用户状态</label>
+		                <div class="col-sm-6 static">
+		                    <select class="form-control" id="status">
+		                        <option value="">正常可用</option>
+		                        <option value="">删除</option>
+		                        <option value="">禁用</option>
+		                    </select>
+		                </div>
+		            </div>
                 </form>
             </div>
             <div class="modal-footer">
@@ -147,9 +160,9 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div>
-<script src="./static/js/jquery-1.3.2.min.js"></script>
-<script src="./static/js/user.js" charset="utf-8"></script>
-<script src="./static/js/content.js" charset="utf-8"></script>
+<script src="../static/js/jquery-1.3.2.min.js"></script>
+<script src="../static/js/user.js" charset="utf-8"></script>
+<script src="../static/js/content.js" charset="utf-8"></script>
 <script src="https://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>
 </html>

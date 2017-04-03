@@ -130,7 +130,7 @@ public class UserController {
 
 	@RequestMapping("/delete/user")
 	@ResponseBody
-	public Message deleteUser(@RequestParam("id") Integer id,
+	public Message deleteUser(@RequestBody Integer id,
 			HttpSession session) {
 		String reviser = session.getAttribute("user").toString();// 以后会改
 		try {
@@ -142,27 +142,26 @@ public class UserController {
 		}
 	}
 
+	//TODO change和update不能是一个方法
 	@RequestMapping("/update/user")
 	@ResponseBody
-	public Message updateUser(@RequestBody User user, HttpServletRequest session) {
+	public Message updateUser(@RequestBody User user, HttpSession session) {
 		String password = user.getPassword();
 		String loginId = user.getLoginName();
 		String email = user.getEmail();
 		String id = session.getAttribute("user").toString();
-		if (loginId == null || password == null ||email == null) {
-			return Message.error(Code.PARAMATER, "不得为空");
-		}
+		String dataStatus = DataStatusEnum.fromValue(user.getDataStatus()).getCode();
+		user.setDataStatus(dataStatus);
 		if (password.matches("^.*[\\s]+.*$")) {
 			return Message.error(Code.PARAMATER, "密码不能包含空格、制表符、换页符等空白字符");
 		}
-		if (email.matches("^([a-z0-9A-Z]+[-|_|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$")) {
+		if (email != null &&!email.matches("^\\s*\\w+(?:\\.{0,1}[\\w-]+)*@[a-zA-Z0-9]+(?:[-.][a-zA-Z0-9]+)*\\.[a-zA-Z]+\\s*$")) {
 			return Message.error(Code.PARAMATER, "邮箱不正确");
 		}
 		if (loginId.matches("^.*[\\s]+.*$")) {
 			return Message.error(Code.PARAMATER, "账号不能包含空格、制表符、换页符等空白字符");
 		}
 		try {
-			user.setId(new Integer(id));
 			user.setReviser(new Integer(id));
 			userService.update(user);
 			return Message.success("更新成功", Code.SUCCESS);

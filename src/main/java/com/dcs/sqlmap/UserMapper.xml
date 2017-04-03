@@ -58,9 +58,7 @@
       <if test="reviserTime != null">
         reviser_time,
       </if>
-      <if test="dataStatus != null">
         data_status,
-      </if>
         create_time
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -91,10 +89,8 @@
       <if test="reviserTime != null">
         #{reviserTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="dataStatus != null">
-		"001"
-      </if>
-      now()
+		"001",
+      	now()
     </trim>
   </insert>
   <update id="update" parameterType="com.dcs.pojo.User">

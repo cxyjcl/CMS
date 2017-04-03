@@ -8,7 +8,7 @@ import org.apache.commons.lang.StringUtils;
  * @date 2017年1月22日 下午3:10:29
  */
 public enum DataStatusEnum {
-	DELETED("000", "逻辑删除"), NORMAL_USED("001", "正常可用"),FAIL("002", "禁用") , EXCEPTION_DATA_REMARK(
+	DELETED("000", "删除"), NORMAL_USED("001", "正常可用"),FAIL("002", "禁用") , EXCEPTION_DATA_REMARK(
 			"100", "不同结果标识");
 	private String code;
 
@@ -45,16 +45,12 @@ public enum DataStatusEnum {
 		return value;
 	}
 
-	public static DataStatusEnum fromCode(String code) {
+	public static DataStatusEnum fromValue(String code) {
 		for (DataStatusEnum c : DataStatusEnum.values()) {
-			if (StringUtils.equals(c.getCode(), code)) {
+			if (StringUtils.equals(c.getValue(), code)) {
 				return c;
 			}
 		}
 		throw new IllegalArgumentException(code + "");
-	}
-
-	public static void main(String[] args) {
-		System.out.println(DataStatusEnum.NORMAL_USED.getCode());
 	}
 }
