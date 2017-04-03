@@ -98,7 +98,7 @@ public class UserController {
 	@RequestMapping("/add/user")
 	@ResponseBody
 	public Message addUser(@RequestBody User user, HttpSession session) {
-		String id = session.getAttribute("id").toString();
+		String id = session.getAttribute("user").toString();
 		String password = user.getPassword();
 		String loginId = user.getLoginName();
 		String email = user.getEmail();
@@ -109,7 +109,7 @@ public class UserController {
 		if (password.matches("^.*[\\s]+.*$")) {
 			return Message.error(Code.PARAMATER, "密码不能包含空格、制表符、换页符等空白字符");
 		}
-		if (email.matches("^([a-z0-9A-Z]+[-|_|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$")) {
+		if (!email.matches("^([a-z0-9A-Z]+[-|_|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$")) {
 			return Message.error(Code.PARAMATER, "邮箱不正确");
 		}
 		if (loginId.matches("^.*[\\s]+.*$")) {
@@ -132,7 +132,7 @@ public class UserController {
 	@ResponseBody
 	public Message deleteUser(@RequestParam("id") Integer id,
 			HttpSession session) {
-		String reviser = session.getAttribute("id").toString();// 以后会改
+		String reviser = session.getAttribute("user").toString();// 以后会改
 		try {
 			userService.deleteById(id, reviser);
 			return Message.success("删除成功", Code.SUCCESS);
@@ -148,7 +148,7 @@ public class UserController {
 		String password = user.getPassword();
 		String loginId = user.getLoginName();
 		String email = user.getEmail();
-		String id = session.getAttribute("id").toString();
+		String id = session.getAttribute("user").toString();
 		if (loginId == null || password == null ||email == null) {
 			return Message.error(Code.PARAMATER, "不得为空");
 		}
@@ -181,7 +181,11 @@ public class UserController {
 		try {
 			user= userService.find(loginId,
 					DataStatusEnum.NORMAL_USED.getCode());
-			return Message.success(Code.SUCCESS, "查找成功", user);
+			if(user==null){
+				return Message.error(Code.NO_DATA,"无数据");
+			} else{
+				return Message.success(Code.SUCCESS, "查找成功", user);				
+			}
 		} catch (Exception e) {
 			log.error(JSON.toJSONString(user) + "\n\t" + e.toString());
 			return Message.error(Code.ERROR_CONNECTION, "找不到此用户！");

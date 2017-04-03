@@ -75,16 +75,9 @@ public class UserServiceImpl implements UserService {
 
 
 	@Override
-	public Integer deleteById(Object id) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	@Override
 	public User find(Object str, Object dataStatus) {
-		// TODO Auto-generated method stub
-		return null;
+		User user = userMapper.find(str,dataStatus);
+		return user;
 	}
 	
 	public String selectLevel(Integer userId){

@@ -23,6 +23,7 @@ import com.dcs.service.PojoToMapperService;
 import com.dcs.service.UserService;
 import com.dcs.util.StringToMap;
 import com.dcs.util.TableUtils;
+import com.dcs.vo.UpdateVo;
 
 /**
  * 
@@ -87,9 +88,9 @@ public class PojoToMapperServiceImpl implements PojoToMapperService{
 	}
 
 	@Override
-	public int update(String value, Integer divId, HashMap infoMap,ListInfo listInfo)
+	public int update(String value, UpdateVo vo)
 			throws Exception {
-		Integer id= dao.updateInfo(value,infoMap,divId);
+		Integer id= dao.updateInfo(value,vo);
 		System.out.println(id);
 		return id;
 	}

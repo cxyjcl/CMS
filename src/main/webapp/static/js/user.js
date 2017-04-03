@@ -2,12 +2,12 @@ var id;
 $("#confirm").click(function (){
 	var email=$("#email").val();
 	var login_id=$("#login-id").val();
-    var real_name=$("#real_name").val();
+    var real_name=$("#real-name").val();
     var password=$("#password").val();
     var strcheck=/[`~!@#$%^&*()_+<>?:"{},.\/;'[\]]/im;
     var mailcheck=/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
     var level = $("#select-id").find("option:selected").text();
-    console.log(level)
+    console.log(real_name)
     if(login_id==""){
         $("#error-message").html("用户名不得为空");
     }
@@ -33,19 +33,19 @@ $("#confirm").click(function (){
     {
         var _data = {
         	"email":email,
-        	"loginId":login_id,
+        	"loginName":login_id,
         	"realName":real_name,
         	"password":password,
         	"level":level
         };
         $.ajax({
-            url: "http://localhost:8080/add/user",
+            url: "http://localhost:8080/dcs/add/user",
             type: "POST",
             contentType: "application/json",
             dataType: "json",
             data: JSON.stringify(_data),
             success: function (data) {
-                $("#error-message").html("添加成功！");
+            	$("#error-message").html(data.msg);
             },
             error: function (data) {
                 $("#error-message").html("添加数据库失败！")
@@ -83,7 +83,7 @@ $("#change-buton").click(function(){
     var level = $("#select-id").find("option:selected").text();
     var _data = {
     		"email":email,
-    		"loginId":login_id,
+    		"loginName":login_id,
     		"realName":real_name,
     		"password":password,
     		"level":level,

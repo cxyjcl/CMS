@@ -9,22 +9,16 @@ var value = $(e).parent().prev().find("input").val();
 var code = $(e).closest("table").attr("id");
 var _data = {
 		"code":code,
-		"divId":id,
-		"infoMap":{
-			"col":col,
-			"value":value
-		}
+		"id":id,
+		"col":col,
+		"value":value
 }
 $.ajax({
-	contentType: "application/x-www-form-urlencoded;charset=utf-8",
-//	dataType:"json",
     type: "POST",
-//    headers: {
-//        'Accept': 'application/json',
-//        'Content-Type': 'application/json'
-//    },
     url:"/dcs/excel/update",
-    data: _data,
+    contentType: "application/json",
+    dataType: "json",
+    data: JSON.stringify(_data),
     success: function(data) {
        $(e).closest("tr").find("a").html(value)
     },

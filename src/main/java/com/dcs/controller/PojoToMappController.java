@@ -1,5 +1,6 @@
 package com.dcs.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -12,9 +13,11 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -26,6 +29,7 @@ import com.dcs.dto.ListInfoDto;
 import com.dcs.pojo.ListInfo;
 import com.dcs.pojo.request.Page;
 import com.dcs.service.PojoToMapperService;
+import com.dcs.vo.UpdateVo;
 import com.google.gson.annotations.JsonAdapter;
 
 @Controller
@@ -63,24 +67,26 @@ public class PojoToMappController {
             String value = ListCodeEnum.fromCode(code.toString()).getValue();
 			pojoToMapperService.insert(code.toString(),uploadFile.getInputStream(),listInfo);
         } catch (Exception e) {
-			log.info("用户id是："+JSON.toJSONString(id)+"报错信息是："+e.getStackTrace().toString());
+			log.error("用户id是："+JSON.toJSONString(id)+"报错信息是："+e.getStackTrace().toString());
 			return Message.error("添加失败！");    		
         }
 		return Message.success("添加成功！");
 	}
 	
 	@RequestMapping("/update")
-	public Message updateInfo(String code,Integer divId ,HashMap infoMap,HttpSession session){
+	@ResponseBody
+	public Message updateInfo(@RequestBody UpdateVo vo,HttpSession session){
 		int id = Integer.parseInt(session.getAttribute("user").toString());
         try {
-        	System.out.println("fafdas");
+        	String code = vo.getCode();
         	String value = ListCodeEnum.fromCode(code).getValue();
             ListInfo listInfo = new ListInfo();
             listInfo.setReviser(id);
-			pojoToMapperService.update(value,divId,infoMap,listInfo);
+			pojoToMapperService.update(value,vo);
 			return Message.success("更新成功！");
         } catch (Exception e) {
-			log.info("用户id是："+JSON.toJSONString(id)+"报错信息是："+e.getStackTrace().toString());
+        	e.printStackTrace();
+			log.error("用户id是："+JSON.toJSONString(id)+"报错信息是："+e.getStackTrace());
 			return Message.error("更新失败！");    		
         }
 	}
@@ -105,7 +111,7 @@ public class PojoToMappController {
 			pojoToMapperService.delete(table,id, reviser);
 			
         } catch (Exception e) {
-			log.info("删除list的iD是"+id+"用户id是："+JSON.toJSONString(reviser)+"报错信息是："+e.getStackTrace().toString());
+			log.error("删除list的iD是"+id+"用户id是："+JSON.toJSONString(reviser)+"报错信息是："+e.getStackTrace().toString());
 			return Message.error("删除失败！");    		
         }
 		return Message.success("删除成功！");
@@ -130,7 +136,7 @@ public class PojoToMappController {
         	view.setViewName("/view/component/info");
 			return view;
         } catch (Exception e) {
-			log.info("查找list的iD是"+infoId+"报错信息是："+e.getStackTrace().toString());
+			log.error("查找list的iD是"+infoId+"报错信息是："+e.getStackTrace().toString());
 			message = Message.error("查找失败！");
 			view.setViewName("/view/error/error.jsp");
 			view.addObject("message",message); 		
@@ -150,7 +156,7 @@ public class PojoToMappController {
         	view.setViewName("/view/component/default");
 			return view;
         } catch (Exception e) {
-			log.info("报错信息是："+e.getStackTrace().toString());
+			log.error("报错信息是："+e.getStackTrace().toString());
 			message = Message.error("查找失败！");
 			view.setViewName("/view/error/error.jsp");
 			view.addObject("message",message);
@@ -172,7 +178,7 @@ public class PojoToMappController {
         	return view;
         } catch (Exception e) {
         	e.printStackTrace();
-			log.info("查找list的listinfo是"+code+"页码是："+JSON.toJSONString(page)+"报错信息是："+e.getStackTrace().toString());
+			log.error("查找list的listinfo是"+code+"页码是："+JSON.toJSONString(page)+"报错信息是："+e.getStackTrace().toString());
 			message= Message.error("查找失败！");
 			view.addObject("message",message);
 			view.setViewName("/view/error/error.jsp");
@@ -185,7 +191,7 @@ public class PojoToMappController {
         	String table = ListCodeEnum.fromCode(code).getValue();
 			pojoToMapperService.findListInfo(creator, page, code);
         } catch (Exception e) {
-			log.info("查找list的listinfo是"+code+"页码是："+JSON.toJSONString(page)+"报错信息是："+e.getStackTrace().toString());
+			log.error("查找list的listinfo是"+code+"页码是："+JSON.toJSONString(page)+"报错信息是："+e.getStackTrace().toString());
 			return Message.success("删除失败！");    		
         }
 		return Message.success("删除成功！");

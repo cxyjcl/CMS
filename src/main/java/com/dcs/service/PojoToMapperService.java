@@ -1,6 +1,7 @@
 package com.dcs.service;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.List;
 import com.dcs.dto.ListInfoDto;
 import com.dcs.pojo.ListInfo;
 import com.dcs.pojo.request.Page;
+import com.dcs.vo.UpdateVo;
 
 public interface PojoToMapperService {
 		
@@ -16,8 +18,6 @@ public interface PojoToMapperService {
 	public List<LinkedHashMap> selectInfo(String code,Integer infoId) throws Exception;
 
 	public int insert(String code, InputStream inputStream,ListInfo listInfo) throws Exception;
-	
-	public int update(String value, Integer divId, HashMap infoMap,ListInfo listInfo) throws Exception ;
 	
 	public List<ListInfo> findListInfo(Integer creator, Page page, String listId)
 			throws Exception;
@@ -32,5 +32,7 @@ public interface PojoToMapperService {
 	public LinkedHashMap selectCol(String code) throws Exception;
 
 	public String selectTitle(String code, Integer infoId);
+
+	public int update(String value, UpdateVo vo) throws Exception ;
 	
 }

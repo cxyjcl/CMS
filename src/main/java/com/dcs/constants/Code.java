@@ -12,5 +12,6 @@ public class Code {
   public static final int FAIL = 10002; //系统异常
   public static final int ERROR_CONNECTION = 10003; //数据库连接异常
   public static final int FATAL_ERROR = 10004; //恶意修改
+  public static final int NO_DATA = 10005;
  ///////
 }

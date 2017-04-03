@@ -1,5 +1,6 @@
 package com.dcs.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -9,6 +10,7 @@ import org.apache.ibatis.annotations.Param;
 import com.dcs.dto.ListInfoDto;
 import com.dcs.pojo.ListInfo;
 import com.dcs.pojo.request.Page;
+import com.dcs.vo.UpdateVo;
 
 public interface PojoToMapperDao {
 	
@@ -18,7 +20,7 @@ public interface PojoToMapperDao {
 	
 	Integer deleteInfo(@Param("table")String tableName, @Param("id")Integer id,@Param("reviser") Integer reviser);
 	
-	Integer updateInfo(@Param("table")String tableName,@Param("map")HashMap map, @Param("id")Integer id);
+	Integer updateInfo(@Param("table")String tableName,@Param("vo")UpdateVo vo);
 
 	List<ListInfo> findListInfo(@Param("creator")Integer creator,@Param("page")Page page,@Param("listId") String listId);
 	
