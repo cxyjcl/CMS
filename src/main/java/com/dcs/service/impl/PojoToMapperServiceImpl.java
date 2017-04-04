@@ -96,12 +96,12 @@ public class PojoToMapperServiceImpl implements PojoToMapperService{
 	}
 
 	@Override
-	public List<ListInfo> findListInfo(Integer creator,Page page, String listId) throws Exception {
-		return dao.findListInfo(creator, page, listId);
+	public List<ListInfoDto> findListInfo(String value,String level,Page page, String listId) throws Exception {
+		return dao.findListInfo(value,level,page, listId);
 	}
 
 	@Override
-	public List<ListInfo> selectListInfo(Integer listId, String level,Page page)
+	public List<ListInfoDto> selectListInfo(Integer listId, String level,Page page)
 			throws Exception {
 		return dao.selectListInfo(listId, level, page);
 	}

@@ -17,7 +17,7 @@ public interface UserService{
 
 	public Integer update(User entity) throws Exception;
 
-	public User find(String str,String dataStatus);
+	public List<User> find(String str,String dataStatus,Page page);
 	
 	int deleteById(Object id, Object reviser) throws Exception;
 

@@ -141,8 +141,9 @@
 </select>
 <select id="find" resultMap="UserMap">
 	select id,email,login_name,real_name,level,creator,create_time,reviser,reviser_time,data_status from t_user where login_name=#{value} or real_name=#{value} or email=#{value}
+	<include refid="global.page-pagination"/>
 </select>
-<select id="check">
+<select id="check" resultType="java.lang.Integer">
 	select count(*) from t_user where login_name=#{value}
 </select>
 </mapper>

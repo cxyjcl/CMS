@@ -93,15 +93,16 @@ public class PojoToMappController {
 	}
 
 	@RequestMapping("/delete_list")
-	public Message deleteList(@RequestParam("id") Integer id,HttpSession session){
+	@ResponseBody
+	public Message deleteList(@RequestBody Integer id,HttpSession session){
 		int reviser = Integer.parseInt(session.getAttribute("user").toString());
         try {
 			pojoToMapperService.deleteList(id,reviser);
+			return Message.success("删除成功！");
         } catch (Exception e) {
 			log.info("删除list的iD是"+id+"用户id是："+JSON.toJSONString(reviser)+"报错信息是："+e.getStackTrace().toString());
 			return Message.error("删除失败！");    		
         }
-		return Message.success("删除成功！");
 	}
 	
 	@RequestMapping("/delete")
@@ -175,7 +176,7 @@ public class PojoToMappController {
 		Message message;
 		ModelAndView view = new ModelAndView();
 		try {
-        	List<ListInfo> list = pojoToMapperService.selectListInfo(code, level, page);
+        	List<ListInfoDto> list = pojoToMapperService.selectListInfo(code, level, page);
         	message = Message.success("查找成功！");
         	view.addObject("message",message);
     		view.addObject("list",list);
@@ -193,14 +194,13 @@ public class PojoToMappController {
         }
 	}
 	@RequestMapping("/find_list")
-	public Message findListInfo(@RequestParam("code") String code,@RequestParam("creator") Integer creator,@RequestParam("page")Page page){
+	public Message findListInfo(String code,String level,String value,@RequestParam("page")Page page){
         try {
-        	String table = ListCodeEnum.fromCode(code).getValue();
-			pojoToMapperService.findListInfo(creator, page, code);
+        	List<ListInfoDto> dto = pojoToMapperService.findListInfo(value,level, page, code);
         } catch (Exception e) {
 			log.error("查找list的listinfo是"+code+"页码是："+JSON.toJSONString(page)+"报错信息是："+e.getStackTrace().toString());
-			return Message.success("删除失败！");    		
+			return Message.success("查找失败！");    		
         }
-		return Message.success("删除成功！");
+		return Message.success("查找成功！");
 	}
 }

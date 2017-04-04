@@ -203,11 +203,11 @@ public class UserController {
 
 	@RequestMapping("/check")
 	@ResponseBody
-	public Message checkUser(@RequestBody String value) {
+	public Message checkUser(String value) {
 		try {
 		    Integer	num= userService.check(value,
 					DataStatusEnum.NORMAL_USED.getCode());
-			if(num==null){
+			if(num==null || num==0){
 				return Message.error(Code.NO_DATA,"此登录名可用");
 			} else{
 				return Message.success("有相同的登录名");				
@@ -219,21 +219,25 @@ public class UserController {
 	}
 	
 	@RequestMapping("/find/user")
-	public ModelAndView findUser(@RequestBody String value) {
+	public ModelAndView findUser(String value,Page page) {
 		ModelAndView view = new ModelAndView();
+		Message message = new Message();
 		if (value == null) {
 			view.setViewName("/get/user");
 			return view;
 		}
 		try {
-			User user= userService.find(value,
-					DataStatusEnum.NORMAL_USED.getCode());
+			List<User> userList = userService.find(value,
+					DataStatusEnum.NORMAL_USED.getCode(),page);
 				view.setViewName("/view/user/list");
-				view.addObject("user",user);
+				view.addObject("list",userList);
+				page.setTotalSize(userList.size());
+				view.addObject("page",page);
+				view.addObject("message",message);
 				return view;
 		} catch (Exception e) {
 			log.error("查找list的value是"+value+"报错信息是："+e.getStackTrace().toString());
-			Message message = Message.error("查找失败！");
+			message = Message.error("查找失败！");
 			view.setViewName("/view/error/error.jsp");
 			view.addObject("message",message); 		
 			return view;

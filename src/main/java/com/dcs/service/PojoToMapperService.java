@@ -19,10 +19,10 @@ public interface PojoToMapperService {
 
 	public int insert(String code, InputStream inputStream,ListInfo listInfo) throws Exception;
 	
-	public List<ListInfo> findListInfo(Integer creator, Page page, String listId)
+	public List<ListInfoDto> findListInfo(String value,String levels, Page page, String listId)
 			throws Exception;
 
-	List<ListInfo> selectListInfo(Integer listId, String level, Page page)
+	List<ListInfoDto> selectListInfo(Integer listId, String level, Page page)
 			throws Exception;
 
 	int delete(String table, int id,Integer reviser) throws Exception;

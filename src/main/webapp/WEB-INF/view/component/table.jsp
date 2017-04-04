@@ -49,8 +49,15 @@
         <div class="pull-right mg-5">
             <button type="button" id="all" class="btn btn-info">全选</button>
         </div>
+        <form id="excel_form" name="excel_form" encType="multipart/form-data" method="post" >
+	        <div class="pull-right mg-5">
+				<a href="javascript:;" class="file">选择文件
+				    <input type="file" name="" id="upload">
+				</a>
+	        </div>
+	    </form>
         <div class="pull-right mg-5">
-            <button type="button" class="btn btn-info">上传</button>
+            <button type="button" class="btn btn-info" id="download">下载模板</button>
         </div>
         <div class="pull-right mg-5 static">
             <div class="input-group w-220 static">
@@ -70,16 +77,18 @@
                     <th>提交时间</th>
                     <th>修改人</th>
                     <th>修改时间</th>
+                    <th>删除</th>
                 </tr>
             </thead>
             <tbody>
               <c:forEach items="${list}" var="info">
-                <tr>
+                <tr id="${info.id}">
                     <td><a href="/dcs/excel/select_info?code=${info.listId}&id=${info.infoId}">${info.excelName}</a></td>
                     <td>${info.creator}</td>
                     <td><fmt:formatDate value="${info.createTime}" pattern="yyyy-MM-dd"/></td>
                		<td>${info.reviser}</td>
                		<td><fmt:formatDate value="${info.reviseTime}" pattern="yyyy-MM-dd"/></td>
+                	<td><input type="checkbox"/></td>
                 </tr>
               </c:forEach>
             </tbody>

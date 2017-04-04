@@ -25,11 +25,11 @@
     <result column="user_level" jdbcType="VARCHAR" property="userLevel" />
     <result column="data_status" jdbcType="VARCHAR" property="dataStatus" />
   </resultMap>
-	<select id="findListInfo" resultType="com.dcs.pojo.ListInfo">
-		select * from t_list_info where creator = #{creator} and list_id = #{listId}
-		and data_status = "001"
+<!-- 	<select id="findListInfo" resultType="com.dcs.pojo.ListInfo">
+		select * from t_list_info where user_level=#{level} and list_id = #{listId}
+		and data_status = "001" and excel_name =#{value} or creator=
 		<include refid="global.page-pagination"/>
-	</select>
+	</select> -->
 	
 	<select id="selectTitle" resultType="java.lang.String">
 		select title from t_list_info where info_id = #{infoId} and list_id = #{listId}
@@ -47,10 +47,25 @@
 		<include refid="global.page-pagination"/>
 	</select>
 	
-	<select id="selectListInfo" resultMap="InfoResultMap">
-		select * from t_list_info where user_level = #{level} and list_id = #{listId}
-		and data_status = "001"
-		<include refid="global.page-pagination"/>
+	<select id="selectListInfo" resultMap="ListResultMap">
+		SELECT
+			t_list_info.id,
+			excel_name,
+			list_id,
+			info_id,
+			tu1.real_name as reviser,
+			tu2.real_name as creator,
+			t_list_info.create_time,
+			t_list_info.revise_time,
+			user_level,
+			t_list_info.data_status
+		FROM
+			t_list_info left join 
+			t_user as tu1 on tu1.id = t_list_info.reviser,
+			t_user as tu2 where tu2.id = t_list_info.creator 
+			and user_level = #{level} and list_id = #{listId}
+			and t_list_info.data_status = "001"
+		<include refid="global.list-pagination"/>
 	</select>
 <insert id="insertList" parameterType="com.dcs.pojo.ListInfo">
     insert into t_list_info

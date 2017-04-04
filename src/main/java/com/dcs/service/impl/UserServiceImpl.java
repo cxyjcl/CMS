@@ -75,9 +75,9 @@ public class UserServiceImpl implements UserService {
 
 
 	@Override
-	public User find(String str, String dataStatus) {
-		User user = userMapper.find(str,dataStatus);
-		return user;
+	public List<User> find(String str, String dataStatus,Page page) {
+		List<User> userList = userMapper.find(str,dataStatus,page);
+		return userList;
 	}
 	
 	public String selectLevel(Integer userId){

@@ -44,4 +44,24 @@
 			</if>
 		</if>
 	</sql>
+	<sql id="list-pagination">
+		<if test="page.sortField != null and page.sortField != ''">
+			order by <![CDATA[${page.sortField}]]>
+			<if test="page.orderType != null and page.orderType != ''">
+				<![CDATA[${page.orderType}]]>
+			</if>
+			<if test="page.orderType == null or page.orderType == ''">
+				DESC
+			</if>
+		</if>
+		<if test="page.sortField == null "><!-- 不传排序字段的时候 默认按照id 倒序 -->
+			order by t_list_info.id DESC
+		</if>
+		<if test="page.all == null or page.all==0">
+			<if
+				test="page.pageStart != null and page.pageStart >= 0 and page.pageSize != null and page.pageSize >= 0">
+				<![CDATA[limit #{page.pageStart},#{page.pageSize}]]>
+			</if>
+		</if>
+	</sql>
 </mapper>

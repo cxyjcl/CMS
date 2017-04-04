@@ -22,11 +22,13 @@ public interface PojoToMapperDao {
 	
 	Integer updateInfo(@Param("table")String tableName,@Param("vo")UpdateVo vo);
 
-	List<ListInfo> findListInfo(@Param("creator")Integer creator,@Param("page")Page page,@Param("listId") String listId);
+	//TODO 不会写了
+	
+	List<ListInfoDto> findListInfo(@Param("value")String value,@Param("level")String level,@Param("page")Page page,@Param("listId") String listId);
 	
 	List<LinkedHashMap> selectInfo(@Param("table")String tableName,@Param("infoId")Integer infoId,@Param("page")Page page);
 	
-	List<ListInfo> selectListInfo(@Param("listId") Integer listId,@Param("level")String level,@Param("page")Page page);
+	List<ListInfoDto> selectListInfo(@Param("listId") Integer listId,@Param("level")String level,@Param("page")Page page);
 	
 	Integer selectMax(@Param("table")String tableName);
 

@@ -53,9 +53,9 @@
             </div>
             <div class="pull-right mg-5">
                 <div class="input-group static w-220">
-                    <input type="text" class="form-control static" placeholder="按名字搜索">
+                    <input type="text" class="form-control static" id="search-value" placeholder="按名字搜索">
                     <span class="input-group-btn static">
-                 <button class="btn btn-info static" type="button"><span class="glyphicon glyphicon-search static"></span></button>
+                 <button class="btn btn-info static" type="button" id="search"><span class="glyphicon glyphicon-search static"></span></button>
              </span>
                 </div>
             </div>
@@ -151,7 +151,7 @@
             <div class="modal-body">
                 <form class="form-horizontal" role="form">
                     <div class="form-group">
-			            <div class="col-sm-3 col-sm-offset-1 static red" id="error-message">
+			            <div class="col-sm-3 col-sm-offset-4 static red" id="error-message">
 			                &nbsp;
 			            </div>
 			        </div>

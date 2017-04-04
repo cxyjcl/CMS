@@ -14,6 +14,8 @@ import com.dcs.pojo.request.Page;
  */
 public class ListInfoDto{
 	
+	private Integer id;
+	
 	private String excelName;
 	
 	private Integer listId;
@@ -31,6 +33,14 @@ public class ListInfoDto{
 	private String dataStatus;
 	
 	private String userLevel;
+	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 	public String getExcelName() {
 		return excelName;

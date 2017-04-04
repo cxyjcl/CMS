@@ -169,3 +169,7 @@ function check(){
 		});
     }
 }
+$("#search").click(function(){
+  	var value = $("#search-value").val();
+  	location.href="/dcs/find/user?value="+value;
+})
