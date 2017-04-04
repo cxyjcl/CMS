@@ -143,6 +143,31 @@ public class UserController {
 	}
 
 	//TODO change和update不能是一个方法
+	
+	@RequestMapping("/change/user")
+	@ResponseBody
+	public Message changeUser(@RequestBody User user, HttpSession session) {
+		String password = user.getPassword();
+		String loginId = user.getLoginName();
+		String email = user.getEmail();
+		String id = session.getAttribute("user").toString();
+		if (password.matches("^.*[\\s]+.*$")) {
+			return Message.error(Code.PARAMATER, "密码不能包含空格、制表符、换页符等空白字符");
+		}
+		if (email != null &&!email.matches("^\\s*\\w+(?:\\.{0,1}[\\w-]+)*@[a-zA-Z0-9]+(?:[-.][a-zA-Z0-9]+)*\\.[a-zA-Z]+\\s*$")) {
+			return Message.error(Code.PARAMATER, "邮箱不正确");
+		}
+		try {
+			user.setId(new Integer(id));
+			user.setReviser(new Integer(id));
+			userService.update(user);
+			return Message.success("更新成功", Code.SUCCESS);
+		} catch (Exception e) {
+			log.error(JSON.toJSONString(user) + "\n\t" + e.toString());
+			return Message.error(Code.ERROR_CONNECTION, "无法更新数据");
+		}
+	}
+	
 	@RequestMapping("/update/user")
 	@ResponseBody
 	public Message updateUser(@RequestBody User user, HttpSession session) {

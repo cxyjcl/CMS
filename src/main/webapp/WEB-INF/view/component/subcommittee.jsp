@@ -36,13 +36,13 @@
     </div>
     <div class="group">
         <ul class="list-group">
-            <li><a href="/dcs/excel/select_list?code=20001&level=3&pageIndex=0&pageSize=10&sortField=id&orderType=asc" class="list-group-item">1.分团委、学生会、协会人员名单</a></li></li>
-            <li><a href="/dcs/excel/select_list?code=20002&level=3&pageIndex=0&pageSize=10&sortField=id&orderType=asc" class="list-group-item">2.学生荣誉名单（团委）</a></li>
-            <li><a href="/dcs/excel/select_list?code=10005&level=3&pageIndex=0&pageSize=10&sortField=id&orderType=asc" class="list-group-item">3.各种学科竞赛获奖名单</a></li>
-            <li><a href="/dcs/excel/select_list?code=10006&level=3&pageIndex=0&pageSize=10&sortField=id&orderType=asc" class="list-group-item">4.各种校园文化活动获奖名单</a></li>
-            <li><a href="/dcs/excel/select_list?code=20003&level=3&pageIndex=0&pageSize=10&sortField=id&orderType=asc" class="list-group-item">5.学期开展活动汇总表及方案</a></li>
-            <li><a href="/dcs/excel/select_list?code=10011&level=3&pageIndex=0&pageSize=10&sortField=id&orderType=asc" class="list-group-item">6.工作计划及总结</a></li>
-            <li><a href="/dcs/excel/select_list?code=10013&level=3&pageIndex=0&pageSize=10&sortField=id&orderType=asc" class="list-group-item">7.个人成果及获奖情况</a></li>
+            <li><a href="/dcs/excel/select_list?code=20001&level=3" class="list-group-item">1.分团委、学生会、协会人员名单</a></li></li>
+            <li><a href="/dcs/excel/select_list?code=20002&level=3" class="list-group-item">2.学生荣誉名单（团委）</a></li>
+            <li><a href="/dcs/excel/select_list?code=10005&level=3" class="list-group-item">3.各种学科竞赛获奖名单</a></li>
+            <li><a href="/dcs/excel/select_list?code=10006&level=3" class="list-group-item">4.各种校园文化活动获奖名单</a></li>
+            <li><a href="/dcs/excel/select_list?code=20003&level=3" class="list-group-item">5.学期开展活动汇总表及方案</a></li>
+            <li><a href="/dcs/excel/select_list?code=10011&level=3" class="list-group-item">6.工作计划及总结</a></li>
+            <li><a href="/dcs/excel/select_list?code=10013&level=3" class="list-group-item">7.个人成果及获奖情况</a></li>
         </ul>
     </div>
 </div>

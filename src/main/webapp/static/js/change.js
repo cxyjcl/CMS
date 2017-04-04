@@ -33,16 +33,16 @@ $("#confirm").click(function (){
             'email' : email,
         };
         $.ajax({
-            url: "http://localhost:8080/dcs/update/user",
+            url: "http://localhost:8080/dcs/change/user",
             type: "POST",
             contentType: "application/json",
             dataType: "json",
             data: JSON.stringify(_data),
             success: function (data) {
-                $("#error-message").html(data.content);
+                $("#error-message").html(data.msg);
             },
             error: function (data) {
-                $("#error-message").html(data.content);
+                $("#error-message").html(data.msg);
             }
         });
     }
