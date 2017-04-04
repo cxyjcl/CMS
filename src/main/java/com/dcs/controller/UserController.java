@@ -57,7 +57,7 @@ public class UserController {
 	public String exit(HttpSession session){
 		session.removeAttribute("id");
 		session.removeAttribute("username");
-		return "index";
+		return "view/user/login";
 	}
 	
 	// login
@@ -149,9 +149,6 @@ public class UserController {
 			return Message.error(Code.ERROR_CONNECTION, "无法删除数据");
 		}
 	}
-
-	//TODO change和update不能是一个方法
-	
 	@RequestMapping("/change/user")
 	@ResponseBody
 	public Message changeUser(@RequestBody User user, HttpSession session) {
@@ -204,23 +201,42 @@ public class UserController {
 		}
 	}
 
-	@RequestMapping("/find/user")
-	public Message findUser(@RequestBody User user) {
-		String loginId = user.getLoginName();
-		if (loginId == null) {
-			return Message.error(Code.PARAMATER, "账号为空");
-		}
+	@RequestMapping("/check")
+	@ResponseBody
+	public Message checkUser(@RequestBody String value) {
 		try {
-			user= userService.find(loginId,
+		    Integer	num= userService.check(value,
 					DataStatusEnum.NORMAL_USED.getCode());
-			if(user==null){
-				return Message.error(Code.NO_DATA,"无数据");
+			if(num==null){
+				return Message.error(Code.NO_DATA,"此登录名可用");
 			} else{
-				return Message.success(Code.SUCCESS, "查找成功", user);				
+				return Message.success("有相同的登录名");				
 			}
 		} catch (Exception e) {
-			log.error(JSON.toJSONString(user) + "\n\t" + e.toString());
+			log.error(JSON.toJSONString(value) + "\n\t" + e.toString());
 			return Message.error(Code.ERROR_CONNECTION, "找不到此用户！");
+		}
+	}
+	
+	@RequestMapping("/find/user")
+	public ModelAndView findUser(@RequestBody String value) {
+		ModelAndView view = new ModelAndView();
+		if (value == null) {
+			view.setViewName("/get/user");
+			return view;
+		}
+		try {
+			User user= userService.find(value,
+					DataStatusEnum.NORMAL_USED.getCode());
+				view.setViewName("/view/user/list");
+				view.addObject("user",user);
+				return view;
+		} catch (Exception e) {
+			log.error("查找list的value是"+value+"报错信息是："+e.getStackTrace().toString());
+			Message message = Message.error("查找失败！");
+			view.setViewName("/view/error/error.jsp");
+			view.addObject("message",message); 		
+			return view;
 		}
 	}
 	
@@ -232,6 +248,8 @@ public class UserController {
 			List<User> userList = userService.selectAll(page);
 			message = Message.success("查找成功");
 			view.addObject("list",userList);
+			page.setTotalSize(userList.size());
+			view.addObject("page",page);
 			view.addObject("message",message);
 			view.setViewName("/view/user/list");
 			return view;

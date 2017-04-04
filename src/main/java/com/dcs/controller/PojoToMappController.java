@@ -128,7 +128,7 @@ public class PojoToMappController {
         	BeanUtils.copyProperties(vo, page);
         	LinkedHashMap mapString = pojoToMapperService.selectCol(code);
         	vo.setMapString(mapString);
-			List<LinkedHashMap> mapList = pojoToMapperService.selectInfo(code, id);
+			List<LinkedHashMap> mapList = pojoToMapperService.selectInfo(code, id,page);
 			vo.setMapList(mapList);
 			vo.setTotalSize(mapList.size());
 			System.out.println(vo);
@@ -176,9 +176,11 @@ public class PojoToMappController {
 		ModelAndView view = new ModelAndView();
 		try {
         	List<ListInfo> list = pojoToMapperService.selectListInfo(code, level, page);
-        	message = Message.success("查找成功！",list);
+        	message = Message.success("查找成功！");
         	view.addObject("message",message);
     		view.addObject("list",list);
+    		page.setTotalSize(list.size());
+    		view.addObject("page",page);
 			view.setViewName("/view/component/table");
         	return view;
         } catch (Exception e) {

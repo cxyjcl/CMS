@@ -20,7 +20,7 @@ $.ajax({
     dataType: "json",
     data: JSON.stringify(_data),
     success: function(data) {
-       $(e).closest("tr").find("a").html(value)
+       $(e).closest("td").find("a").html(value)
     },
     error: function (data) {
    	 	console.log(data.msg)

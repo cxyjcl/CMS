@@ -15,7 +15,7 @@ public interface PojoToMapperService {
 		
 	public int deleteList(Integer id, Integer reviser) throws Exception;
 	
-	public List<LinkedHashMap> selectInfo(String code,Integer infoId) throws Exception;
+	public List<LinkedHashMap> selectInfo(String code,Integer infoId,Page page) throws Exception;
 
 	public int insert(String code, InputStream inputStream,ListInfo listInfo) throws Exception;
 	

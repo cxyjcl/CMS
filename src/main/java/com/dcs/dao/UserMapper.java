@@ -25,6 +25,7 @@ public interface UserMapper{
 
 	public String selectLevel(Integer id);
 
-	public User find(@Param("value")Object str,@Param("dataStatus") Object dataStatus);
+	public User find(@Param("value")String str,@Param("dataStatus") Object dataStatus);
 
+	public Integer check(@Param("value")String str,@Param("dataStatus") Object dataStatus);
 }

@@ -42,9 +42,9 @@ public class PojoToMapperServiceImpl implements PojoToMapperService{
 	@Autowired
 	private UserService userService;
 
-	public List<LinkedHashMap> selectInfo(String code,Integer infoId) throws Exception {		
+	public List<LinkedHashMap> selectInfo(String code,Integer infoId,Page page) throws Exception {		
     	String table = ListCodeEnum.fromCode(code).getValue();
-		List<LinkedHashMap> mapList = dao.selectInfo(table,infoId);
+		List<LinkedHashMap> mapList = dao.selectInfo(table,infoId,page);
 		return mapList;
 	}
 	

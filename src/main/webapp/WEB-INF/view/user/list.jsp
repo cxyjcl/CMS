@@ -73,7 +73,6 @@
                 </tr>
                 </thead>
                 <tbody>
-                <script>console.log("${list}")</script>
 	             <c:forEach items="${list}" var="user">
 	                <tr id="${user.id}">
 	                    <td>${user.email}</td>
@@ -94,6 +93,52 @@
 	              </c:forEach>
                 </tbody>
             </table>
+            <c:if test="${page.totalSize!=0}">
+	        	<div class="page">
+		        	<ul class="pagination">
+		               <c:choose>
+		               		<c:when test="${page.pageEnd<=10}">
+		               			<c:set var="begin" value="1"></c:set>
+		               			<c:set var="end" value="${page.pageEnd}"></c:set>
+		               		</c:when>
+		               		<c:otherwise>
+		               			<c:set var="begin" value="${page.pageIndex-4}"></c:set>
+		               			<c:set var="end" value="${page.pageIndex+5}"></c:set>
+			               <c:if test="${begin<1}">
+			    				<c:set var="begin" value="1"/>
+			    				<c:set var="end" value="10"/>
+			               </c:if>
+			               <c:if test="${end>page.pageEnd}">
+			    				<c:set var="begin" value="${page.pageEnd-9}"/>
+			    				<c:set var="end" value="${page.pageEnd}"/>
+			               </c:if>
+		               </c:otherwise>
+		             </c:choose>
+		              		<c:if test="${page.pageIndex==1}">
+		                    	<li><a href="#" >&laquo;</a></li>              		
+		               		</c:if>
+		                   <c:if test="${page.pageIndex!=1}">
+		                    	<li><a href="/dcs/select_info?pageIndex=${page.pageIndex-1}" >&laquo;</a></li>
+		               		</c:if>
+				        		<c:forEach begin="${begin}" end="${end}" var="i">
+				        		<c:choose>
+				        			<c:when test="${i eq page.pageIndex}">
+				        				 <li><a href="#" class="nowpage">${i}</a></li>
+				        			</c:when>
+				        			<c:otherwise>
+				        			    	<li><a href="/dcs/select_info?pageIndex=${i}">${i}</a></li>
+				        			</c:otherwise>
+				        		</c:choose>
+				        		</c:forEach>
+		        		<c:if test="${page.pageIndex==page.pageEnd}">
+		        			<li><a href="#">&raquo;</a></li>
+		        		</c:if>
+		        		<c:if test="${page.pageIndex!=page.pageEnd}">
+		           			<li><a href="/dcs/select_info?pageIndex=${page.pageIndex+1}">&raquo;</a></li>     				
+		        		</c:if>
+		             </ul>
+	        	</div>
+        	</c:if>
         </div>
     </div>
 </div>

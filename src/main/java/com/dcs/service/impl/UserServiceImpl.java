@@ -75,13 +75,20 @@ public class UserServiceImpl implements UserService {
 
 
 	@Override
-	public User find(Object str, Object dataStatus) {
+	public User find(String str, String dataStatus) {
 		User user = userMapper.find(str,dataStatus);
 		return user;
 	}
 	
 	public String selectLevel(Integer userId){
 		return userMapper.selectLevel(userId);
+	}
+
+
+	@Override
+	public Integer check(String value, String code) {
+		// TODO Auto-generated method stub
+		return userMapper.check(value, code);
 	}
 	
 }

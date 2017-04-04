@@ -1,6 +1,5 @@
 package com.dcs.vo;
 
-import com.dcs.pojo.User;
 
 public class UserVo {
 	

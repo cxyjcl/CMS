@@ -44,6 +44,7 @@
 		WHERE
 			t_cadres_info.info_id = #{infoId}
 		AND t_cadres_info.info_id = t_list_info.info_id
+		<include refid="global.page-pagination"/>
 	</select>
 	
 	<select id="selectListInfo" resultMap="InfoResultMap">

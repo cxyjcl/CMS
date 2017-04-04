@@ -39,8 +39,10 @@ public class Page implements Serializable {
 	
 	
 	public Integer getPageEnd() {
-		int temp=pageSize/10;
-		return pageSize%10>0?temp+1:temp;
+		if(totalSize==null)
+			totalSize=0;
+		int temp=totalSize/10;
+		return totalSize%10>0?temp+1:temp;
 	}
 
 	public Integer getPageIndex() {
@@ -126,6 +128,8 @@ public class Page implements Serializable {
 
 
 	public Integer getTotalSize() {
+		if(totalSize==null)
+			totalSize =0;
 		return totalSize;
 	}
 

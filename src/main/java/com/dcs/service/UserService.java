@@ -17,12 +17,14 @@ public interface UserService{
 
 	public Integer update(User entity) throws Exception;
 
-	public User find(Object str,Object dataStatus);
+	public User find(String str,String dataStatus);
 	
 	int deleteById(Object id, Object reviser) throws Exception;
 
 	Integer confirm(User user, Object dataStatus) throws Exception;
 	
 	String selectLevel(Integer userId);
+
+	Integer check(String value, String code);
 
 }

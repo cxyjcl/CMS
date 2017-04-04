@@ -12,7 +12,7 @@ import com.dcs.pojo.request.Page;
  * @author pohoulong
  * @date 2017年3月24日 下午5:55:45
  */
-public class ListInfoDto extends Page{
+public class ListInfoDto{
 	
 	private String excelName;
 	
