@@ -29,6 +29,7 @@ import com.dcs.dto.ListInfoDto;
 import com.dcs.pojo.ListInfo;
 import com.dcs.pojo.request.Page;
 import com.dcs.service.PojoToMapperService;
+import com.dcs.vo.MapVo;
 import com.dcs.vo.UpdateVo;
 import com.google.gson.annotations.JsonAdapter;
 
@@ -118,25 +119,29 @@ public class PojoToMappController {
 	}
 	
 	@RequestMapping("/select_info")
-	public ModelAndView selectInfo(@RequestParam("code") String code,@RequestParam("info_id") Integer infoId){
+	public ModelAndView selectInfo(String code,Integer id,Page page){
 		Message message;
 		ModelAndView view = new ModelAndView();
 		try {
         	String table = ListCodeEnum.fromCode(code).getValue();
-        	System.out.println(table);
+        	MapVo vo = new MapVo();
+        	BeanUtils.copyProperties(vo, page);
         	LinkedHashMap mapString = pojoToMapperService.selectCol(code);
-			List<LinkedHashMap> map = pojoToMapperService.selectInfo(code, infoId);
-			String title = pojoToMapperService.selectTitle(code,infoId);
-			view.addObject("map",mapString);
+        	vo.setMapString(mapString);
+			List<LinkedHashMap> mapList = pojoToMapperService.selectInfo(code, id);
+			vo.setMapList(mapList);
+			vo.setTotalSize(mapList.size());
+			System.out.println(vo);
+			String title = pojoToMapperService.selectTitle(code,id);
+			view.addObject("mapVo",vo);
         	message = Message.success("查找成功！");
         	view.addObject("message",message);
-        	view.addObject("list",map);
         	view.addObject("code",code);
         	view.addObject("title",title);
         	view.setViewName("/view/component/info");
 			return view;
         } catch (Exception e) {
-			log.error("查找list的iD是"+infoId+"报错信息是："+e.getStackTrace().toString());
+			log.error("查找list的iD是"+id+"报错信息是："+e.getStackTrace().toString());
 			message = Message.error("查找失败！");
 			view.setViewName("/view/error/error.jsp");
 			view.addObject("message",message); 		

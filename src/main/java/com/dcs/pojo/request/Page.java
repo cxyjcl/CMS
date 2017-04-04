@@ -20,6 +20,9 @@ public class Page implements Serializable {
 	private Integer pageIndex;
 	// 每页条数
 	private Integer pageSize;
+	//结尾页数
+	private Integer totalSize;
+	private Integer pageEnd;
 	// 开始记录
 	@SuppressWarnings("unused")
 	private Integer pageStart;
@@ -34,6 +37,12 @@ public class Page implements Serializable {
 
 	public Page(){}
 	
+	
+	public Integer getPageEnd() {
+		int temp=pageSize/10;
+		return pageSize%10>0?temp+1:temp;
+	}
+
 	public Integer getPageIndex() {
 		if (pageIndex == null || pageIndex == 0) {
 			return 1;
@@ -115,4 +124,14 @@ public class Page implements Serializable {
 		}
 	}
 
+
+	public Integer getTotalSize() {
+		return totalSize;
+	}
+
+
+	public void setTotalSize(Integer totalSize) {
+		this.totalSize = totalSize;
+	}
+	
 }

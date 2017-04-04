@@ -53,6 +53,13 @@ public class UserController {
 		return "view/user/management";
 	}
 	
+	@RequestMapping("/exit")
+	public String exit(HttpSession session){
+		session.removeAttribute("id");
+		session.removeAttribute("username");
+		return "index";
+	}
+	
 	// login
 	@RequestMapping("/login")
 	@ResponseBody
@@ -84,6 +91,7 @@ public class UserController {
 			BeanUtils.copyProperties(user, vo);
 			Integer id = userService.confirm(user,DataStatusEnum.NORMAL_USED.getCode());
 			session.setAttribute("user", id);
+			session.setAttribute("username", loginId);
 			session.setMaxInactiveInterval(60 * 30);
 			log.info(JSON.toJSONString(user) + "登陆了\n\t ip:"
 					+ IpUtils.getIp(request));

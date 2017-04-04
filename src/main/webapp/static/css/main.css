@@ -134,3 +134,26 @@ th,td{
 .red{
 	color:red;
 }
+.page{
+	width:100%;
+	text-align:center;
+}
+.pagination{
+    margin: 0 auto;
+}
+.pagination li{
+    margin:80px 0 10px 0;
+    padding:10px 0 10px 0;
+    float:left;
+    list-style: none;
+    border: solid #eeeeee 1px;
+    text-align: center;
+}
+.pagination a{
+    padding:11px 15px 11px 15px;
+    text-decoration: none;
+    margin:0 auto;
+}
+.nowpage{
+    background: #2dc3e8;
+}

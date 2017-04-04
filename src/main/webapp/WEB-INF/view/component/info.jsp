@@ -27,8 +27,10 @@
     </div>
     <div class="tool">
         <ul>
-            <li class="out"><a href="#" id="log-out">注销</a></li>
-            <li id="username">admin</li>
+            <li class="out"><a href="/dcs/exit" id="log-out">注销</a></li>
+            <c:if test="${sessionScope.user ne null}">
+            	<li id="username">${sessionScope.username}</li>
+            </c:if>
         </ul>
     </div>
 </div>
@@ -53,13 +55,13 @@
             <caption class="text-center">${title}</caption>
             <thead>
             	<tr>
-             <c:forEach items="${map}" var="map">
+             <c:forEach items="${mapVo.mapString}" var="map">
                   <th>${map.value}</th>
               </c:forEach>
                 </tr>
             </thead>
             <tbody>
-              <c:forEach items="${list}" var="info">
+              <c:forEach items="${mapVo.mapList}" var="info">
                 <tr id="${info.id}">
                 	<c:forEach items="${info}" var="item">
                 		<c:if test="${item.key ne 'id' &&item.key ne 'info_id' && item.key ne 'data_status'}">
@@ -72,6 +74,52 @@
               </c:forEach>
             </tbody>
         </table>
+        <c:if test="${mapVo.totalSize!=0}">
+        	<div class="page">
+	        	<ul class="pagination">
+	               <c:choose>
+	               		<c:when test="${mapVo.pageEnd<=10}">
+	               			<c:set var="begin" value="1"></c:set>
+	               			<c:set var="end" value="${mapVo.pageEnd}"></c:set>
+	               		</c:when>
+	               		<c:otherwise>
+	               			<c:set var="begin" value="${mapVo.pageIndex-4}"></c:set>
+	               			<c:set var="end" value="${mapVo.pageIndex+5}"></c:set>
+		               <c:if test="${begin<1}">
+		    				<c:set var="begin" value="1"/>
+		    				<c:set var="end" value="10"/>
+		               </c:if>
+		               <c:if test="${end>mapVo.pageEnd}">
+		    				<c:set var="begin" value="${mapVo.pageEnd-9}"/>
+		    				<c:set var="end" value="${mapVo.pageEnd}"/>
+		               </c:if>
+	               </c:otherwise>
+	             </c:choose>
+	              		<c:if test="${mapVo.pageIndex==1}">
+	                    	<li><a href="#" >&laquo;</a></li>              		
+	               		</c:if>
+	                   <c:if test="${mapVo.pageIndex!=1}">
+	                    	<li><a href="/dcs/select_info?pageIndex=${mapVo.pageIndex-1}" >&laquo;</a></li>
+	               		</c:if>
+			        		<c:forEach begin="${begin}" end="${end}" var="i">
+			        		<c:choose>
+			        			<c:when test="${i eq mapVo.pageIndex}">
+			        				 <li><a href="#" class="nowpage">${i}</a></li>
+			        			</c:when>
+			        			<c:otherwise>
+			        			    	<li><a href="/dcs/select_info?pageIndex=${i}">${i}</a></li>
+			        			</c:otherwise>
+			        		</c:choose>
+			        		</c:forEach>
+	        		<c:if test="${mapVo.pageIndex==mapVo.pageEnd}">
+	        			<li><a href="#">&raquo;</a></li>
+	        		</c:if>
+	        		<c:if test="${mapVo.pageIndex!=mapVo.pageEnd}">
+	           			<li><a href="/dcs/select_info?pageIndex=${mapVo.pageIndex+1}">&raquo;</a></li>     				
+	        		</c:if>
+	             </ul>
+        	</div>
+        </c:if>
     </div>
 </div>
 <script src="../static/js/jquery-1.3.2.min.js" charset="utf-8"></script>

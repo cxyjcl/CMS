@@ -27,8 +27,10 @@
     </div>
     <div class="tool">
         <ul>
-            <li class="out"><a href="#" id="log-out">注销</a></li>
-            <li id="username">admin</li>
+            <li class="out"><a href="/dcs/exit" id="log-out">注销</a></li>
+            <c:if test="${sessionScope.user ne null}">
+            	<li id="username">${sessionScope.username}</li>
+            </c:if>
         </ul>
     </div>
 </div>
@@ -52,7 +54,7 @@
             <tbody>
               <c:forEach items="${list}" var="info">
                 <tr>
-                    <td><a href="/dcs/excel/select_info?code=${info.listId}&info_id=${info.infoId}">${info.excelName}</a></td>
+                    <td><a href="/dcs/excel/select_info?code=${info.listId}&id=${info.infoId}">${info.excelName}</a></td>
                     <td>${info.creator}</td>
                     <td><fmt:formatDate value="${info.createTime}" pattern="yyyy-MM-dd"/></td>
                		<td>${info.reviser}</td>
