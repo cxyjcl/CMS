@@ -37,16 +37,9 @@ public class ExcelIndividualAchievement {
 	 * @throws IOException
 	 */
 	@Test
-	public ArrayList<IndividualAchievement> upload() throws IOException {
+	public ArrayList<IndividualAchievement> upload(InputStream in) throws IOException {
 
 		ArrayList<IndividualAchievement> individualAchievementList = new ArrayList<IndividualAchievement>();
-
-		// 1.导入excel文件
-		file = new File("excel/个人成果及获奖情况.xls");
-
-		if (!file.exists())
-			System.out.println("The file is not exist!");
-		InputStream in = new FileInputStream(file);
 
 		workbook = new HSSFWorkbook(in);// 创建操作Excel的HSSFWorkbook对象
 		sheet = workbook.getSheetAt(0);// 创建HSSFsheet对象。

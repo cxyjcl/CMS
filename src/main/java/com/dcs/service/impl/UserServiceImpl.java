@@ -53,13 +53,13 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public Integer confirm(User user,Object dataStatus) throws Exception {
+	public User confirm(User user,Object dataStatus) throws Exception {
 		String password = user.getPassword();
 		//这里不判断password是否为null的原因是即使是null加密之后还是null
 		user.setPassword(MD5.encode(password));
-		Integer id= userMapper.confirm(user,dataStatus);
-		Assert.isTrue(id!=null,"密码错误");
-		return id;
+		user= userMapper.confirm(user,dataStatus);
+		Assert.isTrue(user!=null,"密码错误");
+		return user;
 	}
 
 	@Override

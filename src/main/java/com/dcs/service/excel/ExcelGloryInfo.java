@@ -37,17 +37,9 @@ public class ExcelGloryInfo {
 	 * @throws IOException
 	 */
 	@Test
-	public ArrayList<GloryInfo> upload() throws IOException {
+	public ArrayList<GloryInfo> upload(InputStream in) throws IOException {
 
 		ArrayList<GloryInfo> gloryInfoList = new ArrayList<GloryInfo>();
-
-		// 1.导入excel文件
-		file = new File("excel/年级各种荣誉名单.xls");
-
-		if (!file.exists())
-			System.out.println("The file is not exist!");
-		InputStream in = new FileInputStream(file);
-
 		workbook = new HSSFWorkbook(in);// 创建操作Excel的HSSFWorkbook对象
 		sheet = workbook.getSheetAt(0);// 创建HSSFsheet对象。
 

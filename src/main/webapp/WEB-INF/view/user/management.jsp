@@ -31,7 +31,8 @@
         <ul>
             <li class="out"><a href="/dcs/exit" id="log-out">注销</a></li>
             <c:if test="${sessionScope.user ne null}">
-            	<li id="username">${sessionScope.username}</li>
+            	<li id="username">${sessionScope.user.loginName}</li>
+            	<li id="level">${sessionScope.user.level}</li>
             </c:if>
         </ul>
     </div>

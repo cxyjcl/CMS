@@ -37,16 +37,9 @@ public class ExcelPunishInfo {
 	 * @throws IOException
 	 */
 	@Test
-	public ArrayList<PunishInfo> upload() throws IOException {
+	public ArrayList<PunishInfo> upload(InputStream in) throws IOException {
 
 		ArrayList<PunishInfo> punishInfoList = new ArrayList<PunishInfo>();
-
-		// 1.导入excel文件
-		file = new File("excel/年级受处分学生名单.xls");
-
-		if (!file.exists())
-			System.out.println("The file is not exist!");
-		InputStream in = new FileInputStream(file);
 
 		workbook = new HSSFWorkbook(in);// 创建操作Excel的HSSFWorkbook对象
 		sheet = workbook.getSheetAt(0);// 创建HSSFsheet对象。

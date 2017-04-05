@@ -21,7 +21,7 @@ public interface UserService{
 	
 	int deleteById(Object id, Object reviser) throws Exception;
 
-	Integer confirm(User user, Object dataStatus) throws Exception;
+	User confirm(User user, Object dataStatus) throws Exception;
 	
 	String selectLevel(Integer userId);
 

@@ -37,16 +37,9 @@ public class ExcelGradeInfo {
 	 * @throws IOException
 	 */
 	@Test
-	public ArrayList<GradeInfo> upload() throws IOException {
+	public ArrayList<GradeInfo> upload(InputStream in) throws IOException {
 
 		ArrayList<GradeInfo> gradeInfoList = new ArrayList<GradeInfo>();
-
-		// 1.导入excel文件
-		file = new File("excel/年级信息一览表.xls");
-
-		if (!file.exists())
-			System.out.println("The file is not exist!");
-		InputStream in = new FileInputStream(file);
 
 		workbook = new HSSFWorkbook(in);// 创建操作Excel的HSSFWorkbook对象
 		sheet = workbook.getSheetAt(0);// 创建HSSFsheet对象。
@@ -63,6 +56,7 @@ public class ExcelGradeInfo {
 			}
 
 			GradeInfo gradeInfo = new GradeInfo();
+			gradeInfo.setClassroom(cell[0].getStringCellValue());
 			gradeInfo.setPeople((int) cell[1].getNumericCellValue());
 			gradeInfo.setMale((int) cell[2].getNumericCellValue());
 			gradeInfo.setFemale((int) cell[3].getNumericCellValue());
@@ -82,8 +76,6 @@ public class ExcelGradeInfo {
 			rowIndex++;
 			row = sheet.getRow(rowIndex);
 		}
-
-		System.out.println("GradeInfo中数据导入完毕.");
 		System.out.println(gradeInfoList);
 		return gradeInfoList;
 	}

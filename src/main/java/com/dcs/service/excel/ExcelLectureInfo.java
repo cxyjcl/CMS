@@ -37,16 +37,9 @@ public class ExcelLectureInfo {
 	 * @throws IOException
 	 */
 	@Test
-	public ArrayList<LectureInfo> upload() throws IOException {
+	public ArrayList<LectureInfo> upload(InputStream in) throws IOException {
 
 		ArrayList<LectureInfo> lectureInfoList = new ArrayList<LectureInfo>();
-
-		// 1.导入excel文件
-		file = new File("excel/机械工程学院讲座统计表.xls");
-
-		if (!file.exists())
-			System.out.println("The file is not exist!");
-		InputStream in = new FileInputStream(file);
 
 		workbook = new HSSFWorkbook(in);// 创建操作Excel的HSSFWorkbook对象
 		sheet = workbook.getSheetAt(0);// 创建HSSFsheet对象。

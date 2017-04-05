@@ -38,17 +38,9 @@ public class ExcelCadresInfo {
 	 * @throws IOException
 	 */
 	@Test
-	public ArrayList<CadresInfo> upload() throws IOException {
+	public ArrayList<CadresInfo> upload(InputStream in) throws IOException {
 
 		ArrayList<CadresInfo> cadresInfoList = new ArrayList<CadresInfo>();
-
-		// 1.导入excel文件
-		file = new File("excel/分团委/各组织学生干部名单表模板.xls");
-
-		if (!file.exists())
-			System.out.println("The file is not exist!");
-		InputStream in = new FileInputStream(file);
-
 		workbook = new HSSFWorkbook(in);// 创建操作Excel的HSSFWorkbook对象
 		sheet = workbook.getSheetAt(0);// 创建HSSFsheet对象。
 
@@ -116,8 +108,7 @@ public class ExcelCadresInfo {
 		}
 
 		// 利用数据流写入
-		OutputStream out = null;
-		out = new FileOutputStream(file);
+		OutputStream out = new FileOutputStream(file);
 		// try {
 		// workbook.write(out);
 		// out.close();

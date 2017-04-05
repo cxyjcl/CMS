@@ -89,9 +89,8 @@ public class UserController {
 		User user = new User();
 		try {
 			BeanUtils.copyProperties(user, vo);
-			Integer id = userService.confirm(user,DataStatusEnum.NORMAL_USED.getCode());
-			session.setAttribute("user", id);
-			session.setAttribute("username", loginId);
+			user = userService.confirm(user,DataStatusEnum.NORMAL_USED.getCode());
+			session.setAttribute("user", user);
 			session.setMaxInactiveInterval(60 * 30);
 			log.info(JSON.toJSONString(user) + "登陆了\n\t ip:"
 					+ IpUtils.getIp(request));

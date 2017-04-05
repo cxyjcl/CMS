@@ -37,17 +37,10 @@ public class ExcelContestInfo {
 	 * @throws IOException
 	 */
 	@Test
-	public ArrayList<ContestInfo> upload() throws IOException {
+	public ArrayList<ContestInfo> upload(InputStream in) throws IOException {
 
 		ArrayList<ContestInfo> contestInfoList = new ArrayList<ContestInfo>();
-
-		// 1.导入excel文件
-		file = new File("excel/学科竞赛统计表.xls");
-
-		if (!file.exists())
-			System.out.println("The file is not exist!");
-		InputStream in = new FileInputStream(file);
-
+		
 		workbook = new HSSFWorkbook(in);// 创建操作Excel的HSSFWorkbook对象
 		sheet = workbook.getSheetAt(0);// 创建HSSFsheet对象。
 

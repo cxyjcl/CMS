@@ -67,7 +67,7 @@ th,td{
     width:220px;
     display: inline-block;
 }
-#username{
+#username,#level{
     padding-right:5px;
 }
 .header{

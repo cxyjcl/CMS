@@ -38,16 +38,12 @@ public class ExcelMoneyInfo {
 	 * @throws IOException
 	 */
 	@Test
-	public ArrayList<MoneyInfo> upload() throws IOException {
+	public ArrayList<MoneyInfo> upload(InputStream in) throws IOException {
 
 		ArrayList<MoneyInfo> moneyInfoList = new ArrayList<MoneyInfo>();
 
 		// 1.导入excel文件
 		file = new File("excel/年级奖、助学金名单.xls");
-
-		if (!file.exists())
-			System.out.println("The file is not exist!");
-		InputStream in = new FileInputStream(file);
 
 		workbook = new HSSFWorkbook(in);// 创建操作Excel的HSSFWorkbook对象
 		sheet = workbook.getSheetAt(0);// 创建HSSFsheet对象。

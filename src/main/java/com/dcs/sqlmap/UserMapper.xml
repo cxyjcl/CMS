@@ -127,9 +127,8 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <select id="confirm" parameterType="java.lang.Integer" resultType="java.lang.Integer">
-    select id
-    from t_user
+  <select id="confirm" resultMap="UserMap">
+    select id,login_name,level from t_user
     where password=#{user.password} and login_name=#{user.loginName} and data_status = #{dataStatus}
   </select>
 <select id="selectLevel" parameterType="java.lang.Integer" resultType="java.lang.String">

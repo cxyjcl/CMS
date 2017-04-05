@@ -29,7 +29,8 @@
         <ul>
             <li class="out"><a href="/dcs/exit" id="log-out">注销</a></li>
             <c:if test="${sessionScope.user ne null}">
-            	<li id="username">${sessionScope.username}</li>
+            	<li id="username">${sessionScope.user.loginName}</li>
+            	<li id="level">${sessionScope.user.level}</li>
             </c:if>
         </ul>
     </div>
@@ -49,16 +50,11 @@
         <div class="pull-right mg-5">
             <button type="button" id="all" class="btn btn-info">全选</button>
         </div>
-        <form id="excel-form" name="excel-form" encType="multipart/form-data" method="post" >
-	        <div class="pull-right mg-5">
-				<button type="button" class="btn btn-info" id="upload">上传文件</button>
-	        </div>
-	        <div class="pull-right mg-5">
-				<a href="javascript:;" class="file">选择文件
-				    <input type="file" name="excel" id="excel">
-				</a>
-	        </div>
-	    </form>
+	    <div class="pull-right mg-5" id="${code}">
+	    	<a href="javascript:;" class="file" id="${level}">
+				<input type="file" class="btn btn-info" onchange="file(this)" id="uploadFile"/>上传文件
+			</a>
+	    </div>
         <div class="pull-right mg-5">
             <button type="button" class="btn btn-info" id="download">下载模板</button>
         </div>

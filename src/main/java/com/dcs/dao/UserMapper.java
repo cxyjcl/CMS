@@ -21,7 +21,7 @@ public interface UserMapper{
 
 	public int update(User entity) throws Exception;
 
-	Integer confirm(@Param("user")User user,@Param("dataStatus") Object dataStatus);
+	User confirm(@Param("user")User user,@Param("dataStatus") Object dataStatus);
 
 	public String selectLevel(Integer id);
 

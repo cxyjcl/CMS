@@ -38,16 +38,9 @@ public class ExcelClassInfo {
 	 * @throws IOException
 	 */
 	@Test
-	public ArrayList<ClassInfo> upload() throws IOException {
+	public ArrayList<ClassInfo> upload(InputStream in) throws IOException {
 
 		ArrayList<ClassInfo> classInfoList = new ArrayList<ClassInfo>();
-
-		// 1.导入excel文件
-		file = new File("excel/学生班级信息一览表.xls");
-
-		if (!file.exists())
-			System.out.println("The file is not exist!");
-		InputStream in = new FileInputStream(file);
 
 		workbook = new HSSFWorkbook(in);// 创建操作Excel的HSSFWorkbook对象
 		sheet = workbook.getSheetAt(0);// 创建HSSFsheet对象。

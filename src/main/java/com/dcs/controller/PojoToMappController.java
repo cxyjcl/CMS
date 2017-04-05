@@ -27,6 +27,7 @@ import com.dcs.constants.LevelEnum;
 import com.dcs.constants.ListCodeEnum;
 import com.dcs.dto.ListInfoDto;
 import com.dcs.pojo.ListInfo;
+import com.dcs.pojo.User;
 import com.dcs.pojo.request.Page;
 import com.dcs.service.PojoToMapperService;
 import com.dcs.vo.MapVo;
@@ -58,17 +59,19 @@ public class PojoToMappController {
 	}
 	
 	@RequestMapping("/add")
-	public Message addInfo(@RequestParam("code") Integer code,@RequestParam("excel") MultipartFile uploadFile,HttpSession session){
-        int id = Integer.parseInt(session.getAttribute("user").toString());
+	public Message addInfo(@RequestParam("code") Integer code,@RequestParam("file") MultipartFile uploadFile,HttpSession session){
+        User user =(User) session.getAttribute("user");
         try {
             ListInfo listInfo = new ListInfo();
-            listInfo.setCreator(id);
+            listInfo.setCreator(user.getId());
             listInfo.setExcelName(uploadFile.getOriginalFilename());
             listInfo.setListId(code);
+            listInfo.setUserLevel(user.getLevel());
             String value = ListCodeEnum.fromCode(code.toString()).getValue();
 			pojoToMapperService.insert(code.toString(),uploadFile.getInputStream(),listInfo);
         } catch (Exception e) {
-			log.error("用户id是："+JSON.toJSONString(id)+"报错信息是："+e.getStackTrace().toString());
+        	e.printStackTrace();
+			log.error("用户id是："+JSON.toJSONString(user)+"报错信息是："+e.getStackTrace());
 			return Message.error("添加失败！");    		
         }
 		return Message.success("添加成功！");

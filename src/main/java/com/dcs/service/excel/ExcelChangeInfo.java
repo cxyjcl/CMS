@@ -37,17 +37,9 @@ public class ExcelChangeInfo {
 	 * @throws IOException
 	 */
 	@Test
-	public ArrayList<ChangeInfo> ChangeInfoServers() throws IOException {
+	public ArrayList<ChangeInfo> ChangeInfoServers(InputStream in) throws IOException {
 
 		ArrayList<ChangeInfo> changeInfoList = new ArrayList<ChangeInfo>();
-
-		// 1.导入excel文件
-		file = new File("excel/年级学籍异动学生名单和原因.xls");
-
-		if (!file.exists())
-			System.out.println("The file is not exist!");
-		InputStream in = new FileInputStream(file);
-
 		workbook = new HSSFWorkbook(in);// 创建操作Excel的HSSFWorkbook对象
 		sheet = workbook.getSheetAt(0);// 创建HSSFsheet对象。
 

@@ -1,7 +1,7 @@
 package com.dcs.service.excel;
 
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -13,13 +13,11 @@ public class TitleService {
 	private HSSFSheet sheet;
 	private HSSFRow row;
 
-	public String excel(FileInputStream in) throws IOException {
+	public String excel(InputStream in) throws IOException {
 		workbook = new HSSFWorkbook(in);// 创建操作Excel的HSSFWorkbook对象
 		sheet = workbook.getSheetAt(0);// 创建HSSFsheet对象。
 		row = sheet.getRow(0);
-
 		title = row.getCell(0).getStringCellValue();
-		System.out.println(title);
 		return title;
 	}
 }

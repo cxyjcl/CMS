@@ -28,13 +28,28 @@ $("#delete").click(function(){
         }
     };
 })
-$("#upload").click(function (){
-    var filePath=$("#excel").val();
-    if(filePath.indexOf("xls")!=-1){
-    	var url = $("#upload").parent();
-        $("#excel-form").attr("action", "/dcs/excel/add?"+url);
-        $("#excel-form").submit();
-    }else{
-        alert("您未上传文件，或者您上传文件类型非xls！");
-    }
-})
+function file(e){
+	 var file = new FormData();   
+	 file.append("file",document.getElementById('uploadFile').files[0]);
+	 var code =  $(e).parent().parent().attr("id")
+	 file.append("code",code);
+	 if (document.getElementById('uploadFile').files[0] != null && document.getElementById('uploadFile').files[0] != "") {
+	    var filepath=$("#uploadFile").val();
+	    var extStart=filepath.lastIndexOf(".");
+	    var ext=filepath.substring(extStart,filepath.length).toUpperCase();
+	    if(ext!=".XLS"){
+	       alert("文件仅限于XLS");
+	    }else{
+	       $.ajax({
+	          type:"POST",
+	          contentType:false,
+	          processData:false,
+	          url:"/dcs/excel/add",
+	          data:file,
+	          success:function(data){
+	          
+	          }
+	       });
+	    }
+	}
+}
