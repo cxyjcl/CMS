@@ -31,8 +31,9 @@ $("#delete").click(function(){
 $("#upload").click(function (){
     var filePath=$("#excel").val();
     if(filePath.indexOf("xls")!=-1){
-        $("#excel_form").attr("action", "dcs/excel/add");
-        $("#excel_form").submit();
+    	var url = $("#upload").parent();
+        $("#excel-form").attr("action", "/dcs/excel/add?"+url);
+        $("#excel-form").submit();
     }else{
         alert("您未上传文件，或者您上传文件类型非xls！");
     }

@@ -183,3 +183,6 @@ th,td{
     color: #004974;
     text-decoration: none;
 }
+.hidden{
+	display:none;
+}

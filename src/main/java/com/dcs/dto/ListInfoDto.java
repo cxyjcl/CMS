@@ -26,7 +26,7 @@ public class ListInfoDto{
 
 	private Date createTime;
 	
-	private Integer reviser;
+	private String reviser;
 	
 	private Date reviseTime;
 	
@@ -82,11 +82,12 @@ public class ListInfoDto{
 		this.createTime = createTime;
 	}
 
-	public Integer getReviser() {
+
+	public String getReviser() {
 		return reviser;
 	}
 
-	public void setReviser(Integer reviser) {
+	public void setReviser(String reviser) {
 		this.reviser = reviser;
 	}
 

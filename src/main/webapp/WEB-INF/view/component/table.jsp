@@ -49,10 +49,13 @@
         <div class="pull-right mg-5">
             <button type="button" id="all" class="btn btn-info">全选</button>
         </div>
-        <form id="excel_form" name="excel_form" encType="multipart/form-data" method="post" >
+        <form id="excel-form" name="excel-form" encType="multipart/form-data" method="post" >
+	        <div class="pull-right mg-5">
+				<button type="button" class="btn btn-info" id="upload">上传文件</button>
+	        </div>
 	        <div class="pull-right mg-5">
 				<a href="javascript:;" class="file">选择文件
-				    <input type="file" name="" id="upload">
+				    <input type="file" name="excel" id="excel">
 				</a>
 	        </div>
 	    </form>

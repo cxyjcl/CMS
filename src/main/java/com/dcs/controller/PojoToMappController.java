@@ -162,7 +162,8 @@ public class PojoToMappController {
         	view.setViewName("/view/component/default");
 			return view;
         } catch (Exception e) {
-			log.error("报错信息是："+e.getStackTrace().toString());
+        	e.printStackTrace();
+			log.error("报错信息是："+e.getStackTrace());
 			message = Message.error("查找失败！");
 			view.setViewName("/view/error/error.jsp");
 			view.addObject("message",message);
@@ -182,6 +183,8 @@ public class PojoToMappController {
     		view.addObject("list",list);
     		page.setTotalSize(list.size());
     		view.addObject("page",page);
+    		view.addObject("code",code);
+    		view.addObject("level",level);
 			view.setViewName("/view/component/table");
         	return view;
         } catch (Exception e) {
