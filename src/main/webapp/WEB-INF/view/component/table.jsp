@@ -43,14 +43,14 @@
             <!--<a id="back" href="#">返回</a>-->
         <!--</div>-->
     </div>
-    <div class="clearfix">
+    <div class="clearfix" id="${code}">
         <div class="pull-right mg-5">
             <button type="button" id="delete" class="btn btn-danger">删除</button>
         </div>
         <div class="pull-right mg-5">
             <button type="button" id="all" class="btn btn-info">全选</button>
         </div>
-	    <div class="pull-right mg-5" id="${code}">
+	    <div class="pull-right mg-5">
 	    	<a href="javascript:;" class="file" id="${level}">
 				<input type="file" class="btn btn-info" onchange="file(this)" id="uploadFile"/>上传文件
 			</a>

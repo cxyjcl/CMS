@@ -1,11 +1,19 @@
 package com.dcs.controller;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.websocket.server.PathParam;
 
@@ -76,6 +84,33 @@ public class PojoToMappController {
         }
 		return Message.success("添加成功！");
 	}
+	
+	@RequestMapping("/model/download")
+    public void downloadModel(HttpServletResponse response,HttpServletRequest request){
+        String code = request.getParameter("code");
+		String excelName = ListCodeEnum.fromCode(code).getExcelName();
+        String ctxPath = request.getSession().getServletContext().getRealPath("/") + "WEB-INF\\excel\\"+excelName;
+        System.out.println(ctxPath);
+        response.setContentType("application/x-msdownload;");
+        InputStream in;
+		try {
+			response.setHeader("Content-disposition", "attachment; filename="
+					+ new String("excel.xls".getBytes("utf-8"), "ISO8859-1"));
+			in = new FileInputStream(new File(ctxPath));
+			OutputStream out = new BufferedOutputStream(response.getOutputStream());
+			int byteread = 0;
+			byte[] buffer = new byte[1024];
+			while ((byteread = in.read(buffer)) != -1) {
+				out.write(buffer, 0, byteread);
+			}
+			in.close();
+			out.close();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			log.error("报错的excel是"+excelName+"报错信息是："+e.getStackTrace());
+		}
+    }
 	
 	@RequestMapping("/update")
 	@ResponseBody
