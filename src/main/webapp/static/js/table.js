@@ -57,3 +57,11 @@ $("#download").click(function () {
 	var code =  $(this).parent().parent().attr("id");
     window.open("/dcs/excel/model/download?code="+code);
 })
+$("#search").click(function(){
+	var code =  $(this).closest(".clearfix").attr("id");
+	var level =  $(this).parent().attr("class");
+  	var value = $("#search-value").val();
+  	console.log(code)
+  	console.log(level)
+  	location.href="/dcs/excel/find_list?code="+code+"&level="+level+"&value="+value;
+})

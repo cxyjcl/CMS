@@ -262,14 +262,29 @@ public class PojoToMappController {
 			return view;
         }
 	}
+	
 	@RequestMapping("/find_list")
-	public Message findListInfo(String code,String level,String value,@RequestParam("page")Page page){
-        try {
-        	List<ListInfoDto> dto = pojoToMapperService.findListInfo(value,level, page, code);
+	public ModelAndView findListInfo(String code,String level,String value,Page page){
+		Message message;
+		ModelAndView view = new ModelAndView();
+		try {
+        	List<ListInfoDto> list = pojoToMapperService.findListInfo(value,level, page, code);
+        	message =Message.success("查找成功！");
+    		view.addObject("list",list);
+			view.addObject("message",message);
+    		page.setTotalSize(list.size());
+    		view.addObject("page",page);
+    		view.addObject("code",code);
+    		view.addObject("level",level);
+			view.setViewName("view/component/table");
+        	return view;
         } catch (Exception e) {
+        	e.printStackTrace();
 			log.error("查找list的listinfo是"+code+"页码是："+JSON.toJSONString(page)+"报错信息是："+e.getStackTrace().toString());
-			return Message.success("查找失败！");    		
+			message = Message.success("查找失败！");   
+			view.addObject("message",message);
+			view.setViewName("/view/error/error.jsp");
+			return view;		
         }
-		return Message.success("查找成功！");
 	}
 }

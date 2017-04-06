@@ -25,7 +25,7 @@
     <result column="user_level" jdbcType="VARCHAR" property="userLevel" />
     <result column="data_status" jdbcType="VARCHAR" property="dataStatus" />
   </resultMap>
-	<select id="findListInfo" resultType="com.dcs.pojo.ListInfo">
+	<select id="findListInfo" resultMap="ListResultMap">
 		SELECT
 			excel_name,
 			list_id,
@@ -43,7 +43,7 @@
 		where tu2.id = t_list_info.creator
 		and (tu1.real_name=#{value} or tu2.real_name = #{value} or t_list_info.excel_name = #{value})
 		and (t_list_info.list_id= #{listId} and t_list_info.user_level = #{level})
-		<include refid="global.page-pagination"/>
+		<include refid="global.list-pagination"/>
 	</select>
 	
 	<select id="selectTitle" resultType="java.lang.String">

@@ -60,10 +60,15 @@
         </div>
         <div class="pull-right mg-5 static">
             <div class="input-group w-220 static">
-                <input type="text" class="form-control static" placeholder="搜索表格名字或提交人">
+                <input type="text" class="form-control static" id="search-value" placeholder="搜索表格名字或提交人">
                 <span class="input-group-btn static">
-                 <button class="btn btn-info static" type="button"><span class="glyphicon static glyphicon-search"></span></button>
-             </span>
+                	<span class="${level}">
+                 		<button class="btn btn-info static" type="button" id="search">
+	                 		<span class="glyphicon static glyphicon-search">
+	                 		</span>
+                 		</button>
+                	</span>
+             	</span>
             </div>
         </div>
     </div>
