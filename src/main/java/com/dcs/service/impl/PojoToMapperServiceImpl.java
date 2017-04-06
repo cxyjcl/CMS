@@ -24,55 +24,60 @@ import com.dcs.service.UserService;
 import com.dcs.service.excel.TitleService;
 import com.dcs.util.StringToMap;
 import com.dcs.util.TableUtils;
+import com.dcs.util.XlsDataSetBeanFactory;
 import com.dcs.vo.UpdateVo;
 
 /**
  * 
  * ClassName: PojoToMapperServiceImpl
+ * 
  * @author pohoulong
  * @date 2017年3月28日 下午2:09:16
  */
 @Service("infoService")
-public class PojoToMapperServiceImpl implements PojoToMapperService{
-	
+public class PojoToMapperServiceImpl implements PojoToMapperService {
+
 	@Autowired
 	private PojoToMapperDao dao;
 
 	@Autowired
 	private UserService userService;
 
-	public List<LinkedHashMap> selectInfo(String code,Integer infoId,Page page) throws Exception {		
-    	String table = ListCodeEnum.fromCode(code).getValue();
-		List<LinkedHashMap> mapList = dao.selectInfo(table,infoId,page);
+	public List<LinkedHashMap> selectInfo(String code, Integer infoId, Page page)
+			throws Exception {
+		String table = ListCodeEnum.fromCode(code).getValue();
+		List<LinkedHashMap> mapList = dao.selectInfo(table, infoId, page);
 		return mapList;
 	}
-	
-	public LinkedHashMap selectCol(String code) throws Exception{
+
+	public LinkedHashMap selectCol(String code) throws Exception {
 		String name = ListCodeEnum.fromCode(code).getInstance();
-		Class instance= Class.forName("com.dcs.pojo."+name);
+		Class instance = Class.forName("com.dcs.pojo." + name);
 		Object obj = instance.newInstance();
 		LinkedHashMap mapString = StringToMap.getData(obj.toString());
 		return mapString;
 	}
-	
+
 	@Override
-	public int insert(String code, InputStream input,ListInfo listInfo) throws Exception{
+	public int insert(String code, InputStream input, ListInfo listInfo)
+			throws Exception {
 		ListCodeEnum codeEnum = ListCodeEnum.fromCode(code);
 		String value = codeEnum.getInstance();
-		Class excel= Class.forName("com.dcs.service.excel.Excel"+value);
+		Class excel = Class.forName("com.dcs.service.excel.Excel" + value);
 		String table = codeEnum.getValue();
 		Integer max = dao.selectMax(table);
-		if(max==null){
-			max=0;
+		if (max == null) {
+			max = 0;
 		}
-		Integer infoId = max+1;
+		Integer infoId = max + 1;
 		Object instance = excel.newInstance();
 		Method declaredMethod = excel.getMethod("upload", InputStream.class);
 		ArrayList list = (ArrayList) declaredMethod.invoke(instance, input);
-		//这里我不用mybatis的for循环的原因是因为里面涉及到复杂的删除动作mybatis不好做。
-		for(int i =0 ; i<list.size();i++){
-			HashMap<String,Object> map = (HashMap<String,Object>) BeanUtils.describe(list.get(0));
-			//这里要删除一个class的原因是他在转化的时候会带上一个class键值对
+		// 这里我不用mybatis的for循环的原因是因为里面涉及到复杂的删除动作mybatis不好做。
+		for (int i = 0; i < list.size(); i++) {
+			HashMap<String, Object> map = (HashMap<String, Object>) BeanUtils
+					.describe(list.get(0));
+			// 这里要删除一个class的原因是他在转化的时候会带上一个class键值对
 			map.remove("class");
 			map.remove("id");
 			map = TableUtils.upToLow(map);
@@ -82,7 +87,43 @@ public class PojoToMapperServiceImpl implements PojoToMapperService{
 		}
 		Integer id = listInfo.getCreator();
 		String level = userService.selectLevel(id);
-		TitleService titleService =  new TitleService();
+		TitleService titleService = new TitleService();
+		String title = titleService.excel(input);
+		listInfo.setTitle(title);
+		listInfo.setInfoId(infoId);
+		listInfo.setUserLevel(level);
+		Integer num = dao.insertList(listInfo);
+		return num;
+	}
+
+	public int insert(String code, InputStream input, ListInfo listInfo,
+			String flag) throws Exception {
+		ListCodeEnum codeEnum = ListCodeEnum.fromCode(code);
+		String value = codeEnum.getInstance();
+		Class<? extends ListCodeEnum> beanClass = codeEnum.getClass();
+		String table = codeEnum.getValue();
+		Integer max = dao.selectMax(table);
+		if (max == null) {
+			max = 0;
+		}
+		Integer infoId = max + 1;
+		String fileName = table;
+		List createBeans = XlsDataSetBeanFactory.createBeans(fileName,
+				input, beanClass);
+		for (int i = 0; i < createBeans.size(); i++) {
+			HashMap<String, Object> map = (HashMap<String, Object>) BeanUtils
+					.describe(createBeans.get(0));
+			// 这里要删除一个class的原因是他在转化的时候会带上一个class键值对
+			map.remove("class");
+			map.remove("id");
+			map = TableUtils.upToLow(map);
+			map.put("info_id", infoId);
+			map.put("data_status", "001");
+			dao.insertInfo(table, map);
+		}
+		Integer id = listInfo.getCreator();
+		String level = userService.selectLevel(id);
+		TitleService titleService = new TitleService();
 		String title = titleService.excel(input);
 		listInfo.setTitle(title);
 		listInfo.setInfoId(infoId);
@@ -92,33 +133,33 @@ public class PojoToMapperServiceImpl implements PojoToMapperService{
 	}
 
 	@Override
-	public int update(String value, UpdateVo vo)
-			throws Exception {
-		Integer id= dao.updateInfo(value,vo);
+	public int update(String value, UpdateVo vo) throws Exception {
+		Integer id = dao.updateInfo(value, vo);
 		System.out.println(id);
 		return id;
 	}
 
 	@Override
-	public List<ListInfoDto> findListInfo(String value,String level,Page page, String listId) throws Exception {
-		return dao.findListInfo(value,level,page, listId);
+	public List<ListInfoDto> findListInfo(String value, String level,
+			Page page, String listId) throws Exception {
+		return dao.findListInfo(value, level, page, listId);
 	}
 
 	@Override
-	public List<ListInfoDto> selectListInfo(Integer listId, String level,Page page)
-			throws Exception {
+	public List<ListInfoDto> selectListInfo(Integer listId, String level,
+			Page page) throws Exception {
 		return dao.selectListInfo(listId, level, page);
 	}
 
 	@Override
 	public int deleteList(Integer id, Integer reviser) throws Exception {
-		Integer num = dao.deleteList(id,reviser);
+		Integer num = dao.deleteList(id, reviser);
 		return num;
 	}
 
 	@Override
-	public int delete(String table, int id,Integer reviser) throws Exception {
-		Integer num = dao.deleteInfo(table,id,reviser);
+	public int delete(String table, int id, Integer reviser) throws Exception {
+		Integer num = dao.deleteInfo(table, id, reviser);
 		return num;
 	}
 
@@ -129,7 +170,7 @@ public class PojoToMapperServiceImpl implements PojoToMapperService{
 
 	@Override
 	public String selectTitle(String code, Integer infoId) {
-		return dao.selectTitle(code,infoId);
+		return dao.selectTitle(code, infoId);
 	}
-	
+
 }

@@ -43,6 +43,13 @@ public class ExeclUtil {
 	/** 错误信息 */
 	private String errorInfo;
 
+	/*
+	 * 列名
+	 */
+	private List<String> cloNames;
+
+	private String tableTile;
+
 	/** 构造方法 */
 	public ExeclUtil() {
 
@@ -154,6 +161,49 @@ public class ExeclUtil {
 				wb = new XSSFWorkbook(in);
 			}
 			dataLst = read(wb, tableName);
+		} catch (IOException e) {
+			System.out.println(e.toString());
+		}
+
+		return dataLst;
+	}
+
+	public List<Map<String, Object>> read(InputStream in, Boolean isExcel2003) {
+
+		List<Map<String, Object>> dataLst = null;
+		try {
+			/** 根据版本选择创建Workbook的方式 */
+			Workbook wb = null;
+			if (isExcel2003) {
+				wb = new HSSFWorkbook(in);
+			} else {
+				wb = new XSSFWorkbook(in);
+			}
+			dataLst = read(wb, "sheet1");
+		} catch (IOException e) {
+			System.out.println(e.toString());
+		}
+
+		return dataLst;
+	}
+
+	public List<Map<String, Object>> read(String excelTemple, InputStream in,
+			Boolean isExcel2003) {
+		List<List<String>> list = read(excelTemple);
+		
+		this.cloNames = list.get(1);
+		this.tableTile = list.get(0).get(0);
+		
+		List<Map<String, Object>> dataLst = null;
+		try {
+			/** 根据版本选择创建Workbook的方式 */
+			Workbook wb = null;
+			if (isExcel2003) {
+				wb = new HSSFWorkbook(in);
+			} else {
+				wb = new XSSFWorkbook(in);
+			}
+			dataLst = read(wb, 1);
 		} catch (IOException e) {
 			System.out.println(e.toString());
 		}
@@ -300,6 +350,45 @@ public class ExeclUtil {
 			/** 保存第r行的第c列 只有当 行中的空值列数小于行中的列的总行数时 才进行保存这一行 */
 			if (rowLst.size() > nullNumber) {
 				dataLst.add(rowLst);
+			}
+		}
+		return dataLst;
+	}
+
+	public List<Map<String, Object>> read(Workbook wb, int flag) {
+		List<Map<String, Object>> dataLst = new ArrayList<Map<String, Object>>();
+		List<String> columNames = new ArrayList<String>();// 列名
+		/** 得到name指定的sheet */
+		Sheet sheet = wb.getSheetAt(0);
+		/** 得到Excel的行数 */
+		this.totalRows = sheet.getPhysicalNumberOfRows();
+
+		logger.info("读取   -- 总行数:" + totalRows);
+
+		/** 得到Excel的列数 以及列名列表 */
+		for (String columName : columNames) {
+			columNames.add(WTStringUtils.underlineToCamel(columName));
+		}
+		/** 循环Excel的行 */
+		for (int r = 2; r < this.totalRows; r++) {
+			Row row = sheet.getRow(r);
+			if (row == null) {
+				continue;
+			}
+			Map<String, Object> props = new HashMap<String, Object>();
+			boolean notNullFlag = false;
+			for (int c = 0; c < row.getPhysicalNumberOfCells(); c++) {
+				String columName = columNames.get(c);// 获得列名
+				Cell cell = row.getCell(c);
+				Object cellValue = getCellValue(cell);
+
+				if (null != cellValue) {
+					notNullFlag = true;
+				}
+				props.put(columName, cellValue);
+			}
+			if (notNullFlag) {
+				dataLst.add(props);
 			}
 		}
 		return dataLst;
@@ -476,5 +565,4 @@ class WDWUtil {
 		return filePath.matches("^.+\\.(?i)(xlsx)$");
 
 	}
-
 }
