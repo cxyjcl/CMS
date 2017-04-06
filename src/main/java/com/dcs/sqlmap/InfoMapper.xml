@@ -26,9 +26,24 @@
     <result column="data_status" jdbcType="VARCHAR" property="dataStatus" />
   </resultMap>
 	<select id="findListInfo" resultType="com.dcs.pojo.ListInfo">
-<!-- 		select * from t_list_info where user_level=#{level} and list_id = #{listId}
-		and data_status = "001" and excel_name =#{value} or creator=
-		<include refid="global.page-pagination"/> -->
+		SELECT
+			excel_name,
+			list_id,
+			info_id,
+			tu1.real_name as reviser,
+			tu2.real_name as creator,
+			t_list_info.create_time,
+			t_list_info.revise_time,
+			user_level,
+			t_list_info.data_status
+		FROM
+			t_list_info left join 
+			t_user as tu1 on tu1.id = t_list_info.reviser,
+			t_user as tu2
+		where tu2.id = t_list_info.creator
+		and (tu1.real_name=#{value} or tu2.real_name = #{value} or t_list_info.excel_name = #{value})
+		and (t_list_info.list_id= #{listId} and t_list_info.user_level = #{level})
+		<include refid="global.page-pagination"/>
 	</select>
 	
 	<select id="selectTitle" resultType="java.lang.String">
@@ -42,8 +57,8 @@
 			t_list_info,
 			${table}
 		WHERE
-			t_cadres_info.info_id = #{infoId}
-		AND t_cadres_info.info_id = t_list_info.info_id
+			${table}.info_id = #{infoId}
+		AND ${table}.info_id = t_list_info.info_id
 		<include refid="global.page-pagination"/>
 	</select>
 	

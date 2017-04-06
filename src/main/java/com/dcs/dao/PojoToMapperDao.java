@@ -21,8 +21,6 @@ public interface PojoToMapperDao {
 	Integer deleteInfo(@Param("table")String tableName, @Param("id")Integer id,@Param("reviser") Integer reviser);
 	
 	Integer updateInfo(@Param("table")String tableName,@Param("vo")UpdateVo vo);
-
-	//TODO 不会写了
 	
 	List<ListInfoDto> findListInfo(@Param("value")String value,@Param("level")String level,@Param("page")Page page,@Param("listId") String listId);
 	

@@ -87,7 +87,6 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public Integer check(String value, String code) {
-		// TODO Auto-generated method stub
 		return userMapper.check(value, code);
 	}
 	

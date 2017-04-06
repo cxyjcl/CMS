@@ -85,6 +85,34 @@ public class PojoToMappController {
 		return Message.success("添加成功！");
 	}
 	
+	//TODO 这是文件下载，即打印那一块的，没有写只是拿模块进行测试。打印也是拿到文件下载在再页面调用js打印。
+	@RequestMapping("/file/download")
+    public void downloadFile(HttpServletResponse response,HttpServletRequest request){
+        String code = request.getParameter("code");
+		String excelName = ListCodeEnum.fromCode(code).getExcelName();
+        String ctxPath = request.getSession().getServletContext().getRealPath("/") + "WEB-INF\\excel\\"+excelName;
+        System.out.println(ctxPath);
+        response.setContentType("application/x-msdownload;");
+        InputStream in;
+		try {
+			response.setHeader("Content-disposition", "attachment; filename="
+					+ new String("excel.xls".getBytes("utf-8"), "ISO8859-1"));
+			in = new FileInputStream(new File(ctxPath));
+			OutputStream out = new BufferedOutputStream(response.getOutputStream());
+			int byteread = 0;
+			byte[] buffer = new byte[1024];
+			while ((byteread = in.read(buffer)) != -1) {
+				out.write(buffer, 0, byteread);
+			}
+			in.close();
+			out.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error("报错的excel是"+excelName+"报错信息是："+e.getStackTrace());
+		}
+    }
+	
+	//这是模板下载，即table主页的那个下载。已经写好的
 	@RequestMapping("/model/download")
     public void downloadModel(HttpServletResponse response,HttpServletRequest request){
         String code = request.getParameter("code");
@@ -106,7 +134,6 @@ public class PojoToMappController {
 			in.close();
 			out.close();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			log.error("报错的excel是"+excelName+"报错信息是："+e.getStackTrace());
 		}
@@ -180,6 +207,7 @@ public class PojoToMappController {
         	view.setViewName("/view/component/info");
 			return view;
         } catch (Exception e) {
+        	e.printStackTrace();
 			log.error("查找list的iD是"+id+"报错信息是："+e.getStackTrace().toString());
 			message = Message.error("查找失败！");
 			view.setViewName("/view/error/error.jsp");

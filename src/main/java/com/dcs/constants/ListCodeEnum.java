@@ -5,7 +5,6 @@ import org.apache.commons.lang.StringUtils;
 /**
  * 
  * ClassName: InfoCodeEnum
- * @Description: TODO
  * @author pohoulong
  * @date 2017年3月25日 下午1:41:25
  */

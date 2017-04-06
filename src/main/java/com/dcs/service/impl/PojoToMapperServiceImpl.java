@@ -29,7 +29,6 @@ import com.dcs.vo.UpdateVo;
 /**
  * 
  * ClassName: PojoToMapperServiceImpl
- * @Description: TODO
  * @author pohoulong
  * @date 2017年3月28日 下午2:09:16
  */

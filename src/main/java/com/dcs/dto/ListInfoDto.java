@@ -8,7 +8,6 @@ import com.dcs.pojo.request.Page;
 /**
  * 
  * ClassName: ListInfoVo
- * @Description: TODO
  * @author pohoulong
  * @date 2017年3月24日 下午5:55:45
  */

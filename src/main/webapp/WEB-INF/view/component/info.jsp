@@ -43,12 +43,12 @@
             <!--<a id="back" href="#">返回</a>-->
         <!--</div>-->
     </div>
-    <div class="clearfix">
+    <div class="clearfix" id="${code}">
         <div class="pull-right mg-5">
-            <button type="button" class="btn btn-danger">打印</button>
+            <button type="button" class="btn btn-danger" id="print">打印</button>
         </div>
         <div class="pull-right mg-5">
-            <button type="button" class="btn btn-danger">下载</button>
+            <button type="button" class="btn btn-danger" id="download">下载</button>
         </div>
     </div>
     <div class="group">

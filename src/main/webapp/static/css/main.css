@@ -142,9 +142,7 @@ th,td{
     margin: 0 auto;
 }
 .pagination li{
-    margin:80px 0 10px 0;
-    padding:10px 0 10px 0;
-    float:left;
+	float:left;
     list-style: none;
     border: solid #eeeeee 1px;
     text-align: center;

@@ -13,8 +13,7 @@ public class TitleService {
 	private HSSFSheet sheet;
 	private HSSFRow row;
 
-	public String excel(InputStream in) throws IOException {
-		workbook = new HSSFWorkbook(in);// 创建操作Excel的HSSFWorkbook对象
+	public  String excel(InputStream in) throws IOException {
 		sheet = workbook.getSheetAt(0);// 创建HSSFsheet对象。
 		row = sheet.getRow(0);
 		title = row.getCell(0).getStringCellValue();

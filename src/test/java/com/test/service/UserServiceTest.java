@@ -30,7 +30,6 @@ public class UserServiceTest extends BaseTestStarter {
 				System.out.println(id);
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
