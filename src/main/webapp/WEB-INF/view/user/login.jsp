@@ -5,13 +5,13 @@
 <head>
     <meta charset="UTF-8">
     <title>资料集锦系统登录界面</title>
-    <link href="./static/css/login.css" rel="stylesheet"/>
+    <link href="/dcs/static/css/login.css" rel="stylesheet"/>
 </head>
 <body>
 <!--导航栏-->
 <div class="header">
         <div class="logo">
-            <img src="./static/img/logo.png" height="45"/>
+            <img src="/dcs/static/img/logo.png" height="45"/>
         </div>
 </div>
 <!--body1登录界面-->
@@ -46,7 +46,7 @@
         <a id="login-a">登录界面</a>
     </div>
 </div>
-<script src="./static/js/jquery-1.3.2.min.js"></script>
-<script src="./static/js/login.js"></script>
+<script src="/dcs/static/js/jquery-1.3.2.min.js"></script>
+<script src="/dcs/static/js/login.js"></script>
 </body>
 </html>

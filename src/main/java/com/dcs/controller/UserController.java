@@ -38,7 +38,7 @@ public class UserController {
 
 	Logger log = Logger.getLogger(UserController.class);
 
-	@RequestMapping("/index")
+	@RequestMapping("/login")
 	public String index(){
 		return "view/user/login";
 	}
@@ -61,7 +61,7 @@ public class UserController {
 	}
 	
 	// login
-	@RequestMapping("/login")
+	@RequestMapping("/confirm")
 	@ResponseBody
 	public Message login(@RequestBody UserVo vo, HttpSession session,
 			HttpServletRequest request) {

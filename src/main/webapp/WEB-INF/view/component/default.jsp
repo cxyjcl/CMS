@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <title>资料集锦管理系统</title>
-    <link rel="stylesheet" href="../static/css/main.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="/dcs/static/css/main.css" media="screen" title="no title" charset="utf-8">
     <link rel="stylesheet" href="https://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <body>
@@ -23,7 +23,7 @@
 </div>
 <div class="header">
     <div class="logo">
-        <img src="../static/img/logo.png" height="45"/>
+        <img src="/dcs/static/img/logo.png" height="45"/>
     </div>
     <div class="tool">
         <ul>
@@ -72,7 +72,7 @@
         </table>
     </div>
 </div>
-<script src="../static/js/jquery-1.3.2.min.js" charset="utf-8"></script>
-<script src="../static/js/content.js" charset="utf-8"></script>
+<script src="/dcs/static/js/jquery-1.3.2.min.js" charset="utf-8"></script>
+<script src="/dcs/static/js/content.js" charset="utf-8"></script>
 </body>
 </html>

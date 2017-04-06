@@ -44,7 +44,7 @@ $("#submitButton").click(function(){
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            url:"/dcs/login",
+            url:"/dcs/confirm",
             type: "POST",
             contentType: "application/json",
             dataType: "json",
