@@ -9,7 +9,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -18,6 +21,7 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.junit.Test;
 
 import com.dcs.pojo.ClassInfo;
+import com.dcs.util.TableUtils;
 
 public class ExcelClassInfo {
 	private int rowIndex = 2; // The row index start from 3 row.
@@ -38,9 +42,9 @@ public class ExcelClassInfo {
 	 * @throws IOException
 	 */
 	@Test
-	public ArrayList<ClassInfo> upload(InputStream in) throws IOException {
+	public LinkedList<HashMap<String, Object>> upload(InputStream in) throws Exception {
 
-		ArrayList<ClassInfo> classInfoList = new ArrayList<ClassInfo>();
+		LinkedList<HashMap<String, Object>> list = new LinkedList<HashMap<String, Object>>();
 
 		workbook = new HSSFWorkbook(in);// 创建操作Excel的HSSFWorkbook对象
 		sheet = workbook.getSheetAt(0);// 创建HSSFsheet对象。
@@ -66,15 +70,19 @@ public class ExcelClassInfo {
 			classInfo.setIdCard(cell[5].getStringCellValue());
 			row.getCell(6).setCellType(Cell.CELL_TYPE_STRING);
 			classInfo.setContacts(cell[6].getStringCellValue());
-			row.getCell(7).setCellType(Cell.CELL_TYPE_BOOLEAN);
-			classInfo.setPartyMember(cell[7].getBooleanCellValue());// boolean
-			classInfoList.add(classInfo);
+			HashMap<String, Object> map = (HashMap<String, Object>) BeanUtils
+			.describe(classInfo);
+			map.remove("class");
+			map = TableUtils.upToLow(map);
+			list.add(map);
 			rowIndex++;
 			row = sheet.getRow(rowIndex);
 		}
-		System.out.println("ClassInfo中数据导入完毕.");
-		System.out.println(classInfoList);
-		return classInfoList;
+		HashMap<String, Object> map = new HashMap();
+		String title = TitleService.excel(workbook);
+		map.put("title", title);
+		list.add(map);
+		return list;
 	}
 
 	public OutputStream download(ArrayList<ClassInfo> classInfoList) throws FileNotFoundException, IOException {

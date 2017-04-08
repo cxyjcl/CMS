@@ -9,7 +9,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -17,6 +20,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.junit.Test;
 
 import com.dcs.pojo.ContestInfo;
+import com.dcs.util.TableUtils;
 
 public class ExcelContestInfo {
 	private int rowIndex = 2; // The row index start from 3 row.
@@ -37,9 +41,9 @@ public class ExcelContestInfo {
 	 * @throws IOException
 	 */
 	@Test
-	public ArrayList<ContestInfo> upload(InputStream in) throws IOException {
+	public LinkedList<HashMap<String, Object>> upload(InputStream in) throws Exception {
 
-		ArrayList<ContestInfo> contestInfoList = new ArrayList<ContestInfo>();
+		LinkedList<HashMap<String, Object>> list = new LinkedList<HashMap<String, Object>>();
 		
 		workbook = new HSSFWorkbook(in);// 创建操作Excel的HSSFWorkbook对象
 		sheet = workbook.getSheetAt(0);// 创建HSSFsheet对象。
@@ -63,14 +67,19 @@ public class ExcelContestInfo {
 			contestInfo.setContestStudent(cell[4].getStringCellValue());
 			contestInfo.setTutor(cell[5].getStringCellValue());
 			contestInfo.setRemark(cell[6].getStringCellValue());
-			contestInfoList.add(contestInfo);
+			HashMap<String, Object> map = (HashMap<String, Object>) BeanUtils
+			.describe(contestInfo);
+			map.remove("class");
+			map = TableUtils.upToLow(map);
+			list.add(map);
 			rowIndex++;
 			row = sheet.getRow(rowIndex);
-
 		}
-		System.out.println("ContestInfo中数据导入完毕.");
-		System.out.println(contestInfoList);
-		return contestInfoList;
+		HashMap<String, Object> map = new HashMap();
+		String title = TitleService.excel(workbook);
+		map.put("title", title);
+		list.add(map);
+		return list;
 	}
 
 	public OutputStream download(ArrayList<ContestInfo> contestInfoList) throws FileNotFoundException, IOException {

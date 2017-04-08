@@ -31,7 +31,7 @@ $("#delete").click(function(){
 function file(e){
 	 var file = new FormData();   
 	 file.append("file",document.getElementById('uploadFile').files[0]);
-	 var code =  $(e).parent().parent().attr("id");
+	 var code =  $(e).parent().parent().parent().attr("id");
 	 file.append("code",code);
 	 if (document.getElementById('uploadFile').files[0] != null && document.getElementById('uploadFile').files[0] != "") {
 	    var filepath=$("#uploadFile").val();

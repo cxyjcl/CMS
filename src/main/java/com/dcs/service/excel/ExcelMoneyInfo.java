@@ -9,7 +9,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -18,6 +21,7 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.junit.Test;
 
 import com.dcs.pojo.MoneyInfo;
+import com.dcs.util.TableUtils;
 
 public class ExcelMoneyInfo {
 	private int rowIndex = 2; // The row index start from 3 row.
@@ -38,9 +42,9 @@ public class ExcelMoneyInfo {
 	 * @throws IOException
 	 */
 	@Test
-	public ArrayList<MoneyInfo> upload(InputStream in) throws IOException {
+	public LinkedList<HashMap<String, Object>> upload(InputStream in) throws Exception {
 
-		ArrayList<MoneyInfo> moneyInfoList = new ArrayList<MoneyInfo>();
+		LinkedList<HashMap<String, Object>> list = new LinkedList<HashMap<String, Object>>();
 
 		// 1.导入excel文件
 		file = new File("excel/年级奖、助学金名单.xls");
@@ -68,13 +72,19 @@ public class ExcelMoneyInfo {
 			row.getCell(5).setCellType(Cell.CELL_TYPE_STRING);
 			moneyInfo.setMoney(cell[5].getStringCellValue());
 			moneyInfo.setRemark(cell[6].getStringCellValue());
-			moneyInfoList.add(moneyInfo);
+			HashMap<String, Object> map = (HashMap<String, Object>) BeanUtils
+			.describe(moneyInfo);
+			map.remove("class");
+			map = TableUtils.upToLow(map);
+			list.add(map);
 			rowIndex++;
 			row = sheet.getRow(rowIndex);
 		}
-		System.out.println("MoneyInfo中数据导入完毕.");
-		System.out.println(moneyInfoList);
-		return moneyInfoList;
+		HashMap<String, Object> map = new HashMap();
+		String title = TitleService.excel(workbook);
+		map.put("title", title);
+		list.add(map);
+		return list;
 	}
 
 	public OutputStream download(ArrayList<MoneyInfo> moneyInfoList) throws FileNotFoundException, IOException {

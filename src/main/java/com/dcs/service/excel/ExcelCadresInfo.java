@@ -7,19 +7,29 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+import com.dcs.dao.PojoToMapperDao;
 import com.dcs.pojo.CadresInfo;
+import com.dcs.util.TableUtils;
 
+@Component
 public class ExcelCadresInfo {
+	
 	private int rowIndex = 3; // The row index start from 4 row.
 	private final int column = 9; // All column is 9.
 
@@ -36,11 +46,14 @@ public class ExcelCadresInfo {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 * @throws IOException
+	 * @throws NoSuchMethodException 
+	 * @throws InvocationTargetException 
+	 * @throws IllegalAccessException 
 	 */
 	@Test
-	public ArrayList<CadresInfo> upload(InputStream in) throws IOException {
+	public LinkedList<HashMap<String, Object>> upload(InputStream in) throws IOException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
 
-		ArrayList<CadresInfo> cadresInfoList = new ArrayList<CadresInfo>();
+		LinkedList<HashMap<String, Object>> list = new LinkedList<HashMap<String, Object>>();
 		workbook = new HSSFWorkbook(in);// 创建操作Excel的HSSFWorkbook对象
 		sheet = workbook.getSheetAt(0);// 创建HSSFsheet对象。
 
@@ -67,13 +80,19 @@ public class ExcelCadresInfo {
 			cadresInfo.setContactsSecretary(cell[6].getStringCellValue());
 			cadresInfo.setStudentOrganization(cell[7].getStringCellValue());
 			cadresInfo.setRemark(cell[8].getStringCellValue());
-			cadresInfoList.add(cadresInfo);
+			HashMap<String, Object> map = (HashMap<String, Object>) BeanUtils
+			.describe(cadresInfo);
+			map.remove("class");
+			map = TableUtils.upToLow(map);
+			list.add(map);
 			rowIndex++;
 			row = sheet.getRow(rowIndex);
 		}
-		System.out.println("CadresInfo中数据导入完毕.");
-		System.out.println(cadresInfoList);
-		return cadresInfoList;
+		HashMap<String, Object> map = new HashMap();
+		String title = TitleService.excel(workbook);
+		map.put("title", title);
+		list.add(map);
+		return list;
 	}
 
 	public OutputStream download(ArrayList<CadresInfo> cadresInfoList) throws FileNotFoundException, IOException {
