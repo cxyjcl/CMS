@@ -25,6 +25,7 @@
     <result column="user_level" jdbcType="VARCHAR" property="userLevel" />
     <result column="data_status" jdbcType="VARCHAR" property="dataStatus" />
   </resultMap>
+
 	<select id="findListInfo" resultMap="ListResultMap">
 		SELECT
 			excel_name,
@@ -156,6 +157,38 @@
          </foreach>
 	</insert>
 
+	<insert id="insertWord" parameterType="com.dcs.pojo.WordInfo" >
+  		insert into t_word_info
+	    <trim prefix="(" suffix=")" suffixOverrides="," >
+	      <if test="id != null" >
+	        id,
+	      </if>
+	      <if test="infoId != null" >
+	        info_id,
+	      </if>
+	      <if test="url != null" >
+	        url,
+	      </if>
+	      <if test="number != null" >
+	        number,
+	      </if>
+	    </trim>
+	    <trim prefix="values (" suffix=")" suffixOverrides="," >
+	      <if test="id != null" >
+	        #{id,jdbcType=INTEGER},
+	      </if>
+	      <if test="infoId != null" >
+	        #{infoId,jdbcType=INTEGER},
+	      </if>
+	      <if test="url != null" >
+	        #{url,jdbcType=VARCHAR},
+	      </if>
+	      <if test="number != null" >
+	        #{number,jdbcType=VARCHAR},
+	      </if>
+	    </trim>
+	</insert>
+
 	<update id="updateInfo" >
 		update ${table} set ${vo.col} = #{vo.value}
 		where id = #{vo.id}
@@ -176,7 +209,10 @@
 		update t_list_info set data_status = "000",reviser=#{reviser},revise_time=now() where id = #{id};
 	</delete>
 	<select id ="selectMax" resultType="java.lang.Integer">
-		SELECT max(info_id) FROM ${table} where data_status = "001";
+		SELECT max(info_id) FROM ${table}
+		<if test="dataStatus != null" >
+			where data_status = #{dataStatus};
+      	</if>
 	</select>
 	<select id="selectLimit" resultMap="ListResultMap">
 		SELECT
@@ -198,5 +234,8 @@
 			t_list_info.id DESC
 		LIMIT 0,
 		 10
+	</select>
+	<select id="selectWord" resultType="java.lang.String">
+		SELECT url FROM t_word_info  where id = #{id}
 	</select>
 </mapper>

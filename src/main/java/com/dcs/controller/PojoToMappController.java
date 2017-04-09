@@ -67,14 +67,14 @@ public class PojoToMappController {
 	}
 	
 	@RequestMapping("/add")
-	public Message addInfo(@RequestParam("code") Integer code,@RequestParam("file") MultipartFile uploadFile,HttpSession session){
+	public Message addInfo(@RequestParam("code") Integer code,@RequestParam("level")String level,@RequestParam("file") MultipartFile uploadFile,HttpSession session){
         User user =(User) session.getAttribute("user");
         try {
             ListInfo listInfo = new ListInfo();
             listInfo.setCreator(user.getId());
             listInfo.setExcelName(uploadFile.getOriginalFilename());
             listInfo.setListId(code);
-            listInfo.setUserLevel(user.getLevel());
+            listInfo.setUserLevel(level);
             String value = ListCodeEnum.fromCode(code.toString()).getValue();
 			pojoToMapperService.insert(code.toString(),uploadFile.getInputStream(),listInfo);
         } catch (Exception e) {
@@ -90,8 +90,7 @@ public class PojoToMappController {
     public void downloadFile(HttpServletResponse response,HttpServletRequest request){
         String code = request.getParameter("code");
 		String excelName = ListCodeEnum.fromCode(code).getExcelName();
-        String ctxPath = request.getSession().getServletContext().getRealPath("/") + "WEB-INF\\excel\\"+excelName;
-        System.out.println(ctxPath);
+        String ctxPath = request.getSession().getServletContext().getRealPath("/") + "WEB-INF\\temp\\"+excelName;
         response.setContentType("application/x-msdownload;");
         InputStream in;
 		try {
@@ -176,7 +175,6 @@ public class PojoToMappController {
         try {
         	String table = ListCodeEnum.fromCode(code).getValue();
 			pojoToMapperService.delete(table,id, reviser);
-			
         } catch (Exception e) {
 			log.error("删除list的iD是"+id+"用户id是："+JSON.toJSONString(reviser)+"报错信息是："+e.getStackTrace().toString());
 			return Message.error("删除失败！");    		
@@ -185,26 +183,32 @@ public class PojoToMappController {
 	}
 	
 	@RequestMapping("/select_info")
-	public ModelAndView selectInfo(String code,Integer id,Page page){
+	public ModelAndView selectInfo(String code,Integer id,Page page,HttpServletResponse response){
 		Message message;
 		ModelAndView view = new ModelAndView();
+		String table = ListCodeEnum.fromCode(code).getValue();
+		String instance = ListCodeEnum.fromCode(code).getInstance();
 		try {
-        	String table = ListCodeEnum.fromCode(code).getValue();
-        	MapVo vo = new MapVo();
-        	BeanUtils.copyProperties(vo, page);
-        	LinkedHashMap mapString = pojoToMapperService.selectCol(code);
-        	vo.setMapString(mapString);
-			List<LinkedHashMap> mapList = pojoToMapperService.selectInfo(code, id,page);
-			vo.setMapList(mapList);
-			vo.setTotalSize(mapList.size());
-			System.out.println(vo);
-			String title = pojoToMapperService.selectTitle(code,id);
-			view.addObject("mapVo",vo);
+			if(instance.equals("WordInfo")){
+				String ctxPath = pojoToMapperService.selectWord(id.toString());
+				ctxPath = ctxPath.replace(".doc", ".pdf");
+				view.setViewName("/temp/"+ctxPath);
+			} else{
+				MapVo vo = new MapVo();
+	        	BeanUtils.copyProperties(vo, page);
+	        	LinkedHashMap mapString = pojoToMapperService.selectCol(code);
+	        	vo.setMapString(mapString);
+				List<LinkedHashMap> mapList = pojoToMapperService.selectInfo(code, id,page);
+				vo.setMapList(mapList);
+				vo.setTotalSize(mapList.size());
+				String title = pojoToMapperService.selectTitle(code,id);
+				view.addObject("mapVo",vo);
+				view.addObject("title",title);
+				view.setViewName("/view/component/info");
+			}        	
         	message = Message.success("查找成功！");
         	view.addObject("message",message);
         	view.addObject("code",code);
-        	view.addObject("title",title);
-        	view.setViewName("/view/component/info");
 			return view;
         } catch (Exception e) {
         	e.printStackTrace();
@@ -250,7 +254,9 @@ public class PojoToMappController {
     		page.setTotalSize(list.size());
     		view.addObject("page",page);
     		view.addObject("code",code);
+    		String instance = ListCodeEnum.fromCode(code.toString()).getInstance();
     		view.addObject("level",level);
+    		view.addObject("instance",instance);
 			view.setViewName("/view/component/table");
         	return view;
         } catch (Exception e) {

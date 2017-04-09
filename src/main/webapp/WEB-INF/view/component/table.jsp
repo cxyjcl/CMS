@@ -87,7 +87,7 @@
             <tbody>
               <c:forEach items="${list}" var="info">
                 <tr id="${info.id}">
-                    <td><a href="/dcs/excel/select_info?code=${info.listId}&id=${info.infoId}">${info.excelName}</a></td>
+                	<td><a href="/dcs/excel/select_info?code=${info.listId}&id=${info.infoId}">${info.excelName}</a></td>
                     <td>${info.creator}</td>
                     <td><fmt:formatDate value="${info.createTime}" pattern="yyyy-MM-dd"/></td>
                		<td>${info.reviser}</td>
@@ -122,7 +122,7 @@
 	                    	<li><a href="#" >&laquo;</a></li>              		
 	               		</c:if>
 	                   <c:if test="${page.pageIndex!=1}">
-	                    	<li><a href="/dcs/select_info?pageIndex=${page.pageIndex-1}" >&laquo;</a></li>
+	                    	<li><a href="/dcs/select_list?code=${code}&level=${level}&pageIndex=${page.pageIndex-1}" >&laquo;</a></li>
 	               		</c:if>
 			        		<c:forEach begin="${begin}" end="${end}" var="i">
 			        		<c:choose>
@@ -130,7 +130,7 @@
 			        				 <li><a href="#" class="nowpage">${i}</a></li>
 			        			</c:when>
 			        			<c:otherwise>
-			        			    	<li><a href="/dcs/select_info?pageIndex=${i}">${i}</a></li>
+			        			    	<li><a href="/dcs/select_list?code=${code}&level=${level}&pageIndex=${i}">${i}</a></li>
 			        			</c:otherwise>
 			        		</c:choose>
 			        		</c:forEach>
@@ -138,7 +138,7 @@
 	        			<li><a href="#">&raquo;</a></li>
 	        		</c:if>
 	        		<c:if test="${page.pageIndex!=page.pageEnd}">
-	           			<li><a href="/dcs/select_info?pageIndex=${page.pageIndex+1}">&raquo;</a></li>     				
+	           			<li><a href="/dcs/select_list?code=${code}&level=${level}&pageIndex=${page.pageIndex+1}">&raquo;</a></li>     				
 	        		</c:if>
 	             </ul>
         	</div>

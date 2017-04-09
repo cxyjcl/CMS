@@ -32,13 +32,15 @@ function file(e){
 	 var file = new FormData();   
 	 file.append("file",document.getElementById('uploadFile').files[0]);
 	 var code =  $(e).parent().parent().parent().attr("id");
+	 var level = $(e).parent().attr(id);
 	 file.append("code",code);
+	 file.append("level",level);
 	 if (document.getElementById('uploadFile').files[0] != null && document.getElementById('uploadFile').files[0] != "") {
 	    var filepath=$("#uploadFile").val();
 	    var extStart=filepath.lastIndexOf(".");
 	    var ext=filepath.substring(extStart,filepath.length).toUpperCase();
-	    if(ext!=".XLS"){
-	       alert("文件仅限于XLS");
+	    if(ext!=".XLS"&&ext!=".DOC"){
+	       alert("文件仅限于XLS与DOC");
 	    }else{
 	       $.ajax({
 	          type:"POST",
@@ -61,7 +63,5 @@ $("#search").click(function(){
 	var code =  $(this).closest(".clearfix").attr("id");
 	var level =  $(this).parent().attr("class");
   	var value = $("#search-value").val();
-  	console.log(code)
-  	console.log(level)
   	location.href="/dcs/excel/find_list?code="+code+"&level="+level+"&value="+value;
 })

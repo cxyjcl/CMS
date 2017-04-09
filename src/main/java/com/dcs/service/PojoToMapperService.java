@@ -34,5 +34,8 @@ public interface PojoToMapperService {
 	public String selectTitle(String code, Integer infoId);
 
 	public int update(String value, UpdateVo vo) throws Exception ;
+
+	public String selectWord(String id);
+
 	
 }

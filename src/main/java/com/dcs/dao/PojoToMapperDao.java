@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.dcs.dto.ListInfoDto;
 import com.dcs.pojo.ListInfo;
+import com.dcs.pojo.WordInfo;
 import com.dcs.pojo.request.Page;
 import com.dcs.vo.UpdateVo;
 
@@ -28,12 +29,16 @@ public interface PojoToMapperDao {
 	
 	List<ListInfoDto> selectListInfo(@Param("listId") Integer listId,@Param("level")String level,@Param("page")Page page);
 	
-	Integer selectMax(@Param("table")String tableName);
+	Integer selectMax(@Param("table")String tableName,@Param("dataStatus")String dataStatus);
 
 	Integer deleteList(@Param("id")Integer id,@Param("reviser") int reviser);
 
 	List<ListInfoDto> selectLimit();
 
 	String selectTitle(@Param("listId")String listId, @Param("infoId")Integer infoId);
+
+	Integer insertWord(WordInfo info);
+
+	String selectWord(String id);
 
 }

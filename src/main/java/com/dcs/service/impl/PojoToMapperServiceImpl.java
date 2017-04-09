@@ -2,6 +2,7 @@ package com.dcs.service.impl;
 
 import java.io.File;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -10,19 +11,24 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.dcs.constants.DataStatusEnum;
 import com.dcs.constants.ListCodeEnum;
 import com.dcs.dao.PojoToMapperDao;
 import com.dcs.dto.ListInfoDto;
 import com.dcs.pojo.ListInfo;
+import com.dcs.pojo.WordInfo;
 import com.dcs.pojo.request.Page;
 import com.dcs.service.PojoToMapperService;
 import com.dcs.service.UserService;
 import com.dcs.service.excel.TitleService;
+import com.dcs.util.InputToFile;
+import com.dcs.util.JodUtils;
 import com.dcs.util.StringToMap;
 import com.dcs.util.TableUtils;
 import com.dcs.util.XlsDataSetBeanFactory;
@@ -44,6 +50,10 @@ public class PojoToMapperServiceImpl implements PojoToMapperService {
 	@Autowired
 	private UserService userService;
 
+//	public OutputStream download(){
+//		
+//	}
+	
 	public List<LinkedHashMap> selectInfo(String code, Integer infoId, Page page)
 			throws Exception {
 		String table = ListCodeEnum.fromCode(code).getValue();
@@ -64,34 +74,54 @@ public class PojoToMapperServiceImpl implements PojoToMapperService {
 			throws Exception {
 		ListCodeEnum codeEnum = ListCodeEnum.fromCode(code);
 		String value = codeEnum.getInstance();
-		Class excel = Class.forName("com.dcs.service.excel.Excel" + value);
 		String table = codeEnum.getValue();
-		Integer max = dao.selectMax(table);
-		if (max == null) {
-			max = 0;
-		}
-		Integer infoId = max + 1;
-		Object instance = excel.newInstance();
-		Method declaredMethod = excel.getMethod("upload", InputStream.class);
-		LinkedList<HashMap<String, Object>> list= (LinkedList<HashMap<String, Object>>) declaredMethod.invoke(instance, input);
 		Integer id = listInfo.getCreator();
 		String level = userService.selectLevel(id);
-		TitleService titleService = new TitleService();
-		String title = (String)list.getLast().get("title");
-		listInfo.setTitle(title);
-		listInfo.setInfoId(infoId);
-		listInfo.setUserLevel(level);
-		Integer num = dao.insertList(listInfo);
-		//删除title
-		list.removeLast();
-		//添加info
-		for (int i = 0; i < list.size(); i++) {
-			HashMap<String, Object> map =list.get(i);
-			map.put("info_id", infoId);
-			map.put("data_status", "001");
-			dao.insertInfo(table, map);
+		if(value.equals("WordInfo")){
+			Integer max = dao.selectMax(table,null);
+			if (max == null) {
+				max = 0;
+			}
+			Integer infoId = max + 1;
+			WordInfo info = new WordInfo();
+			info.setInfoId(infoId);
+			info.setNumber(code);
+			String random = infoId+UUID.randomUUID().toString();
+			String url = this.getClass().getResource("/").toURI().getPath().replace("classes/","temp/"+random);
+			JodUtils.transform(input, url);
+			info.setUrl(random+".doc");
+		 	int num=dao.insertWord(info);
+			listInfo.setInfoId(infoId);
+			listInfo.setUserLevel(level);
+			dao.insertList(listInfo);
+			return num;
+		} else{
+			Integer max = dao.selectMax(table,DataStatusEnum.NORMAL_USED.getCode());
+			if (max == null) {
+				max = 0;
+			}
+			Integer infoId = max + 1;
+			Class excel = Class.forName("com.dcs.service.excel.Excel" + value);
+			Object instance = excel.newInstance();
+			Method declaredMethod = excel.getMethod("upload", InputStream.class);
+			LinkedList<HashMap<String, Object>> list= (LinkedList<HashMap<String, Object>>) declaredMethod.invoke(instance, input);
+			TitleService titleService = new TitleService();
+			String title = (String)list.getLast().get("title");
+			listInfo.setTitle(title);
+			listInfo.setInfoId(infoId);
+			listInfo.setUserLevel(level);
+			Integer num = dao.insertList(listInfo);
+			//删除title
+			list.removeLast();
+			//添加info
+			for (int i = 0; i < list.size(); i++) {
+				HashMap<String, Object> map =list.get(i);
+				map.put("info_id", infoId);
+				map.put("data_status", "001");
+				dao.insertInfo(table, map);
+			}
+			return num;
 		}
-		return num;
 	}
 
 //	public int insert(String code, InputStream input, ListInfo listInfo,
@@ -169,6 +199,12 @@ public class PojoToMapperServiceImpl implements PojoToMapperService {
 	@Override
 	public String selectTitle(String code, Integer infoId) {
 		return dao.selectTitle(code, infoId);
+	}
+
+	@Override
+	public String selectWord(String id) {
+		String name = dao.selectWord(id);
+		return name;
 	}
 
 }
