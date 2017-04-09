@@ -143,6 +143,7 @@
 	             </ul>
         	</div>
         </c:if>
+    	<div><a href="/dcs/temp/123.pdf">click</a></div>
     </div>
 </div>
 <script src="/dcs/static/js/jquery-1.3.2.min.js" charset="utf-8"></script>

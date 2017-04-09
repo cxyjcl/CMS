@@ -1,11 +1,15 @@
 package com.dcs.controller;
 
 import java.io.BufferedOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -192,7 +196,8 @@ public class PojoToMappController {
 			if(instance.equals("WordInfo")){
 				String ctxPath = pojoToMapperService.selectWord(id.toString());
 				ctxPath = ctxPath.replace(".doc", ".pdf");
-				view.setViewName("/temp/"+ctxPath);
+				view.addObject("path","/dcs/temp/"+ctxPath);
+				view.setViewName("/view/index");
 			} else{
 				MapVo vo = new MapVo();
 	        	BeanUtils.copyProperties(vo, page);
@@ -292,5 +297,39 @@ public class PojoToMappController {
 			view.setViewName("/view/error/error.jsp");
 			return view;		
         }
+	}
+	
+	@RequestMapping("/test")
+//	public ModelAndView test(){
+//		ModelAndView view = new ModelAndView();
+//		view.setViewName("/view/index");
+//		return view;
+	public void test(HttpServletRequest request,HttpServletResponse response) throws IOException{
+			PrintWriter out= response.getWriter();
+		   response.setContentType("application/pdf");
+		   response.setHeader("Content-type", "application/pdf");
+		   response.addHeader("Content-Disposition", "inline");  
+		   try {
+		    String strPdfPath = new String("D:/资料集锦系统使用文档.pdf");
+		    //判断该路径下的文件是否存在
+		    File file = new File(strPdfPath);
+		    if (file.exists()) {
+		     DataOutputStream temps = new DataOutputStream(response
+		       .getOutputStream());
+		     DataInputStream in = new DataInputStream(
+		       new FileInputStream(strPdfPath));
+		     byte[] b = new byte[2048];
+		     while ((in.read(b)) != -1) {
+		      temps.write(b);
+		      temps.flush();
+		     }
+		     in.close();
+		     temps.close();
+		    } else {
+		     out.print(strPdfPath + " 文件不存在!");
+		    }
+		   } catch (Exception e) {
+		    out.println(e.getMessage());
+		   }
 	}
 }

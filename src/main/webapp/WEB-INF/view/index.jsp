@@ -1,13 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html >
+<%@ page language="java" import="java.util.*,java.io.*"
+pageEncoding="ISO-8859-1"%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-<title>wtlib</title>
 </head>
+ <embed src="/dcs/temp/123.pdf" width="600" height="600"> 
 <body>
-	<h1 style="color: #b64628">hello</h1>
 </body>
 </html>
