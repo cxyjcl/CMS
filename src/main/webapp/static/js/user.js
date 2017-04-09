@@ -48,12 +48,12 @@ $("#confirm").click(function (){
 	            	$("#error-message").html(data.msg);
 	            },
 	            error: function (data) {
-	                $("#error-message").html(data.msg)
+	                $("#error-message").html(data.msg);
 	            }
 	        });
 	    }
     }
-})
+});
 $("#all").click(function() {
     var box = $(":checked").size();
     if(box<10)
@@ -61,7 +61,7 @@ $("#all").click(function() {
     else{
         $(":checkbox").removeAttr("checked",'false');
     }
-})
+});
 $("#delete").click(function(){
     var box = $("input:checkbox");
     for(var i = 0 ;i<box.size();i++){
@@ -77,16 +77,16 @@ $("#delete").click(function(){
 		             $(box[i]).parent().parent().remove();
 		        },
 		       error: function (data) {
-		            alert(data.msg)
+		            alert(data.msg);
 		       }
 		    });
         }
     };
 
-})
+});
 $(".toggle-button").click(function(){
 	 id = $(this).closest("tr").attr("id");
-})
+});
 $("#change-buton").click(function(){
 	var email=$("#email").val();
 	var login_id=$("#login-id").val();

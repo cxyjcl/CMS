@@ -190,10 +190,10 @@ public class ExeclUtil {
 	public List<Map<String, Object>> read(String excelTemple, InputStream in,
 			Boolean isExcel2003) {
 		List<List<String>> list = read(excelTemple);
-		
+
 		this.cloNames = list.get(1);
 		this.tableTile = list.get(0).get(0);
-		
+
 		List<Map<String, Object>> dataLst = null;
 		try {
 			/** 根据版本选择创建Workbook的方式 */
@@ -529,7 +529,6 @@ public class ExeclUtil {
 		}
 
 	}
-
 }
 
 /**

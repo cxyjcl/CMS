@@ -5,7 +5,7 @@ $("#all").click(function() {
     else{
         $(":checkbox").removeAttr("checked",'false');
     }
-})
+});
 $("#delete").click(function(){
     var box = $("input:checkbox");
     for(var i = 0 ;i<box.size();i++){
@@ -22,12 +22,12 @@ $("#delete").click(function(){
 		             $(box[i]).parent().parent().remove();
 		        },
 		       error: function (data) {
-		            alert(data.msg)
+		            alert(data.msg);
 		       }
 		    });
         }
     };
-})
+});
 function file(e){
 	 var file = new FormData();   
 	 file.append("file",document.getElementById('uploadFile').files[0]);
@@ -58,10 +58,10 @@ function file(e){
 $("#download").click(function () {
 	var code =  $(this).parent().parent().attr("id");
     window.open("/dcs/excel/model/download?code="+code);
-})
+});
 $("#search").click(function(){
 	var code =  $(this).closest(".clearfix").attr("id");
 	var level =  $(this).parent().attr("class");
   	var value = $("#search-value").val();
   	location.href="/dcs/excel/find_list?code="+code+"&level="+level+"&value="+value;
-})
+});
