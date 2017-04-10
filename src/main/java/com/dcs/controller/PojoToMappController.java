@@ -119,6 +119,36 @@ public class PojoToMappController {
 		return null;
     }
 
+	@RequestMapping("/word/download")
+	public void wordModel(HttpServletResponse response,
+			HttpServletRequest request) {
+		String code = request.getParameter("code");
+		String id = request.getParameter("id");
+		String word = pojoToMapperService.selectWord(id);
+		String ctxPath = request.getSession().getServletContext()
+				.getRealPath("/")
+				+ "WEB-INF\\temp\\" + word;
+		response.setContentType("application/x-msdownload;");
+		InputStream in;
+		try {
+			response.setHeader("Content-disposition", "attachment; filename="
+					+ new String("excel.xls".getBytes("utf-8"), "ISO8859-1"));
+			in = new FileInputStream(new File(ctxPath));
+			OutputStream out = new BufferedOutputStream(
+					response.getOutputStream());
+			int byteread = 0;
+			byte[] buffer = new byte[1024];
+			while ((byteread = in.read(buffer)) != -1) {
+				out.write(buffer, 0, byteread);
+			}
+			in.close();
+			out.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error("报错的word是" + word + "报错信息是：" + e.getStackTrace());
+		}
+	}
+	
 	// 这是模板下载，即table主页的那个下载。已经写好的
 	@RequestMapping("/model/download")
 	public void downloadModel(HttpServletResponse response,
@@ -153,7 +183,8 @@ public class PojoToMappController {
 	@RequestMapping("/update")
 	@ResponseBody
 	public Message updateInfo(@RequestBody UpdateVo vo, HttpSession session) {
-		int id = Integer.parseInt(session.getAttribute("user").toString());
+		User user = (User) session.getAttribute("user");
+		int id = user.getId();
 		try {
 			String code = vo.getCode();
 			String value = ListCodeEnum.fromCode(code).getValue();
@@ -172,7 +203,8 @@ public class PojoToMappController {
 	@RequestMapping("/delete_list")
 	@ResponseBody
 	public Message deleteList(@RequestBody Integer id, HttpSession session) {
-		int reviser = Integer.parseInt(session.getAttribute("user").toString());
+		User user = (User) session.getAttribute("user");
+		int reviser = user.getId();
 		try {
 			pojoToMapperService.deleteList(id, reviser);
 			return Message.success("删除成功！");
@@ -186,7 +218,8 @@ public class PojoToMappController {
 	@RequestMapping("/delete")
 	public Message deleteInfo(@RequestParam("code") String code,
 			@RequestParam("id") Integer id, HttpSession session) {
-		int reviser = Integer.parseInt(session.getAttribute("user").toString());
+		User user = (User) session.getAttribute("user");
+		int reviser = user.getId();
 		try {
 			String table = ListCodeEnum.fromCode(code).getValue();
 			pojoToMapperService.delete(table, id, reviser);
@@ -199,7 +232,7 @@ public class PojoToMappController {
 	}
 
 	@RequestMapping("/select_info")
-	public ModelAndView selectInfo(String code, Integer id, Page page,
+	public ModelAndView selectInfo(String code,String level, Integer id, Page page,
 			HttpServletResponse response) {
 		Message message;
 		ModelAndView view = new ModelAndView();
@@ -211,6 +244,7 @@ public class PojoToMappController {
 				ctxPath = ctxPath.replace(".doc", ".pdf");
 				view.addObject("path","/dcs/temp/"+ctxPath);
 				view.setViewName("/view/component/pdf");
+				view.addObject("level",level);
 			} else{
 				MapVo vo = new MapVo();
 				BeanUtils.copyProperties(vo, page);
@@ -228,6 +262,7 @@ public class PojoToMappController {
 			message = Message.success("查找成功！");
 			view.addObject("message", message);
 			view.addObject("code", code);
+			view.addObject("infoId", id);
 			return view;
 		} catch (Exception e) {
 			e.printStackTrace();

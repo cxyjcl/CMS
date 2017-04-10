@@ -24,6 +24,7 @@ import com.Message;
 import com.alibaba.fastjson.JSON;
 import com.dcs.constants.Code;
 import com.dcs.constants.DataStatusEnum;
+import com.dcs.constants.LevelEnum;
 import com.dcs.pojo.User;
 import com.dcs.pojo.request.Page;
 import com.dcs.service.UserService;
@@ -55,8 +56,7 @@ public class UserController {
 	
 	@RequestMapping("/exit")
 	public String exit(HttpSession session){
-		session.removeAttribute("id");
-		session.removeAttribute("username");
+		session.removeAttribute("user");
 		return "view/user/login";
 	}
 	

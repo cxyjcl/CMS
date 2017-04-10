@@ -29,7 +29,10 @@ function change(e){
 }
 $("#download").click(function () {
 	var code =  $(this).parent().parent().attr("id");
-    window.open("/dcs/excel/file/download?code="+code);
+	var id =  $(this).parent().attr("id");
+    console.log(id);
+	window.open("/dcs/excel/file/download?code="+code+"&id="+id);
+    
 })
 $("#print").click(function(){
 	

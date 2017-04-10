@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <title>资料集锦管理系统</title>
     <link rel="stylesheet" href="/dcs/static/css/main.css" media="screen" title="no title" charset="utf-8">
-    <link rel="stylesheet" href="https://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/dcs/static/css/bootstrap.min.css">
 </head>
 <body>
 <div class="nav">
@@ -55,7 +55,12 @@
             <tbody>
               <c:forEach items="${list}" var="info">
                 <tr>
-                    <td><a href="/dcs/excel/select_info?code=${info.listId}&id=${info.infoId}">${info.excelName}</a></td>
+                    <c:if test="${info.dataStatus eq '000'}">
+               			<td>${info.excelName}</td>
+               		</c:if>
+               		<c:if test="${info.dataStatus eq '001'}">
+               			<td><a href="/dcs/excel/select_info?code=${info.listId}&id=${info.infoId}">${info.excelName}</a></td>
+               		</c:if>
                     <td>${info.creator}</td>
                     <td><fmt:formatDate value="${info.createTime}" pattern="yyyy-MM-dd"/></td>
                		<td>${info.reviser}</td>

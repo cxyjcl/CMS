@@ -15,50 +15,50 @@ public class ExportExcelUtil {
 	public static HSSFWorkbook writeExcelFileAccordingParamInfos(
 			HSSFWorkbook workbook, List<AttriInfo> paramInfos,
 			List<LinkedHashMap> data2Export, Class<?> clazz, String title) {
-		HSSFCellStyle cellStyle = workbook.createCellStyle();
-		cellStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER); // 水平布局：居中
 		// create column's
-		HSSFSheet sheetAt = workbook.getSheetAt(0);
-		HSSFRow row = sheetAt.getRow(0);
-		HSSFCell cell = row.getCell(0);
+		HSSFSheet sheetAt = workbook.createSheet();
+		HSSFRow row = sheetAt.createRow(0);
+		HSSFCell cell = row.createCell(0);
 		cell.setCellValue(title);
 		CellRangeAddress cellRangeAddress = new CellRangeAddress(0, 0, 0,
 				paramInfos.size() - 1);
 
 		sheetAt.addMergedRegion(cellRangeAddress);// 合并单元格
 
-		HSSFRow row2 = sheetAt.getRow(1);
+		HSSFRow row2 = sheetAt.createRow(1);
 		// 写标题栏
+		int j = 0;
 		for (AttriInfo attriInfo : paramInfos) {
 			String excelColumName = attriInfo.getExcelColumName();
-			int j = 0;
 			// 写标题栏
-			HSSFCell cell2 = row2.getCell(j);
+			HSSFCell cell2 = row2.createCell(j);
 			cell2.setCellValue(excelColumName);
 			j++;
 
 		}
+		j = 0;
 		int i = 2;
 		// 写表格内容
 		for (LinkedHashMap map : data2Export) {
-			HSSFRow row3 = sheetAt.getRow(i);
-			int j = 0;
+			HSSFRow row3 = sheetAt.createRow(i);
 			// 写标题栏
 			for (AttriInfo attriInfo : paramInfos) {
-				HSSFCell cell2 = row3.getCell(j);
+				HSSFCell cell2 = row3.createCell(j);
 				String paramName = attriInfo.getParamName();
 				String underlineToCamel = WTStringUtils
-						.underlineToCamel(paramName);
-				cell2.setCellValue(map.get(underlineToCamel).toString());
+						.camelToUnderline(paramName);
+				cell2.setCellValue((String)map.get(underlineToCamel));
 				j++;
 			}
 			i++;
 		}
 
 		//自动调整列宽
-		for (int j = 0; j < paramInfos.size(); j++) {
+		for (j = 0; j < paramInfos.size(); j++) {
 			sheetAt.autoSizeColumn(j);
 		}
+		HSSFCellStyle cellStyle = workbook.createCellStyle();
+		cellStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER); // 水平布局：居中
 		return workbook;
 	}
 }

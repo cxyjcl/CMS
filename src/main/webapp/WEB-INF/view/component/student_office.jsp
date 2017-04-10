@@ -8,13 +8,13 @@
     <meta charset="UTF-8">
     <title>资料集锦管理系统</title>
     <link rel="stylesheet" href="/dcs/static/css/main.css" media="screen" title="no title" charset="utf-8">
-    <link rel="stylesheet" href="https://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/dcs/static/css/bootstrap.min.css">
 </head>
 <body>
 <div class="nav">
     <ul>
-        <li class="nav-active"><a href="/dcs/excel/select_limit">主页</a></li>
-        <li><a href="/dcs/excel/student_office">学工办</a></li>
+        <li><a href="/dcs/excel/select_limit">主页</a></li>
+        <li class="nav-active"><a href="/dcs/excel/student_office">学工办</a></li>
         <li><a href="/dcs/excel/subcommittee">分团委</a></li>
         <li><a href="/dcs/excel/counsellor">辅导员</a></li>
         <li><a href="/dcs/management">用户管理</a></li>

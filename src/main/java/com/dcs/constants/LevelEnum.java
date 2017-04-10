@@ -41,8 +41,17 @@ public enum LevelEnum {
 		}
 		throw new IllegalArgumentException(code + "");
 	}
+	
+	public static LevelEnum fromValue(String value) {
+		for (LevelEnum c : LevelEnum.values()) {
+			if (StringUtils.equals(c.getValue(), value)) {
+				return c;
+			}
+		}
+		throw new IllegalArgumentException(value + "");
+	}
 
 	public static void main(String[] args) {
-		System.out.println(fromCode("1").getValue());
+		System.out.println(fromValue("学工办").getCode());
 	}
 }

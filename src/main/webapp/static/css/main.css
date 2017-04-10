@@ -77,6 +77,7 @@ th,td{
     background-color:#343f55;;
     position: fixed;
     top: 0px;
+ 	z-index:999
 }
 .header .logo{
     float:left;

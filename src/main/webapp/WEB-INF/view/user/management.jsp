@@ -9,17 +9,17 @@
     <title>资料集锦管理系统</title>
     <link rel="stylesheet" href="/dcs/static/css/user.css" media="screen" title="no title" charset="utf-8">
     <link rel="stylesheet" href="/dcs/static/css/main.css" media="screen" title="no title" charset="utf-8">
-    <link rel="stylesheet" href="https://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/dcs/static/css/bootstrap.min.css">
 </head>
 <body>
 
 <div class="nav">
     <ul>
-        <li class="nav-active"><a href="/dcs/excel/select_limit">主页</a></li>
+        <li><a href="/dcs/excel/select_limit">主页</a></li>
         <li><a href="/dcs/excel/student_office">学工办</a></li>
         <li><a href="/dcs/excel/subcommittee">分团委</a></li>
         <li><a href="/dcs/excel/counsellor">辅导员</a></li>
-        <li><a href="/dcs/management">用户管理</a></li>
+        <li class="nav-active"><a href="/dcs/management">用户管理</a></li>
         <li><a href="/dcs/change">修改密码</a></li>
     </ul>
 </div>
@@ -96,6 +96,6 @@
 <script src="/dcs/static/js/jquery-1.3.2.min.js"></script>
 <script src="/dcs/static/js/user.js" charset="utf-8"></script>
 <script src="/dcs/static/js/content.js" charset="utf-8"></script>
-<script src="https://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="/dcs/static/js/bootstrap.min.js"></script>
 </body>
 </html>

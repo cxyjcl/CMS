@@ -8,12 +8,12 @@
     <meta charset="UTF-8">
     <title>资料集锦管理系统</title>
     <link rel="stylesheet" href="/dcs/static/css/main.css" media="screen" title="no title" charset="utf-8">
-    <link rel="stylesheet" href="https://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/dcs/static/css/bootstrap.min.css">
 </head>
 <body>
 <div class="nav">
     <ul>
-        <li class="nav-active"><a href="/dcs/excel/select_limit">主页</a></li>
+        <li><a href="/dcs/excel/select_limit">主页</a></li>
         <li><a href="/dcs/excel/student_office">学工办</a></li>
         <li><a href="/dcs/excel/subcommittee">分团委</a></li>
         <li><a href="/dcs/excel/counsellor">辅导员</a></li>
@@ -37,13 +37,14 @@
 </div>
 <div id="container" class="container">
     <div class="warp clearfix">
-        <div class="title"><span class="text"><a href="counsellor.html">整体浏览页</a> > 列表信息</span></div>
+        <div class="title"><span class="text">整体浏览页　> 列表信息</span></div>
         <!--<div class="title pull-right text">-->
             <!--<span class="glyphicon glyphicon-arrow-left"></span>-->
             <!--<a id="back" href="#">返回</a>-->
         <!--</div>-->
     </div>
     <div class="clearfix" id="${code}">
+    <c:if test="${level eq user.level}">
         <div class="pull-right mg-5">
             <button type="button" id="delete" class="btn btn-danger">删除</button>
         </div>
@@ -58,6 +59,7 @@
         <div class="pull-right mg-5">
             <button type="button" class="btn btn-info" id="download">下载模板</button>
         </div>
+    </c:if>
         <div class="pull-right mg-5 static">
             <div class="input-group w-220 static">
                 <input type="text" class="form-control static" id="search-value" placeholder="搜索表格名字或提交人">
@@ -81,18 +83,22 @@
                     <th>提交时间</th>
                     <th>修改人</th>
                     <th>修改时间</th>
-                    <th>删除</th>
+                    <c:if test="${level eq user.level}">
+                    	<th>删除</th>
+                    </c:if>
                 </tr>
             </thead>
             <tbody>
               <c:forEach items="${list}" var="info">
                 <tr id="${info.id}">
-                	<td><a href="/dcs/excel/select_info?code=${info.listId}&id=${info.infoId}">${info.excelName}</a></td>
+                	<td><a href="/dcs/excel/select_info?code=${info.listId}&level=${level}&id=${info.infoId}">${info.excelName}</a></td>
                     <td>${info.creator}</td>
                     <td><fmt:formatDate value="${info.createTime}" pattern="yyyy-MM-dd"/></td>
                		<td>${info.reviser}</td>
                		<td><fmt:formatDate value="${info.reviseTime}" pattern="yyyy-MM-dd"/></td>
-                	<td><input type="checkbox"/></td>
+                	<c:if test="${level eq user.level}">
+                		<td><input type="checkbox"/></td>
+                	</c:if>
                 </tr>
               </c:forEach>
             </tbody>
@@ -143,7 +149,6 @@
 	             </ul>
         	</div>
         </c:if>
-    	<div><a href="/dcs/temp/123.pdf">click</a></div>
     </div>
 </div>
 <script src="/dcs/static/js/jquery-1.3.2.min.js" charset="utf-8"></script>
