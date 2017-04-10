@@ -197,7 +197,7 @@ public class PojoToMappController {
 				String ctxPath = pojoToMapperService.selectWord(id.toString());
 				ctxPath = ctxPath.replace(".doc", ".pdf");
 				view.addObject("path","/dcs/temp/"+ctxPath);
-				view.setViewName("/view/index");
+				view.setViewName("/view/component/pdf");
 			} else{
 				MapVo vo = new MapVo();
 	        	BeanUtils.copyProperties(vo, page);
@@ -300,20 +300,19 @@ public class PojoToMappController {
 	}
 	
 	@RequestMapping("/test")
-//	public ModelAndView test(){
-//		ModelAndView view = new ModelAndView();
-//		view.setViewName("/view/index");
-//		return view;
 	public void test(HttpServletRequest request,HttpServletResponse response) throws IOException{
 			PrintWriter out= response.getWriter();
+			//设置请求头
 		   response.setContentType("application/pdf");
 		   response.setHeader("Content-type", "application/pdf");
 		   response.addHeader("Content-Disposition", "inline");  
 		   try {
+			   //模拟路径，先用绝对路径来试试，此文件是存在的
 		    String strPdfPath = new String("D:/资料集锦系统使用文档.pdf");
 		    //判断该路径下的文件是否存在
 		    File file = new File(strPdfPath);
 		    if (file.exists()) {
+		    	//输出流的传输，将其转化成输出流输出到浏览器
 		     DataOutputStream temps = new DataOutputStream(response
 		       .getOutputStream());
 		     DataInputStream in = new DataInputStream(
