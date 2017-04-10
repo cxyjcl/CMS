@@ -1,24 +1,32 @@
 package com.dcs.pojo;
 
+import com.dcs.util.AttributeBuildExcel;
+
 public class TeacherInfo {
 	private Integer id;
 
 	private Integer infoId;
 
+	@AttributeBuildExcel(order=1,excelColumName="班级")
 	private String classroom;
 
+	@AttributeBuildExcel(order=2,excelColumName="班主任")
 	private String teacher;
 
+	@AttributeBuildExcel(order=3,excelColumName="性别")
 	private String sex;
 
+	@AttributeBuildExcel(order=4,excelColumName="籍贯")
 	private String nativePlace;
 
+	@AttributeBuildExcel(order=5,excelColumName="出生地")
 	private String birthPlace;
 
+	@AttributeBuildExcel(order=6,excelColumName="联系方式")
 	private String contacts;
 
 	private String dataStatus;
-	
+		
 	public String getDataStatus() {
 		return dataStatus;
 	}

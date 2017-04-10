@@ -103,7 +103,7 @@ public class PojoToMappController {
         String title = pojoToMapperService.selectTitle(code,id);
         Map<String, Object> map = new HashMap<String,Object>();
 		try {
-			Class<?> pojoClass = Class.forName("com.dcs.pojo" + className);
+			Class<?> pojoClass = Class.forName("com.dcs.pojo." + className);
 			List<LinkedHashMap> mapList = pojoToMapperService.selectInfo(
 					code, id,null);
 			map.put("pojoClass", pojoClass);

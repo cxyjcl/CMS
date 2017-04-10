@@ -1,40 +1,58 @@
 package com.dcs.pojo;
 
+import com.dcs.util.AttributeBuildExcel;
+
 public class GradeInfo {
 	private Integer id;
 
 	private String infoId;
 
+	@AttributeBuildExcel(order=1,excelColumName="班级")
 	private String classroom;
 
+	@AttributeBuildExcel(order=1,excelColumName="人数")
 	private Integer people;
 
+	@AttributeBuildExcel(order=1,excelColumName="男生")
 	private Integer male;
 
+	@AttributeBuildExcel(order=1,excelColumName="女生")
 	private Integer female;
 
+	@AttributeBuildExcel(order=1,excelColumName="党员")
 	private Integer partyMember;
 
+	@AttributeBuildExcel(order=1,excelColumName="积极分子")
 	private Integer activist;
 
+	@AttributeBuildExcel(order=1,excelColumName="班主任")
 	private String teacher;
 
+	@AttributeBuildExcel(order=1,excelColumName="班长")
 	private String monitor;
 
+	@AttributeBuildExcel(order=1,excelColumName="团支书")
 	private String leagueSecretary;
 
+	@AttributeBuildExcel(order=1,excelColumName="学习委员")
 	private String studiesCommissary;
 
+	@AttributeBuildExcel(order=1,excelColumName="体育委员")
 	private String sportsCommissary;
 
+	@AttributeBuildExcel(order=1,excelColumName="生活委员")
 	private String affairCommissary;
 
+	@AttributeBuildExcel(order=1,excelColumName="组织委员")
 	private String organizationCommissary;
 
+	@AttributeBuildExcel(order=1,excelColumName="宣传委员")
 	private String publicityCommissary;
 
+	@AttributeBuildExcel(order=1,excelColumName="心理委员")
 	private String psychologicalCommissary;
 
+	@AttributeBuildExcel(order=1,excelColumName="备注")
 	private String remark;
 
 	private String dataStatus;

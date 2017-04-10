@@ -1,35 +1,49 @@
 package com.dcs.pojo;
 
+import com.dcs.util.AttributeBuildExcel;
+
 
 public class PartyBuild {
 	private Integer id;
 
 	private Integer infoId;
-
+	
+	@AttributeBuildExcel(order=2,excelColumName="学号")
 	private Integer studentId;
 
+	@AttributeBuildExcel(order=3,excelColumName="姓名")
 	private String name;
 
+	@AttributeBuildExcel(order=4,excelColumName="班级")
 	private String classroom;
 
+	@AttributeBuildExcel(order=5,excelColumName="性别")
 	private String sex;
 
+	@AttributeBuildExcel(order=6,excelColumName="党支部")
 	private String partyBranch;
 
+	@AttributeBuildExcel(order=7,excelColumName="出生年月")
 	private String birthday;
 
+	@AttributeBuildExcel(order=8,excelColumName="成为预备党员时间")
 	private String probationaryPartyMemberDate;
 
+	@AttributeBuildExcel(order=9,excelColumName="转正时间")
 	private String regularPartyMemberDate;
 
+	@AttributeBuildExcel(order=10,excelColumName="民族")
 	private String nation;
 
+	@AttributeBuildExcel(order=11,excelColumName="身份证号码")
 	private String idCard;
 
+	@AttributeBuildExcel(order=12,excelColumName="党校期数")
 	private String numParty;
 
 	private String dataStatus;
 	
+	@AttributeBuildExcel(order=1,excelColumName="党建性质")
 	private String partyNature;
 	
 	public String getDataStatus() {

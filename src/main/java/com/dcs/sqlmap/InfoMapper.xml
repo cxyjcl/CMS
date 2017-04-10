@@ -60,7 +60,9 @@
 		WHERE
 			${table}.info_id = #{infoId}
 		AND ${table}.info_id = t_list_info.info_id
-		<include refid="global.page-pagination"/>
+		<if test="page != null" >
+			<include refid="global.page-pagination"/>
+      	</if>	
 	</select>
 	
 	<select id="selectListInfo" resultMap="ListResultMap">
@@ -81,7 +83,9 @@
 			t_user as tu2 where tu2.id = t_list_info.creator 
 			and user_level = #{level} and list_id = #{listId}
 			and t_list_info.data_status = "001"
-		<include refid="global.list-pagination"/>
+		<if test="page != null" >
+		     <include refid="global.list-pagination"/>	
+      	</if>
 	</select>
 <insert id="insertList" parameterType="com.dcs.pojo.ListInfo">
     insert into t_list_info

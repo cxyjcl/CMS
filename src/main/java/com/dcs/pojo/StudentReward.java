@@ -1,27 +1,38 @@
 package com.dcs.pojo;
 
+import com.dcs.util.AttributeBuildExcel;
+
 
 public class StudentReward {
 	private Integer id;
 
 	private Integer infoId;
 
+	@AttributeBuildExcel(order=2,excelColumName="姓名")
 	private String name;
 
+	@AttributeBuildExcel(order=3,excelColumName="学号")
 	private Integer studentId;
 
+	@AttributeBuildExcel(order=4,excelColumName="年级")
 	private String grade;
 
+	@AttributeBuildExcel(order=5,excelColumName="班级")
 	private String classroom;
 
+	@AttributeBuildExcel(order=6,excelColumName="获奖名称")
 	private String rewardName;
 
+	@AttributeBuildExcel(order=7,excelColumName="获奖等级")
 	private String rewardGrade;
 
+	@AttributeBuildExcel(order=8,excelColumName="获奖时间")
 	private String rewardTime;
 
+	@AttributeBuildExcel(order=9,excelColumName="备注")
 	private String remark;
 
+	@AttributeBuildExcel(order=1,excelColumName="获奖性质")
 	private String rewardNature;
 
 	private String dataStatus;

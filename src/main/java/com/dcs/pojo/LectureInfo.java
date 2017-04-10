@@ -1,21 +1,29 @@
 package com.dcs.pojo;
 
+import com.dcs.util.AttributeBuildExcel;
+
 
 public class LectureInfo {
 	private Integer id;
 
 	private Integer infoId;
 
+	@AttributeBuildExcel(order=1,excelColumName="场次")
 	private String play;
 
+	@AttributeBuildExcel(order=2,excelColumName="时间")
 	private String time;
 
+	@AttributeBuildExcel(order=3,excelColumName="地点")
 	private String place;
 
+	@AttributeBuildExcel(order=4,excelColumName="主题")
 	private String object;
 
+	@AttributeBuildExcel(order=5,excelColumName="主讲人")
 	private String talker;
 
+	@AttributeBuildExcel(order=6,excelColumName="参加人员")
 	private String participants;
 
 	private String dataStatus;

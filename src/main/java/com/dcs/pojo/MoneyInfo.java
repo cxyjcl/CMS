@@ -1,22 +1,31 @@
 package com.dcs.pojo;
 
+import com.dcs.util.AttributeBuildExcel;
+
 public class MoneyInfo {
 	private Integer id;
 
 	private Integer infoId;
 
+	@AttributeBuildExcel(order=1,excelColumName="奖、助学金性质")
 	private String moneyName;
 
+	@AttributeBuildExcel(order=2,excelColumName="姓名")
 	private String name;
 
+	@AttributeBuildExcel(order=3,excelColumName="学号")
 	private Integer studentId;
 
+	@AttributeBuildExcel(order=4,excelColumName="行政班级")
 	private String classroom;
 
+	@AttributeBuildExcel(order=5,excelColumName="等级")
 	private String grade;
 
+	@AttributeBuildExcel(order=6,excelColumName="金额")
 	private String money;
 
+	@AttributeBuildExcel(order=7,excelColumName="备注")
 	private String remark;
 
 	private String dataStatus;

@@ -1,24 +1,37 @@
 package com.dcs.pojo;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.dcs.util.AttributeBuildExcel;
+
 public class ClassInfo {
 	private Integer id;
 
+	
 	private Integer infoId;
 
+	@AttributeBuildExcel(order=1,excelColumName="学号")
 	private Integer studentId;
 
+	@AttributeBuildExcel(order=2,excelColumName="姓名")
 	private String name;
-
+	
+	@AttributeBuildExcel(order=3,excelColumName="性别")
 	private String sex;
 
+	@AttributeBuildExcel(order=4,excelColumName="籍贯")
 	private String nativePlace;
 
+	@AttributeBuildExcel(order=5,excelColumName="出生地")
 	private String birthPlace;
 
+	@AttributeBuildExcel(order=6,excelColumName="身份证号")
 	private String idCard;
 
+	@AttributeBuildExcel(order=7,excelColumName="联系方式")
 	private String contacts;
 
+	@AttributeBuildExcel(order=8,excelColumName="备注（党员Y/N）")
 	private Boolean partyMember;
 
 	private String dataStatus;

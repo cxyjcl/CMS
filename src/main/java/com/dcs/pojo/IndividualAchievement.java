@@ -1,17 +1,23 @@
 package com.dcs.pojo;
 
+import com.dcs.util.AttributeBuildExcel;
+
 
 public class IndividualAchievement {
 	private Integer id;
 
 	private Integer infoId;
 
+	@AttributeBuildExcel(order=1,excelColumName="成果")
 	private String achievement;
 
+	@AttributeBuildExcel(order=2,excelColumName="获奖情况")
 	private String reward;
 
+	@AttributeBuildExcel(order=3,excelColumName="获奖时间")
 	private String rewardTime;
 
+	@AttributeBuildExcel(order=4,excelColumName="备注")
 	private String remark;
 
 	private String dataStatus;

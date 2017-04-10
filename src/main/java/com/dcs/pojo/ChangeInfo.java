@@ -2,19 +2,26 @@ package com.dcs.pojo;
 
 import java.util.Date;
 
+import com.dcs.util.AttributeBuildExcel;
+
 public class ChangeInfo {
 	private Integer id;
 
 	private Integer infoId;
 
+	@AttributeBuildExcel(order=1,excelColumName="姓名")
 	private String name;
 
+	@AttributeBuildExcel(order=2,excelColumName="学号")
 	private Integer studentId;
 
+	@AttributeBuildExcel(order=3,excelColumName="班级")
 	private String classroom;
 
+	@AttributeBuildExcel(order=4,excelColumName="异动原因")
 	private String changeReason;
 
+	@AttributeBuildExcel(order=5,excelColumName="异动时间")
 	private String changeTime;
 
 	private String dataStatus;

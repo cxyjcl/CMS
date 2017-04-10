@@ -1,26 +1,37 @@
 package com.dcs.pojo;
 
+import com.dcs.util.AttributeBuildExcel;
+
 public class CadresInfo {
 	private Integer id;
 
 	private Integer infoId;
-
+	
+	@AttributeBuildExcel(order=1,excelColumName="姓名（主席团）")
 	private String nameChairman;
 
+	@AttributeBuildExcel(order=2,excelColumName="职务")
 	private String functionChairman;
 
+	@AttributeBuildExcel(order=3,excelColumName="联系方式")
 	private String contactsChairman;
 
+	@AttributeBuildExcel(order=4,excelColumName="分管部门")
 	private String departmentCharge;
 
+	@AttributeBuildExcel(order=5,excelColumName="姓名（部长）")
 	private String nameSecretary;
 
+	@AttributeBuildExcel(order=6,excelColumName="职务")
 	private String functionSecretary;
 
+	@AttributeBuildExcel(order=7,excelColumName="联系方式")
 	private String contactsSecretary;
 
+	@AttributeBuildExcel(order=8,excelColumName="所在学生组织")
 	private String studentOrganization;
 
+	@AttributeBuildExcel(order=9,excelColumName="备注")
 	private String remark;
 	
 	private String dataStatus;

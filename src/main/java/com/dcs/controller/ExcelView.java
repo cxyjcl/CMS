@@ -30,7 +30,6 @@ public class ExcelView extends AbstractExcelView {
 			HttpServletResponse response) throws Exception {
 
 		Class<?> pojoClass = (Class<?>) model.get("pojoClass");
-		@SuppressWarnings("unchecked")
 		List<LinkedHashMap> data2Export = (List<LinkedHashMap>) model
 				.get("data2Export");
 		String fileName = (String) model.get("fileName");

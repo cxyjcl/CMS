@@ -1,22 +1,31 @@
 package com.dcs.pojo;
 
+import com.dcs.util.AttributeBuildExcel;
+
 public class ContestInfo {
 	private Integer id;
 
 	private Integer infoId;
 
+	@AttributeBuildExcel(order=1,excelColumName="主办单位")
 	private String sponsor;
 
+	@AttributeBuildExcel(order=2,excelColumName="比赛名称")
 	private String contestName;
 
+	@AttributeBuildExcel(order=3,excelColumName="获奖等级")
 	private String contestGrade;
 
+	@AttributeBuildExcel(order=4,excelColumName="作品名称")
 	private String workName;
 
+	@AttributeBuildExcel(order=5,excelColumName="获奖学生")
 	private String contestStudent;
 
+	@AttributeBuildExcel(order=6,excelColumName="指导老师")
 	private String tutor;
 
+	@AttributeBuildExcel(order=7,excelColumName="备注")
 	private String remark;
 
 	private String dataStatus;

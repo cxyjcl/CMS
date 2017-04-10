@@ -1,18 +1,25 @@
 package com.dcs.pojo;
 
+import com.dcs.util.AttributeBuildExcel;
+
 public class ExamineInfo {
 	private Integer id;
 
 	private Integer infoId;
 
+	@AttributeBuildExcel(order=1,excelColumName="辅导员")
 	private String counselor;
 
+	@AttributeBuildExcel(order=2,excelColumName="日常考核（100分）")
 	private Double dailyExamine;
 
+	@AttributeBuildExcel(order=3,excelColumName="学生测评（100分）")
 	private Double studentExamine;
 
+	@AttributeBuildExcel(order=4,excelColumName="绩效考核（100分）")
 	private Double evaluationExamine;
 	
+	@AttributeBuildExcel(order=5,excelColumName="综合得分")
 	private Double totalExamine;
 
 	private String dataStatus;
