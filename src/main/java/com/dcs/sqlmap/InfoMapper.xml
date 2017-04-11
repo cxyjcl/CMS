@@ -59,7 +59,7 @@
 		FROM
 			${table}
 		WHERE
-			${table}.info_id = #{infoId}
+			${table}.info_id = #{infoId} and data_status = "001"
 		<if test="page != null" >
 			<include refid="global.page-pagination"/>
       	</if>	
@@ -201,12 +201,12 @@
 	<delete id="deleteInfo">
 		UPDATE ${table},
 		 t_list_info
-		SET t_cadres_info.data_status = "000",
+		SET ${table}.data_status = "000",
 		 reviser = ${reviser},
 		 revise_time = now()
 		WHERE
-			t_cadres_info.id = #{id}
-		  and t_cadres_info.info_id = t_list_info.info_id
+			${table}.id = #{id}
+		  and ${table}.info_id = t_list_info.info_id
   	</delete>
 	
 	<delete id="deleteList">

@@ -7,7 +7,6 @@ $("#delete").click(function(){
         if(true==box[i].checked){
         	var id = $(box[i]).parent().parent().attr("id");
         	var code =$(box[i]).closest("table").attr("id");
-        	console.log(code)
         	var _data = {
         			"code":code,
         			"id":id
@@ -15,12 +14,11 @@ $("#delete").click(function(){
 		    $.ajax({
 		        url: "http://localhost:8080/dcs/excel/delete",
 		        type: "POST",
-		        contentType: "application/json",
-		        dataType: "json",
-		        data: JSON.stringify(_data),
+		        contentType: "application/x-www-form-urlencoded",
+		        data: _data,
 		        success: function (data) {
 		             $(box[i]).parent().parent().remove();
-		             alert(data.msg);
+		             alert("删除成功");
 		        },
 		       error: function (data) {
 		            alert(data.msg);

@@ -209,6 +209,7 @@ public class PojoToMappController {
 			pojoToMapperService.deleteList(id, reviser);
 			return Message.success("删除成功！");
 		} catch (Exception e) {
+			e.printStackTrace();
 			log.info("删除list的iD是" + id + "用户id是：" + JSON.toJSONString(reviser)
 					+ "报错信息是：" + e.getStackTrace().toString());
 			return Message.error("删除失败！");
@@ -224,7 +225,8 @@ public class PojoToMappController {
 			String table = ListCodeEnum.fromCode(code).getValue();
 			pojoToMapperService.delete(table, id, reviser);
 		} catch (Exception e) {
-			log.error("删除list的iD是" + id + "用户id是：" + JSON.toJSONString(reviser)
+			e.printStackTrace();
+			log.info("删除list的iD是" + id + "用户id是：" + JSON.toJSONString(reviser)
 					+ "报错信息是：" + e.getStackTrace().toString());
 			return Message.error("删除失败！");
 		}

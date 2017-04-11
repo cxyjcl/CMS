@@ -51,7 +51,7 @@ function file(e){
 	          url:"/dcs/excel/add",
 	          data:file,
 	          success:function(data){
-	        	  alert(data.msg);
+	        	  alert("上传成功！");
 	        	  window.location.reload();
 	          },
 	       	  error:function(data){
