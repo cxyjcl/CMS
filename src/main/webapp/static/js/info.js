@@ -6,15 +6,21 @@ $("#delete").click(function(){
     for(var i = 0 ;i<box.size();i++){
         if(true==box[i].checked){
         	var id = $(box[i]).parent().parent().attr("id");
-        	console.log(id);
+        	var code =$(box[i]).closest("table").attr("id");
+        	console.log(code)
+        	var _data = {
+        			"code":code,
+        			"id":id
+        	}
 		    $.ajax({
 		        url: "http://localhost:8080/dcs/excel/delete",
 		        type: "POST",
 		        contentType: "application/json",
 		        dataType: "json",
-		        data: id,
+		        data: JSON.stringify(_data),
 		        success: function (data) {
 		             $(box[i]).parent().parent().remove();
+		             alert(data.msg);
 		        },
 		       error: function (data) {
 		            alert(data.msg);

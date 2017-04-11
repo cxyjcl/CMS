@@ -216,8 +216,8 @@ public class PojoToMappController {
 	}
 
 	@RequestMapping("/delete")
-	public Message deleteInfo(@RequestParam("code") String code,
-			@RequestParam("id") Integer id, HttpSession session) {
+	public Message deleteInfo( String code,
+			 Integer id, HttpSession session) {
 		User user = (User) session.getAttribute("user");
 		int reviser = user.getId();
 		try {
