@@ -52,6 +52,6 @@ public enum LevelEnum {
 	}
 
 	public static void main(String[] args) {
-		System.out.println( LevelEnum.fromValue("辅导员").getCode());
+		System.out.println(LevelEnum.fromValue("辅导员").getCode());
 	}
 }
