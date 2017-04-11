@@ -8,8 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import net.bytebuddy.asm.Advice.This;
-
 import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.commons.beanutils.ConvertUtilsBean;
 import org.apache.commons.beanutils.converters.DateConverter;
@@ -26,7 +24,7 @@ import org.dbunit.dataset.excel.XlsDataSet;
  */
 public class XlsDataSetBeanFactory {
 
-	private static final Log logger = LogFactory.getLog(This.class);
+	private static final Log logger = LogFactory.getLog(XlsDataSetBeanFactory.class);
 
 	public final static String excelFilePath = "../../../java/resources/excel/";
 

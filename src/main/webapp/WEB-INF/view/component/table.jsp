@@ -58,9 +58,11 @@
 				<input type="file" class="btn btn-info" onchange="file(this)" id="uploadFile"/>上传文件
 			</a>
 	    </div>
-        <div class="pull-right mg-5">
-            <button type="button" class="btn btn-info" id="download">下载模板</button>
-        </div>
+	    <c:if test="${instance ne 'WordInfo'}">
+	    	<div class="pull-right mg-5">
+            	<button type="button" class="btn btn-info" id="download">下载模板</button>
+        	</div>
+	    </c:if>
     </c:if>
         <div class="pull-right mg-5 static">
             <div class="input-group w-220 static">
