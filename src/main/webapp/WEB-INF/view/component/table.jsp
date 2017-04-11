@@ -17,7 +17,9 @@
         <li><a href="/dcs/excel/student_office">学工办</a></li>
         <li><a href="/dcs/excel/subcommittee">分团委</a></li>
         <li><a href="/dcs/excel/counsellor">辅导员</a></li>
-        <li><a href="/dcs/management">用户管理</a></li>
+        <c:if test="${sessionScope.user.level ne '管理员'}">
+        	<li><a href="/dcs/management">用户管理</a></li>
+        </c:if>
         <li><a href="/dcs/change">修改密码</a></li>
     </ul>
 </div>
@@ -44,7 +46,7 @@
         <!--</div>-->
     </div>
     <div class="clearfix" id="${code}">
-    <c:if test="${level eq user.level}">
+    <c:if test="${level eq user.level or user.level eq '管理员'}">
         <div class="pull-right mg-5">
             <button type="button" id="delete" class="btn btn-danger">删除</button>
         </div>

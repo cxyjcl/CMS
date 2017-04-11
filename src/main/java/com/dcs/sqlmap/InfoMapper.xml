@@ -53,13 +53,11 @@
 	
 	<select id="selectInfo" resultType="java.util.LinkedHashMap">
 		SELECT
-			${table}.*
+			*
 		FROM
-			t_list_info,
 			${table}
 		WHERE
 			${table}.info_id = #{infoId}
-		AND ${table}.info_id = t_list_info.info_id
 		<if test="page != null" >
 			<include refid="global.page-pagination"/>
       	</if>	
@@ -241,5 +239,8 @@
 	</select>
 	<select id="selectWord" resultType="java.lang.String">
 		SELECT url FROM t_word_info  where id = #{id}
+	</select>
+	<select id="countInfo" resultType="java.lang.Integer">
+		select count(*) from ${table} where info_id = #{id}
 	</select>
 </mapper>

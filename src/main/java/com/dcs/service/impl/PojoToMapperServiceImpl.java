@@ -207,4 +207,8 @@ public class PojoToMapperServiceImpl implements PojoToMapperService {
 		return name;
 	}
 
+	@Override
+	public Integer countInfo(String table, Integer id) {
+		return dao.countInfo(table, id);
+	}
 }

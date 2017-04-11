@@ -83,14 +83,14 @@ public class PojoToMappController {
 			listInfo.setUserLevel(level);
 			String value = ListCodeEnum.fromCode(code.toString()).getValue();
 			pojoToMapperService.insert(code.toString(),
-					uploadFile.getInputStream(), listInfo);
+					uploadFile.getInputStream(), listInfo);			
+			return Message.success("添加成功！");
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error("用户id是：" + JSON.toJSONString(user) + "报错信息是："
 					+ e.getStackTrace());
 			return Message.error("添加失败！");
 		}
-		return Message.success("添加成功！");
 	}
 
 	// TODO 这是文件下载，即打印那一块的，没有写只是拿模块进行测试。
@@ -238,22 +238,23 @@ public class PojoToMappController {
 		ModelAndView view = new ModelAndView();
 		String table = ListCodeEnum.fromCode(code).getValue();
 		String instance = ListCodeEnum.fromCode(code).getInstance();
+		view.addObject("level",level);
 		try {
 			if (instance.equals("WordInfo")) {
 				String ctxPath = pojoToMapperService.selectWord(id.toString());
 				ctxPath = ctxPath.replace(".doc", ".pdf");
 				view.addObject("path","/dcs/temp/"+ctxPath);
 				view.setViewName("/view/component/pdf");
-				view.addObject("level",level);
 			} else{
 				MapVo vo = new MapVo();
-				BeanUtils.copyProperties(vo, page);
+				vo.setPageIndex(page.getPageIndex());
 				LinkedHashMap mapString = pojoToMapperService.selectCol(code);
 				vo.setMapString(mapString);
 				List<LinkedHashMap> mapList = pojoToMapperService.selectInfo(
 						code, id, page);
 				vo.setMapList(mapList);
-				vo.setTotalSize(mapList.size());
+				Integer size = pojoToMapperService.countInfo(table, id);
+				vo.setTotalSize(size);
 				String title = pojoToMapperService.selectTitle(code, id);
 				view.addObject("mapVo", vo);
 				view.addObject("title", title);
@@ -298,12 +299,12 @@ public class PojoToMappController {
 
 	@RequestMapping(value = "/select_list", method = RequestMethod.GET)
 	public ModelAndView selectListInfo(Integer code, String level, Page page) {
-		level = LevelEnum.fromCode(level).getValue();
+		String name = LevelEnum.fromCode(level).getValue();
 		Message message;
 		ModelAndView view = new ModelAndView();
 		try {
 			List<ListInfoDto> list = pojoToMapperService.selectListInfo(code,
-					level, page);
+					name, page);
 			message = Message.success("查找成功！");
 			view.addObject("message", message);
 			view.addObject("list", list);

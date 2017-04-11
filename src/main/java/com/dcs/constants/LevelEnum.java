@@ -52,6 +52,7 @@ public enum LevelEnum {
 	}
 
 	public static void main(String[] args) {
-		System.out.println(fromValue("学工办").getCode());
+		String str = null;
+		System.out.println(str.toString());
 	}
 }

@@ -37,5 +37,7 @@ public interface PojoToMapperService {
 
 	public String selectWord(String id);
 
+	public Integer countInfo(String table, Integer id);
+
 	
 }

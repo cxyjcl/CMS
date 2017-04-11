@@ -47,7 +47,9 @@ public class ExportExcelUtil {
 				String paramName = attriInfo.getParamName();
 				String underlineToCamel = WTStringUtils
 						.camelToUnderline(paramName);
-				cell2.setCellValue((String)map.get(underlineToCamel));
+				Object value = map.get(underlineToCamel);
+				if(value!=null)
+					cell2.setCellValue(map.get(underlineToCamel).toString());
 				j++;
 			}
 			i++;

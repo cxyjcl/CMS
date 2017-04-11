@@ -17,7 +17,9 @@
         <li><a href="/dcs/excel/student_office">学工办</a></li>
         <li><a href="/dcs/excel/subcommittee">分团委</a></li>
         <li><a href="/dcs/excel/counsellor">辅导员</a></li>
-        <li><a href="/dcs/management">用户管理</a></li>
+        <c:if test="${sessionScope.user.level ne '管理员'}">
+        	<li><a href="/dcs/management">用户管理</a></li>
+        </c:if>
         <li><a href="/dcs/change">修改密码</a></li>
     </ul>
 </div>
@@ -40,7 +42,7 @@
         <div class="title">整体浏览页 > 列表信息 > 详情信息</div>
     </div>
     <div class="clearfix" id="${code}">
-        <div class="pull-right mg-5">
+        <div class="pull-right mg-5" id="${infoId}">
             <button type="button" class="btn btn-danger" id="download">下载</button>
         </div>
         <div class="pull-right mg-5">
@@ -96,7 +98,7 @@
 	                    	<li><a href="#" >&laquo;</a></li>              		
 	               		</c:if>
 	                   <c:if test="${mapVo.pageIndex!=1}">
-	                    	<li><a href="/dcs/select_info?pageIndex=${mapVo.pageIndex-1}" >&laquo;</a></li>
+	                    	<li><a href="/dcs/excel/select_info?code=${code}&level=${level}&id=${infoId}&pageIndex=${mapVo.pageIndex-1}" >&laquo;</a></li>
 	               		</c:if>
 			        		<c:forEach begin="${begin}" end="${end}" var="i">
 			        		<c:choose>
@@ -104,7 +106,7 @@
 			        				 <li><a href="#" class="nowpage">${i}</a></li>
 			        			</c:when>
 			        			<c:otherwise>
-			        			    	<li><a href="/dcs/select_info?pageIndex=${i}">${i}</a></li>
+			        			    	<li><a href="/dcs/excel/select_info?code=${code}&level=${level}&id=${infoId}&pageIndex=${i}">${i}</a></li>
 			        			</c:otherwise>
 			        		</c:choose>
 			        		</c:forEach>
@@ -112,7 +114,7 @@
 	        			<li><a href="#">&raquo;</a></li>
 	        		</c:if>
 	        		<c:if test="${mapVo.pageIndex!=mapVo.pageEnd}">
-	           			<li><a href="/dcs/select_info?pageIndex=${mapVo.pageIndex+1}">&raquo;</a></li>     				
+	           			<li><a href="/dcs/excel/select_info?code=${code}&level=${level}&id=${infoId}&pageIndex=${mapVo.pageIndex+1}">&raquo;</a></li>     				
 	        		</c:if>
 	             </ul>
         	</div>

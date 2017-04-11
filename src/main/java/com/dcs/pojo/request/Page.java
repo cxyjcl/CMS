@@ -79,7 +79,7 @@ public class Page implements Serializable {
 		if (pageIndex == null || pageIndex == 0) {
 			return 0;
 		}
-		return (pageIndex - 1) * pageSize;
+		return (pageIndex - 1) * getPageSize();
 	}
 
 	public void setPageStart(Integer pageStart) {

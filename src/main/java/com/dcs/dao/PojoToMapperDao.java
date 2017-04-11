@@ -41,4 +41,6 @@ public interface PojoToMapperDao {
 
 	String selectWord(String id);
 
+	Integer countInfo(@Param("table")String table,@Param("id") Integer id);
+
 }

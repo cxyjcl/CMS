@@ -32,7 +32,7 @@ function file(e){
 	 var file = new FormData();   
 	 file.append("file",document.getElementById('uploadFile').files[0]);
 	 var code =  $(e).parent().parent().parent().attr("id");
-	 var level = $(e).parent().attr(id);
+	 var level = $(e).parent().attr("id");
 	 file.append("code",code);
 	 file.append("level",level);
 	 if (document.getElementById('uploadFile').files[0] != null && document.getElementById('uploadFile').files[0] != "") {
@@ -49,8 +49,11 @@ function file(e){
 	          url:"/dcs/excel/add",
 	          data:file,
 	          success:function(data){
-	          
-	          }
+	        	  alert(data.msg);
+	          },
+	       	  error:function(data){
+	       		alert(data.msg);
+	       	  }
 	       });
 	    }
 	}
