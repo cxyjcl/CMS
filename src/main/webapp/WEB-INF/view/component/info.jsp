@@ -17,7 +17,7 @@
         <li><a href="/dcs/excel/student_office">学工办</a></li>
         <li><a href="/dcs/excel/subcommittee">分团委</a></li>
         <li><a href="/dcs/excel/counsellor">辅导员</a></li>
-        <c:if test="${sessionScope.user.level ne '管理员'}">
+        <c:if test="${sessionScope.user.level eq '管理员'}">
         	<li><a href="/dcs/management">用户管理</a></li>
         </c:if>
         <li><a href="/dcs/change">修改密码</a></li>
@@ -39,14 +39,19 @@
 </div>
 <div id="container" class="container">
     <div class="warp">
-        <div class="title">整体浏览页 > 列表信息 > 详情信息</div>
+        <div class="title"><span class="text">整体浏览页 > 列表信息 > 详情信息</span></div>
     </div>
     <div class="clearfix" id="${code}">
+    	<c:if test="${level eq sessionScope.userLevel}">
+	        <div class="pull-right mg-5" id="${infoId}">
+	            <button type="button" class="btn btn-danger" id="delete">刪除</button>
+	        </div>
+        </c:if>
         <div class="pull-right mg-5" id="${infoId}">
             <button type="button" class="btn btn-danger" id="download">下载</button>
         </div>
         <div class="pull-right mg-5">
-            <a type="button" href="/dcs/excel/select_info?code=${code}&level=${level}" class="btn btn-danger">返回</a>
+            <a type="button" href="/dcs/excel/select_list?code=${code}&level=${level}" class="btn btn-danger">返回</a>
         </div>
     </div>
     <div class="group">
@@ -69,6 +74,9 @@
 			                </td>
 		                </c:if>
 	                </c:forEach>
+	                <c:if test="${level eq sessionScope.userLevel}">
+                		<td><input type="checkbox"/></td>
+                	</c:if>
                 </tr>
               </c:forEach>
             </tbody>

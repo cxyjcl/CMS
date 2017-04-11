@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dcs.constants.DataStatusEnum;
+import com.dcs.constants.LevelEnum;
 import com.dcs.constants.ListCodeEnum;
 import com.dcs.dao.PojoToMapperDao;
 import com.dcs.dto.ListInfoDto;
@@ -87,7 +88,7 @@ public class PojoToMapperServiceImpl implements PojoToMapperService {
 			info.setInfoId(infoId);
 			info.setNumber(code);
 			String random = infoId+UUID.randomUUID().toString();
-			String url = this.getClass().getResource("/").toURI().getPath().replace("classes/","temp/"+random);
+			String url = this.getClass().getResource("/").toURI().getPath().replace("WEB-INF/classes/","temp/"+random);
 			JodUtils.transform(input, url);
 			info.setUrl(random+".doc");
 		 	int num=dao.insertWord(info);
@@ -193,7 +194,17 @@ public class PojoToMapperServiceImpl implements PojoToMapperService {
 
 	@Override
 	public List<ListInfoDto> selectLimit() {
-		return dao.selectLimit();
+		//每个都要加个level
+		List<ListInfoDto> dtoList = dao.selectLimit();
+		List<ListInfoDto> newList = new ArrayList<ListInfoDto>();
+		for(int i=0;i<dtoList.size();i++){
+			ListInfoDto dto = dtoList.get(i);
+			String level = dto.getUserLevel();
+			String code = LevelEnum.fromValue(level).getCode();
+			dto.setUserLevel(code);
+			newList.add(dto);
+		}
+		return newList;
 	}
 
 	@Override
@@ -210,5 +221,11 @@ public class PojoToMapperServiceImpl implements PojoToMapperService {
 	@Override
 	public Integer countInfo(String table, Integer id) {
 		return dao.countInfo(table, id);
+	}
+
+	@Override
+	public Integer countList(Integer code, String level) {
+		// TODO Auto-generated method stub
+		return dao.countList(code, level);
 	}
 }

@@ -15,6 +15,7 @@
     <result column="data_status" jdbcType="VARCHAR" property="dataStatus" />
   </resultMap>
     <resultMap id="ListResultMap" type="com.dcs.dto.ListInfoDto">
+  	<id column="id" jdbcType="INTEGER" property="id" />
     <result column="excel_name" jdbcType="VARCHAR" property="excelName" />
     <result column="list_id" jdbcType="INTEGER" property="listId" />
     <result column="info_id" jdbcType="INTEGER" property="infoId" />
@@ -28,6 +29,7 @@
 
 	<select id="findListInfo" resultMap="ListResultMap">
 		SELECT
+			t_list_info.id,
 			excel_name,
 			list_id,
 			info_id,
@@ -241,6 +243,9 @@
 		SELECT url FROM t_word_info  where id = #{id}
 	</select>
 	<select id="countInfo" resultType="java.lang.Integer">
-		select count(*) from ${table} where info_id = #{id}
+		select count(*) from ${table} where info_id = #{id} and data_status = "001"
+	</select>
+	<select id="countList" resultType="java.lang.Integer">
+		select count(*) from t_list_info where list_id = #{code} and user_level = #{level} and data_status = "001"
 	</select>
 </mapper>

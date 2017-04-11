@@ -89,5 +89,11 @@ public class UserServiceImpl implements UserService {
 	public Integer check(String value, String code) {
 		return userMapper.check(value, code);
 	}
+
+
+	@Override
+	public Integer countUser() {
+		return userMapper.countUser();
+	}
 	
 }

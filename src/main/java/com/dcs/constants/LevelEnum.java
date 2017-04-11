@@ -52,7 +52,6 @@ public enum LevelEnum {
 	}
 
 	public static void main(String[] args) {
-		String str = null;
-		System.out.println(str.toString());
+		System.out.println( LevelEnum.fromValue("辅导员").getCode());
 	}
 }

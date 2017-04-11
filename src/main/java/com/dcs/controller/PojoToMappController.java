@@ -308,7 +308,8 @@ public class PojoToMappController {
 			message = Message.success("查找成功！");
 			view.addObject("message", message);
 			view.addObject("list", list);
-			page.setTotalSize(list.size());
+			Integer size = pojoToMapperService.countList(code, level);
+			page.setTotalSize(size);
 			view.addObject("page", page);
 			view.addObject("code", code);
 			String instance = ListCodeEnum.fromCode(code.toString())
@@ -334,9 +335,10 @@ public class PojoToMappController {
 			Page page) {
 		Message message;
 		ModelAndView view = new ModelAndView();
+		String name= LevelEnum.fromCode(level).getValue();
 		try {
 			List<ListInfoDto> list = pojoToMapperService.findListInfo(value,
-					level, page, code);
+					name, page, code);
 			message = Message.success("查找成功！");
 			view.addObject("list", list);
 			view.addObject("message", message);

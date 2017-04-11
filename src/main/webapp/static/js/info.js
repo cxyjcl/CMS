@@ -1,7 +1,28 @@
 $(function (){
     $("[data-toggle='popover']").popover({html : true });
 });
-
+$("#delete").click(function(){
+    var box = $("input:checkbox");
+    for(var i = 0 ;i<box.size();i++){
+        if(true==box[i].checked){
+        	var id = $(box[i]).parent().parent().attr("id");
+        	console.log(id);
+		    $.ajax({
+		        url: "http://localhost:8080/dcs/excel/delete",
+		        type: "POST",
+		        contentType: "application/json",
+		        dataType: "json",
+		        data: id,
+		        success: function (data) {
+		             $(box[i]).parent().parent().remove();
+		        },
+		       error: function (data) {
+		            alert(data.msg);
+		       }
+		    });
+        }
+    };
+});
 function change(e){
 	var id = $(e).closest("tr").attr("id")
 	var col = $(e).closest("td").attr("class")
@@ -32,8 +53,4 @@ $("#download").click(function () {
 	var id =  $(this).parent().attr("id");
     console.log(id);
 	window.open("/dcs/excel/file/download?code="+code+"&id="+id);
-    
-})
-$("#print").click(function(){
-	
 })

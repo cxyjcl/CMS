@@ -17,7 +17,7 @@
         <li><a href="/dcs/excel/student_office">学工办</a></li>
         <li><a href="/dcs/excel/subcommittee">分团委</a></li>
         <li><a href="/dcs/excel/counsellor">辅导员</a></li>
-        <c:if test="${sessionScope.user.level ne '管理员'}">
+        <c:if test="${sessionScope.user.level eq '管理员'}">
         	<li><a href="/dcs/management">用户管理</a></li>
         </c:if>
         <li><a href="/dcs/change">修改密码</a></li>
@@ -61,7 +61,7 @@
                			<td>${info.excelName}</td>
                		</c:if>
                		<c:if test="${info.dataStatus eq '001'}">
-               			<td><a href="/dcs/excel/select_info?code=${info.listId}&id=${info.infoId}">${info.excelName}</a></td>
+               			<td><a href="/dcs/excel/select_info?code=${info.listId}&level=${info.userLevel}&id=${info.infoId}">${info.excelName}</a></td>
                		</c:if>
                     <td>${info.creator}</td>
                     <td><fmt:formatDate value="${info.createTime}" pattern="yyyy-MM-dd"/></td>

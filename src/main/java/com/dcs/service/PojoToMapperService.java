@@ -39,5 +39,7 @@ public interface PojoToMapperService {
 
 	public Integer countInfo(String table, Integer id);
 
+	public Integer countList(Integer code, String level);
+
 	
 }

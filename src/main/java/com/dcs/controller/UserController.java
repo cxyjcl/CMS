@@ -91,6 +91,8 @@ public class UserController {
 			BeanUtils.copyProperties(user, vo);
 			user = userService.confirm(user,DataStatusEnum.NORMAL_USED.getCode());
 			session.setAttribute("user", user);
+			String userLevel = LevelEnum.fromValue(user.getLevel()).getCode();
+			session.setAttribute("userLevel", userLevel);
 			session.setMaxInactiveInterval(60 * 30);
 			log.info(JSON.toJSONString(user) + "登陆了\n\t ip:"
 					+ IpUtils.getIp(request));
@@ -105,7 +107,8 @@ public class UserController {
 	@RequestMapping("/add/user")
 	@ResponseBody
 	public Message addUser(@RequestBody User user, HttpSession session) {
-		String id = session.getAttribute("user").toString();
+		User nowUser = (User) session.getAttribute("user");
+		int id = nowUser.getId();
 		String password = user.getPassword();
 		String loginId = user.getLoginName();
 		String email = user.getEmail();
@@ -125,7 +128,7 @@ public class UserController {
 		if (realName.matches("^.*[\\s]+.*$")) {
 			return Message.error(Code.PARAMATER, "账号不能包含空格、制表符、换页符等空白字符");
 		}
-		user.setCreator(new Integer(id));
+		user.setCreator(id);
 		try {
 			userService.insert(user);
 			return Message.success("插入成功", Code.SUCCESS);
@@ -139,7 +142,8 @@ public class UserController {
 	@ResponseBody
 	public Message deleteUser(@RequestBody Integer id,
 			HttpSession session) {
-		String reviser = session.getAttribute("user").toString();// 以后会改
+		User nowUser = (User) session.getAttribute("user");
+		int reviser = nowUser.getId();
 		try {
 			userService.deleteById(id, reviser);
 			return Message.success("删除成功", Code.SUCCESS);
@@ -154,7 +158,8 @@ public class UserController {
 		String password = user.getPassword();
 		String loginId = user.getLoginName();
 		String email = user.getEmail();
-		String id = session.getAttribute("user").toString();
+		User nowUser = (User) session.getAttribute("user");
+		int id = nowUser.getId();
 		if (password.matches("^.*[\\s]+.*$")) {
 			return Message.error(Code.PARAMATER, "密码不能包含空格、制表符、换页符等空白字符");
 		}
@@ -162,11 +167,12 @@ public class UserController {
 			return Message.error(Code.PARAMATER, "邮箱不正确");
 		}
 		try {
-			user.setId(new Integer(id));
-			user.setReviser(new Integer(id));
+			user.setId(id);
+			user.setReviser(id);
 			userService.update(user);
 			return Message.success("更新成功", Code.SUCCESS);
 		} catch (Exception e) {
+			
 			log.error(JSON.toJSONString(user) + "\n\t" + e.toString());
 			return Message.error(Code.ERROR_CONNECTION, "无法更新数据");
 		}
@@ -178,7 +184,8 @@ public class UserController {
 		String password = user.getPassword();
 		String loginId = user.getLoginName();
 		String email = user.getEmail();
-		String id = session.getAttribute("user").toString();
+		User nowUser = (User) session.getAttribute("user");
+		int id = nowUser.getId();
 		String dataStatus = DataStatusEnum.fromValue(user.getDataStatus()).getCode();
 		user.setDataStatus(dataStatus);
 		if (password.matches("^.*[\\s]+.*$")) {
@@ -195,6 +202,7 @@ public class UserController {
 			userService.update(user);
 			return Message.success("更新成功", Code.SUCCESS);
 		} catch (Exception e) {
+			e.printStackTrace();
 			log.error(JSON.toJSONString(user) + "\n\t" + e.toString());
 			return Message.error(Code.ERROR_CONNECTION, "无法更新数据");
 		}
@@ -251,7 +259,8 @@ public class UserController {
 			List<User> userList = userService.selectAll(page);
 			message = Message.success("查找成功");
 			view.addObject("list",userList);
-			page.setTotalSize(userList.size());
+			Integer size = userService.countUser();
+			page.setTotalSize(size);
 			view.addObject("page",page);
 			view.addObject("message",message);
 			view.setViewName("/view/user/list");

@@ -145,4 +145,7 @@
 <select id="check" resultType="java.lang.Integer">
 	select count(*) from t_user where login_name=#{value}
 </select>
+<select id="countUser" resultType="java.lang.Integer">
+	select count(*) from t_user
+</select>
 </mapper>

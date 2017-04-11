@@ -36,12 +36,12 @@ public class ExportExcelUtil {
 			j++;
 
 		}
-		j = 0;
 		int i = 2;
 		// 写表格内容
 		for (LinkedHashMap map : data2Export) {
 			HSSFRow row3 = sheetAt.createRow(i);
 			// 写标题栏
+			j = 0;
 			for (AttriInfo attriInfo : paramInfos) {
 				HSSFCell cell2 = row3.createCell(j);
 				String paramName = attriInfo.getParamName();

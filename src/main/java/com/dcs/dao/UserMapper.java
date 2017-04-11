@@ -28,4 +28,6 @@ public interface UserMapper{
 	public List<User> find(@Param("value")String str,@Param("dataStatus") Object dataStatus,@Param("page")Page page);
 
 	public Integer check(@Param("value")String str,@Param("dataStatus") Object dataStatus);
+
+	public Integer countUser();
 }

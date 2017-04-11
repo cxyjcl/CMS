@@ -20,6 +20,8 @@ $("#delete").click(function(){
 		        data: id,
 		        success: function (data) {
 		             $(box[i]).parent().parent().remove();
+		             alert(data.msg);
+		             window.location.reload();
 		        },
 		       error: function (data) {
 		            alert(data.msg);
@@ -50,6 +52,7 @@ function file(e){
 	          data:file,
 	          success:function(data){
 	        	  alert(data.msg);
+	        	  window.location.reload();
 	          },
 	       	  error:function(data){
 	       		alert(data.msg);

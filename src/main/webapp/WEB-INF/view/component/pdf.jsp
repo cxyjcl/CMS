@@ -1,6 +1,7 @@
 <%@ page language="java" import="java.util.*,java.io.*"
 pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -20,7 +21,7 @@ pageEncoding="UTF-8"%>
         <li><a href="/dcs/excel/student_office">学工办</a></li>
         <li><a href="/dcs/excel/subcommittee">分团委</a></li>
         <li><a href="/dcs/excel/counsellor">辅导员</a></li>
-        <c:if test="${sessionScope.user.level ne '管理员'}">
+        <c:if test="${sessionScope.user.level eq '管理员'}">
         	<li><a href="/dcs/management">用户管理</a></li>
         </c:if>
         <li><a href="/dcs/change">修改密码</a></li>
@@ -42,7 +43,7 @@ pageEncoding="UTF-8"%>
 </div>
 <div id="container" class="container">
     <div class="warp">
-        <div class="title"><span class="text">整体浏览页 > 列表信息 > 详情信息</div>
+        <div class="title"><span class="text">整体浏览页 > 列表信息 > 详情信息</span></div>
         <!--<div class="title pull-right text">-->
             <!--<span class="glyphicon glyphicon-arrow-left"></span>-->
             <!--<a id="back" href="#">返回</a>-->

@@ -75,6 +75,8 @@ $("#delete").click(function(){
 		        data: id,
 		        success: function (data) {
 		             $(box[i]).parent().parent().remove();
+		             alert(data.msg);
+		             window.location.reload();
 		        },
 		       error: function (data) {
 		            alert(data.msg);
@@ -148,6 +150,7 @@ $("#change-buton").click(function(){
     }
 })
 function check(){
+	var status = false;
 	var login_id=$("#login-id").val();
     var _data={
     	"loginName":login_id
@@ -156,18 +159,20 @@ function check(){
     	$.ajax({
 			url:"/dcs/check",
 			type: "POST",
+			async:false,
 			contentType: "application/json",
 	        dataType: "json",
 	        data: JSON.stringify(_data),
 		   success:function(data){
 				$("#error-message").html(data.msg);
-				return true;
+				status = true;
 		   },
 		   error:function(data){
 			   $("#error-message").html(data.msg);
 		   }
 		});
     }
+    return status;
 }
 $("#search").click(function(){
   	var value = $("#search-value").val();

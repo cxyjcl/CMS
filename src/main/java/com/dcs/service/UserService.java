@@ -27,4 +27,6 @@ public interface UserService{
 
 	Integer check(String value, String code);
 
+	public Integer countUser();
+
 }

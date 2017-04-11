@@ -17,7 +17,7 @@
         <li><a href="/dcs/excel/student_office">学工办</a></li>
         <li><a href="/dcs/excel/subcommittee">分团委</a></li>
         <li><a href="/dcs/excel/counsellor">辅导员</a></li>
-        <c:if test="${sessionScope.user.level ne '管理员'}">
+        <c:if test="${sessionScope.user.level eq '管理员'}">
         	<li><a href="/dcs/management">用户管理</a></li>
         </c:if>
         <li><a href="/dcs/change">修改密码</a></li>
@@ -46,7 +46,7 @@
         <!--</div>-->
     </div>
     <div class="clearfix" id="${code}">
-    <c:if test="${level eq user.level or user.level eq '管理员'}">
+    <c:if test="${level eq sessionScope.userLevel or user.level eq '管理员'}">
         <div class="pull-right mg-5">
             <button type="button" id="delete" class="btn btn-danger">删除</button>
         </div>
@@ -85,7 +85,7 @@
                     <th>提交时间</th>
                     <th>修改人</th>
                     <th>修改时间</th>
-                    <c:if test="${level eq user.level}">
+                    <c:if test="${level eq sessionScope.userLevel or user.level eq '管理员'}">
                     	<th>删除</th>
                     </c:if>
                 </tr>
@@ -98,7 +98,7 @@
                     <td><fmt:formatDate value="${info.createTime}" pattern="yyyy-MM-dd"/></td>
                		<td>${info.reviser}</td>
                		<td><fmt:formatDate value="${info.reviseTime}" pattern="yyyy-MM-dd"/></td>
-                	<c:if test="${level eq user.level}">
+                	<c:if test="${level eq sessionScope.userLevel or user.level eq '管理员'}">
                 		<td><input type="checkbox"/></td>
                 	</c:if>
                 </tr>
