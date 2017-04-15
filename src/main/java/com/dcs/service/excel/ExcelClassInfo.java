@@ -70,6 +70,8 @@ public class ExcelClassInfo {
 			classInfo.setIdCard(cell[5].getStringCellValue());
 			row.getCell(6).setCellType(Cell.CELL_TYPE_STRING);
 			classInfo.setContacts(cell[6].getStringCellValue());
+			classInfo.setPartyMember(cell[7].getStringCellValue());
+			classInfo.setDuties(cell[8].getStringCellValue());
 			HashMap<String, Object> map = (HashMap<String, Object>) BeanUtils
 			.describe(classInfo);
 			map.remove("class");

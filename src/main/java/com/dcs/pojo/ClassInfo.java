@@ -32,9 +32,13 @@ public class ClassInfo {
 	private String contacts;
 
 	@AttributeBuildExcel(order=8,excelColumName="备注（党员Y/N）")
-	private Boolean partyMember;
+	private String partyMember;
+
+	@AttributeBuildExcel(order=8,excelColumName="班级职务")
+	private String duties;
 
 	private String dataStatus;
+	
 	
 	public String getDataStatus() {
 		return dataStatus;
@@ -115,13 +119,21 @@ public class ClassInfo {
 	public void setContacts(String contacts) {
 		this.contacts = contacts == null ? null : contacts.trim();
 	}
-
-	public Boolean getPartyMember() {
+	
+	public String getPartyMember() {
 		return partyMember;
 	}
 
-	public void setPartyMember(Boolean partyMember) {
+	public void setPartyMember(String partyMember) {
 		this.partyMember = partyMember;
+	}
+
+	public String getDuties() {
+		return duties;
+	}
+
+	public void setDuties(String duties) {
+		this.duties = duties;
 	}
 
 	@Override

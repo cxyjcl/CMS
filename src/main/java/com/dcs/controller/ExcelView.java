@@ -34,8 +34,6 @@ public class ExcelView extends AbstractExcelView {
 				.get("data2Export");
 		String fileName = (String) model.get("fileName");
 		String title = (String) model.get("title");
-		
-		
 		Field[] params = pojoClass.getDeclaredFields();
 		List<AttriInfo> paramsAttriInfo = AttributeBuildExcelUtils
 				.parseParamsAttriInfo(params);

@@ -39,7 +39,7 @@ $("#confirm").click(function (){
 	        	"level":level
 	        };
 	        $.ajax({
-	            url: "http://localhost:8080/dcs/add/user",
+	            url: "/dcs/add/user",
 	            type: "POST",
 	            contentType: "application/json",
 	            dataType: "json",
@@ -68,7 +68,7 @@ $("#delete").click(function(){
         if(true==box[i].checked){
         	var id = $(box[i]).parent().parent().attr("id");
 		    $.ajax({
-		        url: "http://localhost:8080/dcs/delete/user",
+		        url: "/dcs/delete/user",
 		        type: "POST",
 		        contentType: "application/json",
 		        dataType: "json",

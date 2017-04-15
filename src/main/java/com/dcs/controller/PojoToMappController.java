@@ -71,6 +71,7 @@ public class PojoToMappController {
 	}
 
 	@RequestMapping("/add")
+	@ResponseBody
 	public Message addInfo(@RequestParam("code") Integer code,
 			@RequestParam("level") String level,
 			@RequestParam("file") MultipartFile uploadFile, HttpSession session) {

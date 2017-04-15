@@ -13,7 +13,7 @@ $("#delete").click(function(){
         	var id = $(box[i]).parent().parent().attr("id");
         	console.log(id);
 		    $.ajax({
-		        url: "http://localhost:8080/dcs/excel/delete_list",
+		        url: "/dcs/excel/delete_list",
 		        type: "POST",
 		        contentType: "application/json",
 		        dataType: "json",
@@ -35,6 +35,7 @@ function file(e){
 	 file.append("file",document.getElementById('uploadFile').files[0]);
 	 var code =  $(e).parent().parent().parent().attr("id");
 	 var level = $(e).parent().attr("id");
+	 console.log(code);
 	 file.append("code",code);
 	 file.append("level",level);
 	 if (document.getElementById('uploadFile').files[0] != null && document.getElementById('uploadFile').files[0] != "") {

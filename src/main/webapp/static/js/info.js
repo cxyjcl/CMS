@@ -12,7 +12,7 @@ $("#delete").click(function(){
         			"id":id
         	}
 		    $.ajax({
-		        url: "http://localhost:8080/dcs/excel/delete",
+		        url: "/dcs/excel/delete",
 		        type: "POST",
 		        contentType: "application/x-www-form-urlencoded",
 		        data: _data,

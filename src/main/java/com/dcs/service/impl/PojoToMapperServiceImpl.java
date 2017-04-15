@@ -76,8 +76,6 @@ public class PojoToMapperServiceImpl implements PojoToMapperService {
 		ListCodeEnum codeEnum = ListCodeEnum.fromCode(code);
 		String value = codeEnum.getInstance();
 		String table = codeEnum.getValue();
-		Integer id = listInfo.getCreator();
-		String level = userService.selectLevel(id);
 		if(value.equals("WordInfo")){
 			Integer max = dao.selectMax(table,null);
 			if (max == null) {
@@ -93,7 +91,6 @@ public class PojoToMapperServiceImpl implements PojoToMapperService {
 			info.setUrl(random+".doc");
 		 	int num=dao.insertWord(info);
 			listInfo.setInfoId(infoId);
-			listInfo.setUserLevel(level);
 			dao.insertList(listInfo);
 			return num;
 		} else{
@@ -110,7 +107,6 @@ public class PojoToMapperServiceImpl implements PojoToMapperService {
 			String title = (String)list.getLast().get("title");
 			listInfo.setTitle(title);
 			listInfo.setInfoId(infoId);
-			listInfo.setUserLevel(level);
 			Integer num = dao.insertList(listInfo);
 			//删除title
 			list.removeLast();

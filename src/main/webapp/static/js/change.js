@@ -33,7 +33,7 @@ $("#confirm").click(function (){
             'email' : email,
         };
         $.ajax({
-            url: "http://localhost:8080/dcs/change/user",
+            url: "/dcs/change/user",
             type: "POST",
             contentType: "application/json",
             dataType: "json",
