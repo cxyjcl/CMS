@@ -83,51 +83,5 @@ public class ExcelStudentReward {
 		return list;
 	}
 
-	public OutputStream download(ArrayList<StudentReward> studentRewardList) throws FileNotFoundException, IOException {
-		// 选择文件
-		file = new File("tempExcel/分团委/学生荣誉名单（团委）.xls");
-		workbook = new HSSFWorkbook(new FileInputStream(file));// 创建操作Excel的HSSFWorkbook对象
-		sheet = workbook.getSheetAt(0);
-
-		int size = studentRewardList.size();
-		for (int i = 0; i < size; i++) {// 循环，控制总行数
-			HSSFRow row = sheet.createRow(i + rowIndex);
-			StudentReward studentReward = studentRewardList.get(i);
-			HSSFCell cell = row.createCell(1);
-			cell.setCellValue(studentReward.getName());
-			cell = row.createCell(2);
-			cell.setCellValue(studentReward.getStudentId());
-			cell = row.createCell(3);
-			cell.setCellValue(studentReward.getGrade());
-			cell = row.createCell(4);
-			cell.setCellValue(studentReward.getClassroom());
-			cell = row.createCell(5);
-			cell.setCellValue(studentReward.getRewardName());
-			cell = row.createCell(6);
-			cell.setCellValue(studentReward.getRewardGrade());
-			cell = row.createCell(7);
-			cell.setCellValue(studentReward.getRewardTime());
-			cell = row.createCell(8);
-			cell.setCellValue(studentReward.getRemark());
-			cell = row.createCell(0);
-			cell.setCellValue(studentReward.getRewardNature());
-
-		}
-
-		// 利用数据流写入
-		OutputStream out = null;
-		out = new FileOutputStream(file);
-		// try {
-		// workbook.write(out);
-		// out.close();
-		// } catch (FileNotFoundException e) {
-		// e.printStackTrace();
-		// } catch (IOException e) {
-		// e.printStackTrace();
-		// }
-
-		System.out.println("数据已经写入excel中。");
-		return out;
-	}
 
 }

@@ -16,9 +16,9 @@
 <div class="nav">
     <ul>
         <li><a href="/dcs/excel/select_limit">主页</a></li>
+        <li><a href="/dcs/excel/counsellor">辅导员</a></li>
         <li><a href="/dcs/excel/student_office">学工办</a></li>
         <li><a href="/dcs/excel/subcommittee">分团委</a></li>
-        <li><a href="/dcs/excel/counsellor">辅导员</a></li>
         <c:if test="${sessionScope.user.level eq '管理员'}">
         	<li><a href="/dcs/management">用户管理</a></li>
         </c:if>

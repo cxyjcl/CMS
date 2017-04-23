@@ -58,3 +58,35 @@ $("#download").click(function () {
     console.log(id);
 	window.open("/dcs/excel/file/download?code="+code+"&id="+id);
 })
+function file(e){
+	 var file = new FormData();   
+	 file.append("file",document.getElementById('uploadFile').files[0]);
+	 var code =  $(e).parent().parent().parent().attr("id");
+	 var level = $(e).parent().attr("id");
+	 console.log(code);
+	 file.append("code",code);
+	 file.append("level",level);
+	 if (document.getElementById('uploadFile').files[0] != null && document.getElementById('uploadFile').files[0] != "") {
+	    var filepath=$("#uploadFile").val();
+	    var extStart=filepath.lastIndexOf(".");
+	    var ext=filepath.substring(extStart,filepath.length).toUpperCase();
+	    if(ext!=".XLS"&&ext!=".DOC"){
+	       alert("文件仅限于XLS与DOC");
+	    }else{
+	       $.ajax({
+	          type:"POST",
+	          contentType:false,
+	          processData:false,
+	          url:"/dcs/excel/add",
+	          data:file,
+	          success:function(data){
+	        	  alert("上传成功！");
+	        	  window.location.reload();
+	          },
+	       	  error:function(data){
+	       		alert(data.msg);
+	       	  }
+	       });
+	    }
+	}
+}

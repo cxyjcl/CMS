@@ -28,7 +28,24 @@ public enum ListCodeEnum {
 	//分团委
 	_CadresInfo("20001","t_cadres_info","CadresInfo","各组织学生干部名单表模板.xls"),//分团委、学生会、协会人员名单
 	_StudentReward("20002","t_studentReward","StudentReward","学生荣誉名单（团委）.xls"),//学生荣誉名单（团委）
-	_TotalActivities("20003","t_word_info","WordInfo","");//学期开展活动汇总表及方案
+	_TotalActivities("20003","t_word_info","WordInfo",""),//学期开展活动汇总表及方案
+	
+	//学工办
+	_StudentInfo("30001","t_word_info","WordInfo",""),//学期学生信息一览表
+	_PartyBuildFile("30002","t_word_info","WordInfo",""),//党建发文文件
+	_StudentWorkFile("30003","t_word_info","WordInfo",""),//学生工作文件
+	_PartyStudentFile("30004","t_word_info","WordInfo",""),//本学期党员XXX汇总名单
+	_MoneyFile("30005","t_word_info","WordInfo",""),//各类奖助学金汇总名单
+	_CHANGEFile("30006","t_word_info","WordInfo",""),//年度学生学籍异动情况汇总
+	_StudentRewardFile("30007","t_word_info","WordInfo",""),//学生表彰名单
+	_TeacherRewardFile("30008","t_word_info","WordInfo",""),//教师表彰名单
+	_JOBFILE("30009","t_word_info","WordInfo",""),//学期值班表
+	_TESTFile("30010","t_word_info","WordInfo",""),//年度辅导员、班主任测评汇总表
+	_EMPLOYMENTQUALITY("30011","t_word_info","WordInfo",""),//就业质量年度报告
+	_LectureInfoFile("30012","t_word_info","WordInfo",""),//学院讲座汇总表
+	_WORKPLAN("30013","t_word_info","WordInfo",""),//工作计划及总结
+	_newsFile("30014","t_word_info","WordInfo",""),//新闻上传情况
+	_IndividualAchievementFile("30015","t_word_info","WordInfo","");//个人成果及获奖情况
 	
 	private final String code;
 	private final String value;

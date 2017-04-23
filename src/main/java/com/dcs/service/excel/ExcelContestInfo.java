@@ -81,47 +81,4 @@ public class ExcelContestInfo {
 		list.add(map);
 		return list;
 	}
-
-	public OutputStream download(ArrayList<ContestInfo> contestInfoList) throws FileNotFoundException, IOException {
-		// 选择文件
-		file = new File("tempExcel/学科竞赛统计表.xls");
-		workbook = new HSSFWorkbook(new FileInputStream(file));// 创建操作Excel的HSSFWorkbook对象
-		sheet = workbook.getSheetAt(0);
-
-		int size = contestInfoList.size();
-		for (int i = 0; i < size; i++) {// 循环，控制总行数
-			HSSFRow row = sheet.createRow(i + rowIndex);
-			ContestInfo contestInfo = contestInfoList.get(i);
-			HSSFCell cell = row.createCell(0);
-			cell.setCellValue(contestInfo.getSponsor());
-			cell = row.createCell(1);
-			cell.setCellValue(contestInfo.getContestName());
-			cell = row.createCell(2);
-			cell.setCellValue(contestInfo.getContestGrade());
-			cell = row.createCell(3);
-			cell.setCellValue(contestInfo.getWorkName());
-			cell = row.createCell(4);
-			cell.setCellValue(contestInfo.getContestStudent());
-			cell = row.createCell(5);
-			cell.setCellValue(contestInfo.getTutor());
-			cell = row.createCell(6);
-			cell.setCellValue(contestInfo.getRemark());
-
-		}
-
-		// 利用数据流写入
-		OutputStream out = null;
-		out = new FileOutputStream(file);
-		// try {
-		// workbook.write(out);
-		// out.close();
-		// } catch (FileNotFoundException e) {
-		// e.printStackTrace();
-		// } catch (IOException e) {
-		// e.printStackTrace();
-		// }
-
-		System.out.println("数据已经写入excel中。");
-		return out;
-	}
 }

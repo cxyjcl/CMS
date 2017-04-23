@@ -29,7 +29,6 @@ public class Activities {
 	@AttributeBuildExcel(order=7,excelColumName="备注")
 	private String remark;
 
-	@AttributeBuildExcel(order=8,excelColumName="方案地址")
 	private String url;
 
 	private String dataStatus;
@@ -122,13 +121,11 @@ public class Activities {
 		this.dataStatus = dataStatus;
 	}
 
+	
 	@Override
 	public String toString() {
-		return "Activities [id=" + id + ", infoId=" + infoId + ", code=" + code
-				+ ", time=" + time + ", place=" + place + ", sponsor="
-				+ sponsor + ", name=" + name + ", description=" + description
-				+ ", remark=" + remark + ", url=" + url + ", dataStatus="
-				+ dataStatus + "]";
+		return "{code=序号,time=时间,place=地点,sponsor=主办单位,"
+				+"name=活动名称,description=活动简介,remark=备注,url=上传文件}";
 	}
 	
 	

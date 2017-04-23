@@ -3,7 +3,6 @@ package com.dcs.pojo;
 import java.util.Date;
 
 import com.dcs.pojo.request.Page;
-import com.dcs.service.excel.mainTest;
 
 public class User extends Page{
 	private Integer id;
@@ -121,10 +120,5 @@ public class User extends Page{
 		return "User [id=" + id + ", email=" + email + ", loginName=" + loginName + ", realName=" + realName
 				+ ", password=" + password + ", level=" + level + ", creator=" + creator + ", createTime=" + createTime
 				+ ", reviser=" + reviser + ", reviserTime=" + reviserTime + ", dataStatus=" + dataStatus + "]";
-	}
-	public static void main(String[] args) {
-		String email = "cbjcl0204@1om";
-		System.out.println(email.matches("^([a-z0-9A-Z]+[-|_|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$"));
-		
 	}
 }

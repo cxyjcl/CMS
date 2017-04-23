@@ -14,9 +14,9 @@
 <div class="nav">
     <ul>
         <li><a href="/dcs/excel/select_limit">主页</a></li>
+        <li><a href="/dcs/excel/counsellor">辅导员</a></li>    
         <li><a href="/dcs/excel/student_office">学工办</a></li>
         <li><a href="/dcs/excel/subcommittee">分团委</a></li>
-        <li><a href="/dcs/excel/counsellor">辅导员</a></li>
         <c:if test="${sessionScope.user.level eq '管理员'}">
         	<li><a href="/dcs/management">用户管理</a></li>
         </c:if>
@@ -68,10 +68,15 @@
               <c:forEach items="${mapVo.mapList}" var="info">
                 <tr id="${info.id}">
                 	<c:forEach items="${info}" var="item">
-                		<c:if test="${item.key ne 'id' &&item.key ne 'info_id' && item.key ne 'data_status'}">
+                		<c:if test="${item.key ne 'url' && item.key ne 'id' &&item.key ne 'info_id' && item.key ne 'data_status'}">
 			                <td class="${item.key}">
 		                		<a tabindex="0" role="button" data-toggle="popover" data-placement="top" data-toggle="popover" data-content="<div class='row change-div'><div class='col-sm-9 col-xs-9'><input type='text' class='form-control' placeholder='请输入姓名'/></div><div class='col-sm-1 md-1'><button type='button' class='btn btn-primary' onclick=change(this)>√</button></div></div>">${item.value}</a>
 			                </td>
+		                </c:if>
+		                <c:if test="${item.key eq 'url'}">
+		                	<a href="javascript:;" class="file">
+								<input type="file" class="btn btn-info" onchange="file(this)" id="uploadFile"/>上传文件
+							</a>
 		                </c:if>
 	                </c:forEach>
 	                <c:if test="${level eq sessionScope.userLevel}">

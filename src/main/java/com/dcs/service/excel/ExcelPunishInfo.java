@@ -82,45 +82,5 @@ public class ExcelPunishInfo {
 		return list;
 	}
 
-	public OutputStream download(ArrayList<PunishInfo> punishInfoList) throws FileNotFoundException, IOException {
-		// 选择文件
-		file = new File("tempExcel/年级受处分学生名单.xls");
-		workbook = new HSSFWorkbook(new FileInputStream(file));// 创建操作Excel的HSSFWorkbook对象
-		sheet = workbook.getSheetAt(0);
-
-		int size = punishInfoList.size();
-		for (int i = 0; i < size; i++) {// 循环，控制总行数
-			HSSFRow row = sheet.createRow(i + rowIndex);
-			PunishInfo punishInfo = punishInfoList.get(i);
-			HSSFCell cell = row.createCell(0);
-			cell.setCellValue(punishInfo.getName());
-			cell = row.createCell(1);
-			cell.setCellValue(punishInfo.getStudentId());
-			cell = row.createCell(2);
-			cell.setCellValue(punishInfo.getClassroom());
-			cell = row.createCell(3);
-			cell.setCellValue(punishInfo.getPunishGrade());
-			cell = row.createCell(4);
-			cell.setCellValue(punishInfo.getPunishReason());
-			cell = row.createCell(5);
-			cell.setCellValue(punishInfo.getPunishTime());
-
-		}
-
-		// 利用数据流写入
-		OutputStream out = null;
-		out = new FileOutputStream(file);
-		// try {
-		// workbook.write(out);
-		// out.close();
-		// } catch (FileNotFoundException e) {
-		// e.printStackTrace();
-		// } catch (IOException e) {
-		// e.printStackTrace();
-		// }
-
-		System.out.println("数据已经写入excel中。");
-		return out;
-	}
 
 }

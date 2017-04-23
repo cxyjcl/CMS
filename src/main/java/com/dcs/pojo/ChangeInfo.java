@@ -24,6 +24,8 @@ public class ChangeInfo {
 	@AttributeBuildExcel(order=5,excelColumName="异动时间")
 	private String changeTime;
 
+	private String url;
+	
 	private String dataStatus;
 	
 	public String getDataStatus() {
@@ -93,6 +95,6 @@ public class ChangeInfo {
 	@Override
 	public String toString() {
 		return "{name=姓名,studentId=学号,classroom=班级,changeReason=异动原因,"
-				+"changeTime=异动时间}";
+				+"changeTime=异动时间,url=上传文件}";
 		}
 }
