@@ -60,24 +60,25 @@ $("#download").click(function () {
 })
 function file(e){
 	 var file = new FormData();   
-	 file.append("file",document.getElementById('uploadFile').files[0]);
-	 var code =  $(e).parent().parent().parent().attr("id");
-	 var level = $(e).parent().attr("id");
+	 var code =  $(e).closest("table").attr("id");
+	 var id = $(e).closest("tr").attr("id")
 	 console.log(code);
+	 console.log(id);
 	 file.append("code",code);
-	 file.append("level",level);
+	 file.append("id",id);
+	 file.append("file",document.getElementById('uploadFile').files[0]);
 	 if (document.getElementById('uploadFile').files[0] != null && document.getElementById('uploadFile').files[0] != "") {
 	    var filepath=$("#uploadFile").val();
 	    var extStart=filepath.lastIndexOf(".");
 	    var ext=filepath.substring(extStart,filepath.length).toUpperCase();
-	    if(ext!=".XLS"&&ext!=".DOC"){
-	       alert("文件仅限于XLS与DOC");
+	    if(ext!=".XLS"&&ext!=".DOC"&&ext!=".JPG"){
+	       alert("文件仅限于XLS与DOC和JPG");
 	    }else{
 	       $.ajax({
 	          type:"POST",
 	          contentType:false,
 	          processData:false,
-	          url:"/dcs/excel/add",
+	          url:"/dcs/excel/extra_file",
 	          data:file,
 	          success:function(data){
 	        	  alert("上传成功！");

@@ -41,6 +41,7 @@ public class PartyBuild {
 	@AttributeBuildExcel(order=11,excelColumName="申请入党时间")
 	private String applicationDate;
 	
+	//TODO 这里有正式党员预备党员积极分子和上党课学生几种不同的值，如何poi读写？？？
 	@AttributeBuildExcel(order=12,excelColumName="成为正式党员时间")
 	private String regularPartyMemberDate;
 	

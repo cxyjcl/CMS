@@ -27,19 +27,21 @@ public interface PojoToMapperService {
 
 	int delete(String table, int id,Integer reviser) throws Exception;
 
-	public List<ListInfoDto> selectLimit();
+	public List<ListInfoDto> selectLimit() throws Exception;
 	
 	public LinkedHashMap selectCol(String code) throws Exception;
 
-	public String selectTitle(String code, Integer infoId);
+	public String selectTitle(String code, Integer infoId) throws Exception;
 
 	public int update(String value, UpdateVo vo) throws Exception ;
 
-	public String selectWord(String id);
+	public String selectWord(String id) throws Exception;
 
-	public Integer countInfo(String table, Integer id);
+	public Integer countInfo(String table, Integer id) throws Exception;
 
-	public Integer countList(Integer code, String level);
+	public Integer countList(Integer code, String level) throws Exception;
+
+	public Integer addExtraFile(String string, InputStream inputStream, Integer id,String type) throws Exception;
 
 	
 }

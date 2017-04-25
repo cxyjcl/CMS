@@ -28,7 +28,7 @@ public enum ListCodeEnum {
 	//分团委
 	_CadresInfo("20001","t_cadres_info","CadresInfo","各组织学生干部名单表模板.xls"),//分团委、学生会、协会人员名单
 	_StudentReward("20002","t_studentReward","StudentReward","学生荣誉名单（团委）.xls"),//学生荣誉名单（团委）
-	_TotalActivities("20003","t_word_info","WordInfo",""),//学期开展活动汇总表及方案
+	_TotalActivities("20003","t_activities","Activites","学期开展活动汇总表及方案.xls"),//学期开展活动汇总表及方案
 	
 	//学工办
 	_StudentInfo("30001","t_word_info","WordInfo",""),//学期学生信息一览表

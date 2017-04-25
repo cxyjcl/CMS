@@ -1,5 +1,9 @@
 package com.dcs.controller;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.net.URLEncoder;
@@ -21,6 +25,7 @@ import com.dcs.util.AttriInfo;
 import com.dcs.util.AttributeBuildExcel;
 import com.dcs.util.AttributeBuildExcelUtils;
 import com.dcs.util.ExportExcelUtil;
+import com.dcs.util.ZipUtils;
 
 public class ExcelView extends AbstractExcelView {
 
@@ -41,18 +46,30 @@ public class ExcelView extends AbstractExcelView {
 				paramsAttriInfo, data2Export, pojoClass,title);
 
 		// web浏览通过MIME类型判断文件是excel类型
-		response.setContentType("application/vnd.ms-excel;charset=utf-8");
 		response.setCharacterEncoding("utf-8");
 
+		//TODO 想想如何把它变成zip包
 		// 对文件名进行处理。防止文件名乱码
 		fileName = URLEncoder.encode(fileName, "utf-8");
 		// Content-disposition属性设置成以附件方式进行下载
-		response.setHeader("Content-disposition", "attachment;filename="
-				+ fileName);
 		OutputStream os = response.getOutputStream();
-		workbook.write(os);
+		String code = (String) model.get("code");
+		if(code.equals("20003") || code.equals("10009") || code.equals("10005")){
+			response.setContentType("application/x-zip-compressed" );
+			  //inline;参数让浏览器弹出下载窗口,而不是在网页中打开文件.filename设定文件名
+			  response.setHeader( "Content-Disposition" , "inline; filename=download.zip" );
+			ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
+			workbook.write(byteStream);
+			byte[] b = byteStream.toByteArray();
+			ByteArrayInputStream in = new ByteArrayInputStream(b);
+			ZipUtils.zip(data2Export,in,os);
+		} else{
+			response.setContentType("application/vnd.ms-excel;charset=utf-8");
+			response.setHeader("Content-disposition", "attachment;filename="
+					+ fileName);
+			workbook.write(os);
+		}
 		os.flush();
 		os.close();
 	}
-
 }

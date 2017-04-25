@@ -62,6 +62,9 @@
              <c:forEach items="${mapVo.mapString}" var="map">
                   <th>${map.value}</th>
               </c:forEach>
+				<c:if test="${level eq sessionScope.userLevel}">
+                	<th>删除</th>
+                </c:if>
                 </tr>
             </thead>
             <tbody>
@@ -73,11 +76,13 @@
 		                		<a tabindex="0" role="button" data-toggle="popover" data-placement="top" data-toggle="popover" data-content="<div class='row change-div'><div class='col-sm-9 col-xs-9'><input type='text' class='form-control' placeholder='请输入姓名'/></div><div class='col-sm-1 md-1'><button type='button' class='btn btn-primary' onclick=change(this)>√</button></div></div>">${item.value}</a>
 			                </td>
 		                </c:if>
-		                <c:if test="${item.key eq 'url'}">
-		                	<a href="javascript:;" class="file">
+	                <c:if test="${item.key eq 'url' &&level eq sessionScope.userLevel}">
+		                <td>
+			               <a href="javascript:;" class="file">
 								<input type="file" class="btn btn-info" onchange="file(this)" id="uploadFile"/>上传文件
-							</a>
-		                </c:if>
+							 </a>
+						</td>
+		            </c:if>
 	                </c:forEach>
 	                <c:if test="${level eq sessionScope.userLevel}">
                 		<td><input type="checkbox"/></td>

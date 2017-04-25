@@ -153,11 +153,15 @@
 	<insert id="insertInfo" >
 		insert into ${table}  
          <foreach collection="map.keys" item="key" open="(" close=")" separator="," >  
-            ${key} 
+            <if test="{map[${key}]} !=null">
+            	${key}
+            </if> 
          </foreach>
          values   
          <foreach collection="map.keys"  item="key" open="(" close=")" separator=",">  
-            #{map[${key}]}  
+            <if test="{map[${key}]} !=null">
+ 	           #{map[${key}]} 
+            </if> 
          </foreach>
 	</insert>
 
@@ -248,4 +252,7 @@
 	<select id="countList" resultType="java.lang.Integer">
 		select count(*) from t_list_info where list_id = #{code} and user_level = #{level} and data_status = "001"
 	</select>
+	<update id="updateUrl">
+		update ${table} set url = #{url} where id = #{id}
+	</update>
 </mapper>

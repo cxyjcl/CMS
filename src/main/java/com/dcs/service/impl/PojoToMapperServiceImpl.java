@@ -1,10 +1,13 @@
 package com.dcs.service.impl;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -121,42 +124,6 @@ public class PojoToMapperServiceImpl implements PojoToMapperService {
 		}
 	}
 
-//	public int insert(String code, InputStream input, ListInfo listInfo,
-//			String flag) throws Exception {
-//		ListCodeEnum codeEnum = ListCodeEnum.fromCode(code);
-//		String value = codeEnum.getInstance();
-//		Class<? extends ListCodeEnum> beanClass = codeEnum.getClass();
-//		String table = codeEnum.getValue();
-//		Integer max = dao.selectMax(table);
-//		if (max == null) {
-//			max = 0;
-//		}
-//		Integer infoId = max + 1;
-//		String fileName = table;
-//		List createBeans = XlsDataSetBeanFactory.createBeans(fileName,
-//				input, beanClass);
-//		for (int i = 0; i < createBeans.size(); i++) {
-//			HashMap<String, Object> map = (HashMap<String, Object>) BeanUtils
-//					.describe(createBeans.get(0));
-//			// 这里要删除一个class的原因是他在转化的时候会带上一个class键值对
-//			map.remove("class");
-//			map.remove("id");
-//			map = TableUtils.upToLow(map);
-//			map.put("info_id", infoId);
-//			map.put("data_status", "001");
-//			dao.insertInfo(table, map);
-//		}
-//		Integer id = listInfo.getCreator();
-//		String level = userService.selectLevel(id);
-//		TitleService titleService = new TitleService();
-//		String title = titleService.excel(input);
-//		listInfo.setTitle(title);
-//		listInfo.setInfoId(infoId);
-//		listInfo.setUserLevel(level);
-//		Integer num = dao.insertList(listInfo);
-//		return num;
-//	}
-
 	@Override
 	public int update(String value, UpdateVo vo) throws Exception {
 		Integer id = dao.updateInfo(value, vo);
@@ -223,5 +190,23 @@ public class PojoToMapperServiceImpl implements PojoToMapperService {
 	public Integer countList(Integer code, String level) {
 		// TODO Auto-generated method stub
 		return dao.countList(code, level);
+	}
+
+	@Override
+	public Integer addExtraFile(String table, InputStream input,
+			Integer id,String type) throws URISyntaxException, IOException {
+		String random = id+UUID.randomUUID().toString();
+		String url = this.getClass().getResource("/").toURI().getPath().replace("WEB-INF/classes/","temp/"+random+"."+type);
+		File file = new File(url);
+		OutputStream os = new FileOutputStream(file);
+		int bytesRead = 0;
+		byte[] buffer = new byte[8192];
+		while ((bytesRead = input.read(buffer, 0, 8192)) != -1) {
+		   os.write(buffer, 0, bytesRead);
+		}
+		os.close();
+		input.close();
+		dao.updateUrl(url,id,table);
+		return null;
 	}
 }

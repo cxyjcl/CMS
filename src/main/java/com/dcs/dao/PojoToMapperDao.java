@@ -45,4 +45,6 @@ public interface PojoToMapperDao {
 
 	Integer countList(@Param("code")Integer code,@Param("level") String level);
 
+	Integer updateUrl(@Param("url")String url,@Param("id") Integer id,@Param("table") String table);
+
 }

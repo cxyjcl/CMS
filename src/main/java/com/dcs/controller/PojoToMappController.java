@@ -70,18 +70,39 @@ public class PojoToMappController {
 		return "view/component/subcommittee";
 	}
 
+	@RequestMapping("/extra_file")
+	@ResponseBody
+	public Message addExtraFile(@RequestParam("code") String code,
+			@RequestParam("id") Integer id,
+			@RequestParam("file") MultipartFile uploadFile, HttpSession session) {
+		try {
+			String table = ListCodeEnum.fromCode(code).getValue();
+			System.out.println(uploadFile.getOriginalFilename());
+			String type= uploadFile.getOriginalFilename().split("\\.")[1];
+			pojoToMapperService.addExtraFile(table,
+					uploadFile.getInputStream(),id,type);			
+			return Message.success("添加成功！");
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error("id是：" + JSON.toJSONString(code) +"code是"+JSON.toJSONString(code) + "报错信息是："
+					+ e.getStackTrace());
+			return Message.error("添加失败！");
+		}
+	}
+	
 	@RequestMapping("/add")
 	@ResponseBody
 	public Message addInfo(@RequestParam("code") Integer code,
 			@RequestParam("level") String level,
 			@RequestParam("file") MultipartFile uploadFile, HttpSession session) {
 		User user = (User) session.getAttribute("user");
+		String name= LevelEnum.fromCode(level).getValue();
 		try {
 			ListInfo listInfo = new ListInfo();
 			listInfo.setCreator(user.getId());
 			listInfo.setExcelName(uploadFile.getOriginalFilename());
 			listInfo.setListId(code);
-			listInfo.setUserLevel(level);
+			listInfo.setUserLevel(name);
 			String value = ListCodeEnum.fromCode(code.toString()).getValue();
 			pojoToMapperService.insert(code.toString(),
 					uploadFile.getInputStream(), listInfo);			
@@ -94,14 +115,19 @@ public class PojoToMappController {
 		}
 	}
 
-	// TODO 这是文件下载，即打印那一块的，没有写只是拿模块进行测试。
 	@RequestMapping("/file/download")
     public ModelAndView downloadFile(String code,Integer id,HttpServletResponse response){
 		ListCodeEnum codeEnum = ListCodeEnum.fromCode(code);
 		String excelName = codeEnum.getExcelName();
 		String className = codeEnum.getInstance();
 		String fileName = codeEnum.getExcelName();
-        String title = pojoToMapperService.selectTitle(code,id);
+        String title = null;
+		try {
+			title = pojoToMapperService.selectTitle(code,id);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
         Map<String, Object> map = new HashMap<String,Object>();
 		try {
 			Class<?> pojoClass = Class.forName("com.dcs.pojo." + className);
@@ -111,6 +137,7 @@ public class PojoToMappController {
 			map.put("data2Export", mapList);
 			map.put("title", title);
 			map.put("fileName",fileName);
+			map.put("code", code);
 			ExcelView ve = new ExcelView();  
 	        return new ModelAndView(ve,map);  
 		} catch (Exception e) {
@@ -125,7 +152,13 @@ public class PojoToMappController {
 			HttpServletRequest request) {
 		String code = request.getParameter("code");
 		String id = request.getParameter("id");
-		String word = pojoToMapperService.selectWord(id);
+		String word = null;
+		try {
+			word = pojoToMapperService.selectWord(id);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		String ctxPath = request.getSession().getServletContext()
 				.getRealPath("/")
 				+ "WEB-INF\\temp\\" + word;

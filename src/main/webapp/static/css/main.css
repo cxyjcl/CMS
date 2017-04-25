@@ -17,6 +17,7 @@ a:hover,a:focus{
 }
 th,td{
     text-align:center !important;
+    vertical-align:inherit !important;
 }
 .nav{
     width: 200px;
