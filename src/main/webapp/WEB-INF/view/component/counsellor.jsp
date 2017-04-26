@@ -8,8 +8,8 @@
     <meta charset="UTF-8">
     <title>资料集锦管理系统</title>
     <link rel="stylesheet" href="/dcs/static/css/main.css" media="screen" title="no title" charset="utf-8">
-    <link rel="stylesheet" href="/dcs/static/css/bootstrap.min.css">
-</head>
+<link rel="stylesheet" href="/dcs/static/css/bootstrap.min.css">
+ </head>
 <body>
 <div class="nav">
     <ul>

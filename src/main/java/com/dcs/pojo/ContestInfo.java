@@ -115,7 +115,7 @@ public class ContestInfo {
 	@Override
 	public String toString() {
 		return "{sponsor=主办单位,contestName=比赛名称,contextGrade=获奖等级,workName=作品名称,"
-				+"contestStudent=获奖学生,tutor=指导老师,remark=备注,url=上传文件";
+				+"contestStudent=获奖学生,tutor=指导老师,remark=备注,url=上传文件}";
 	}
 
 }

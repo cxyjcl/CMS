@@ -81,6 +81,9 @@ public class ExcelPunishInfo {
 		list.add(map);
 		return list;
 	}
-
+	
+	public static void main(String[] args) throws FileNotFoundException, Exception {
+		new ExcelPunishInfo().upload(new FileInputStream(new File("d://excel.xls")));
+	}
 
 }

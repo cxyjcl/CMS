@@ -25,9 +25,6 @@ th,td{
     position: fixed;
     background-color: #343f55;
 }
-.nav ul{
-     margin-top: 72px;
- }
 .nav ul li a{
     height: 48px;
     line-height: 48px;
@@ -50,7 +47,7 @@ th,td{
 }
 .container{
     margin-top: 72px !important;
-    float: right !important;
+    margin-left:200px !important;
     padding:0 !important;
 }
 .container .warp{

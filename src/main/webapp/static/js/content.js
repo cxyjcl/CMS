@@ -28,10 +28,10 @@ window.onresize=function(){
     resize();
 };
 
-var resize=function(){
+/*var resize=function(){
     document.getElementById('container').style.width=document.body.clientWidth-200+"px"
 };
-
+*/
 $("#log-out").click(function(){
     location.href="../user/login.html";
 })

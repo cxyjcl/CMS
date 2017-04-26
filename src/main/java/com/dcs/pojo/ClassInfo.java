@@ -140,7 +140,7 @@ public class ClassInfo {
 	public String toString() {
 		return "{studentId=学号,name=姓名,sex=性别,nativePlace=籍贯,"
 				+"birthPlace=出生地,idCard=身份证号,contacts=联系方式"
-				+ ",partyMember=备注（党员√）}";
+				+ ",partyMember=备注（党员√）,duties=班级职务}";
 	}
 
 }
