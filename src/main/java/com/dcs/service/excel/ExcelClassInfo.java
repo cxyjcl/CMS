@@ -25,7 +25,7 @@ import com.dcs.util.TableUtils;
 
 public class ExcelClassInfo {
 	private int rowIndex = 2; // The row index start from 3 row.
-	private final int column = 8; // All column is 8.
+	private final int column = 9; // All column is 8.
 
 	private HSSFWorkbook workbook;
 	private HSSFSheet sheet;
@@ -71,7 +71,6 @@ public class ExcelClassInfo {
 			row.getCell(6).setCellType(Cell.CELL_TYPE_STRING);
 			classInfo.setContacts(cell[6].getStringCellValue());
 			classInfo.setPartyMember(cell[7].getStringCellValue());
-			//TODO bug
 			classInfo.setDuties(cell[8].getStringCellValue());
 			HashMap<String, Object> map = (HashMap<String, Object>) BeanUtils
 			.describe(classInfo);

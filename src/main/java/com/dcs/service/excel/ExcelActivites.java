@@ -3,13 +3,10 @@ package com.dcs.service.excel;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -20,18 +17,16 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.dcs.dao.PojoToMapperDao;
-import com.dcs.pojo.CadresInfo;
+import com.dcs.pojo.Activities;
 import com.dcs.util.TableUtils;
 
 @Component
 public class ExcelActivites {
 	
 	private int rowIndex = 3; // The row index start from 4 row.
-	private final int column = 9; // All column is 9.
+	private final int column = 7; // All column is 7.
 
 	private HSSFWorkbook workbook;
 	private HSSFSheet sheet;
@@ -60,7 +55,7 @@ public class ExcelActivites {
 		row = sheet.getRow(rowIndex);
 		/* 配合表格中的格式，从第rowIndex行开始读取 */
 		// 用HSSFCell对象的getCell()方法取出每一个的值 sheet.getLastRowNum()
-		while (row != null && row.getCell(0).getStringCellValue() != "") {
+		while (row != null && row.getCell(1).getStringCellValue() != "") {
 			for (int i = 0; i < column; i++) {
 				if (row.getCell(i) != null)
 					cell[i] = row.getCell(i);
@@ -68,20 +63,17 @@ public class ExcelActivites {
 					cell[i] = null;
 			}
 
-			CadresInfo cadresInfo = new CadresInfo();
-			cadresInfo.setNameChairman(cell[0].getStringCellValue());
-			cadresInfo.setFunctionChairman(cell[1].getStringCellValue());
-			row.getCell(2).setCellType(Cell.CELL_TYPE_STRING);
-			cadresInfo.setContactsChairman(cell[2].getStringCellValue());
-			cadresInfo.setDepartmentCharge(cell[3].getStringCellValue());
-			cadresInfo.setNameSecretary(cell[4].getStringCellValue());
-			cadresInfo.setFunctionSecretary(cell[5].getStringCellValue());
-			row.getCell(6).setCellType(Cell.CELL_TYPE_STRING);
-			cadresInfo.setContactsSecretary(cell[6].getStringCellValue());
-			cadresInfo.setStudentOrganization(cell[7].getStringCellValue());
-			cadresInfo.setRemark(cell[8].getStringCellValue());
+			Activities activities = new Activities();
+			row.getCell(0).setCellType(Cell.CELL_TYPE_STRING);
+			activities.setCode(cell[0].getStringCellValue());
+			activities.setTime(cell[1].getStringCellValue());
+			activities.setPlace(cell[2].getStringCellValue());
+			activities.setSponsor(cell[3].getStringCellValue());
+			activities.setName(cell[4].getStringCellValue());
+			activities.setDescription(cell[5].getStringCellValue());
+			activities.setRemark(cell[6].getStringCellValue());
 			HashMap<String, Object> map = (HashMap<String, Object>) BeanUtils
-			.describe(cadresInfo);
+			.describe(activities);
 			map.remove("class");
 			map = TableUtils.upToLow(map);
 			list.add(map);
@@ -95,4 +87,7 @@ public class ExcelActivites {
 		return list;
 	}
 
+	public static void main(String[] args) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException, FileNotFoundException, IOException {
+		System.out.println(new ExcelActivites().upload(new FileInputStream(new File("d://excel.xls"))));
+	}
 }
