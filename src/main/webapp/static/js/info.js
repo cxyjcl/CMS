@@ -1,6 +1,7 @@
 $(function (){
     $("[data-toggle='popover']").popover({html : true });
 });
+
 $("#delete").click(function(){
     var box = $("input:checkbox");
     for(var i = 0 ;i<box.size();i++){

@@ -48,7 +48,6 @@ public class ExcelView extends AbstractExcelView {
 		// web浏览通过MIME类型判断文件是excel类型
 		response.setCharacterEncoding("utf-8");
 
-		//TODO 想想如何把它变成zip包
 		// 对文件名进行处理。防止文件名乱码
 		fileName = URLEncoder.encode(fileName, "utf-8");
 		// Content-disposition属性设置成以附件方式进行下载
@@ -57,7 +56,7 @@ public class ExcelView extends AbstractExcelView {
 		if(code.equals("20003") || code.equals("10009") || code.equals("10005")){
 			response.setContentType("application/x-zip-compressed" );
 			  //inline;参数让浏览器弹出下载窗口,而不是在网页中打开文件.filename设定文件名
-			  response.setHeader( "Content-Disposition" , "inline; filename=download.zip" );
+			response.setHeader( "Content-Disposition" , "inline; filename=download.zip" );
 			ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
 			workbook.write(byteStream);
 			byte[] b = byteStream.toByteArray();

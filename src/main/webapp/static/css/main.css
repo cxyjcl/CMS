@@ -183,3 +183,13 @@ th,td{
 .hidden{
 	display:none;
 }
+.info{
+	display: inline-block;
+    padding: 5px;
+    /* /* overflow: hidden;
+    text-overflow: ellipsis; */
+   /*  white-space: nowrap; */
+    width: 6em;
+    height:3em;
+ 
+}
