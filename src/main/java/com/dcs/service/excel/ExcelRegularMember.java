@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,12 +21,12 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.junit.Test;
 
-import com.dcs.pojo.GloryInfo;
+import com.dcs.pojo.ProbationaryMember;
 import com.dcs.util.TableUtils;
 
-public class ExcelGloryInfo {
-	private int rowIndex = 2; // The row index start from 3 row.
-	private final int column = 8; // All column is 8.
+public class ExcelRegularMember {
+	private int rowIndex = 3; // The row index start from 3 row.
+	private final int column = 12; // All column is 11.
 
 	private HSSFWorkbook workbook;
 	private HSSFSheet sheet;
@@ -34,7 +35,7 @@ public class ExcelGloryInfo {
 	private File file;
 
 	/**
-	 * 年级各种荣誉名单
+	 * 年级本学期党建学生名单
 	 * 
 	 * @param file
 	 * @throws ClassNotFoundException
@@ -45,13 +46,15 @@ public class ExcelGloryInfo {
 	public LinkedList<HashMap<String, Object>> upload(InputStream in) throws Exception {
 
 		LinkedList<HashMap<String, Object>> list = new LinkedList<HashMap<String, Object>>();
+
+
 		workbook = new HSSFWorkbook(in);// 创建操作Excel的HSSFWorkbook对象
 		sheet = workbook.getSheetAt(0);// 创建HSSFsheet对象。
 
 		row = sheet.getRow(rowIndex);
 		/* 配合表格中的格式，从第rowIndex行开始读取 */
 		// 用HSSFCell对象的getCell()方法取出每一个的值 sheet.getLastRowNum()
-		while (row != null && row.getCell(0).getStringCellValue() != "") {
+		while (row != null && row.getCell(2)!=null && row.getCell(2).getStringCellValue() != "") {
 			for (int i = 0; i < column; i++) {
 				if (row.getCell(i) != null){
 					row.getCell(i).setCellType(Cell.CELL_TYPE_STRING);
@@ -60,18 +63,21 @@ public class ExcelGloryInfo {
 				else
 					cell[i] = null;
 			}
-
-			GloryInfo gloryInfo = new GloryInfo();
-			gloryInfo.setName(cell[1].getStringCellValue());
-			gloryInfo.setStudentId(Integer.parseInt(cell[2].getStringCellValue()));
-			gloryInfo.setClassroom(cell[3].getStringCellValue());
-			gloryInfo.setContestName(cell[4].getStringCellValue());
-			gloryInfo.setContestGrade(cell[5].getStringCellValue());
-			gloryInfo.setRewardTime(cell[6].getStringCellValue());
-			gloryInfo.setRemark(cell[7].getStringCellValue());
-			gloryInfo.setRewardNature(cell[0].getStringCellValue());
+			ProbationaryMember probationaryMember = new ProbationaryMember();
+			probationaryMember.setCode(cell[0].getStringCellValue());
+			probationaryMember.setName(cell[1].getStringCellValue());
+			probationaryMember.setSex(cell[2].getStringCellValue());
+			probationaryMember.setNation(cell[3].getStringCellValue());
+			probationaryMember.setBirthday(cell[4].getStringCellValue());
+			probationaryMember.setIdCard(cell[5].getStringCellValue());
+			probationaryMember.setClassroom(cell[6].getStringCellValue());
+			probationaryMember.setProfession(cell[7].getStringCellValue());
+			probationaryMember.setStudentLevel(cell[8].getStringCellValue());
+			probationaryMember.setApplicationDate(cell[9].getStringCellValue());
+			probationaryMember.setLectureNum(cell[10].getStringCellValue());
+			probationaryMember.setProbationaryDate(cell[11].getStringCellValue());
 			HashMap<String, Object> map = (HashMap<String, Object>) BeanUtils
-			.describe(gloryInfo);
+			.describe(probationaryMember);
 			map.remove("class");
 			map = TableUtils.upToLow(map);
 			list.add(map);
@@ -84,4 +90,5 @@ public class ExcelGloryInfo {
 		list.add(map);
 		return list;
 	}
+
 }

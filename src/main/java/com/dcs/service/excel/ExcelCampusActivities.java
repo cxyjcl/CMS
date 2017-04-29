@@ -18,6 +18,7 @@ import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
 import org.junit.Test;
 
 import com.dcs.pojo.CampusActivities;
@@ -57,8 +58,10 @@ public class ExcelCampusActivities {
 		// 用HSSFCell对象的getCell()方法取出每一个的值 sheet.getLastRowNum()
 		while (row != null && row.getCell(0).getStringCellValue() != "") {
 			for (int i = 0; i < column; i++) {
-				if (row.getCell(i) != null)
-					cell[i] = row.getCell(i);
+				if (row.getCell(i) != null){
+					row.getCell(i).setCellType(Cell.CELL_TYPE_STRING);
+					cell[i] = row.getCell(i);					
+				}
 				else
 					cell[i] = null;
 			}
@@ -68,7 +71,7 @@ public class ExcelCampusActivities {
 			campusActivities.setProject(cell[1].getStringCellValue());
 			campusActivities.setContextGrade(cell[2].getStringCellValue());
 
-			campusActivities.setStudentId((int) cell[3].getNumericCellValue());
+			campusActivities.setStudentId(Integer.parseInt(cell[3].getStringCellValue()));
 			campusActivities.setReward(cell[4].getStringCellValue());
 			campusActivities.setStudentName(cell[5].getStringCellValue());
 			campusActivities.setGrade(cell[6].getStringCellValue());

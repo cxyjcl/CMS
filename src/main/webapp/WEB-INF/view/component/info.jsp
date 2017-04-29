@@ -59,9 +59,6 @@
             <caption class="text-center">${title}</caption>
             <thead>
             	<tr>
-            	<script>
-            		console.log("${mapVo.mapString}")
-            	</script>
              <c:forEach items="${mapVo.mapString}" var="map">
                   <th>${map.value}</th>
               </c:forEach>
@@ -143,7 +140,6 @@
     </div>
 </div>
 <script src="/dcs/static/js/jquery-1.3.2.min.js" charset="utf-8"></script>
-<script src="/dcs/static/js/content.js" charset="utf-8"></script>
 <script src="/dcs/static/js/bootstrap.min.js"></script>
 <script src="/dcs/static/js/info.js" charset="utf-8"></script>
 </body>

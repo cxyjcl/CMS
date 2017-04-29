@@ -60,6 +60,5 @@
     </div>
 </div>
 <script src="/dcs/static/js/jquery-1.3.2.min.js" charset="utf-8"></script>
-<script src="/dcs/static/js/content.js" charset="utf-8"></script>
 </body>
 </html>

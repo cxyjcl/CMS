@@ -114,8 +114,11 @@ public class PojoToMapperServiceImpl implements PojoToMapperService {
 			//删除title
 			list.removeLast();
 			//添加info
-			for (int i = 0; i < list.size(); i++) {
-				HashMap<String, Object> map =list.get(i);
+			for (int i = 0; i <= list.size(); i++) {
+				HashMap<String, Object> map = new HashMap<String, Object>();
+				if(list.size()!=0){
+					map =list.get(i);
+				}
 				map.put("info_id", infoId);
 				map.put("data_status", "001");
 				dao.insertInfo(table, map);

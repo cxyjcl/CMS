@@ -17,6 +17,7 @@ import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
 import org.junit.Test;
 
 import com.dcs.pojo.GradeInfo;
@@ -53,19 +54,21 @@ public class ExcelGradeInfo {
 		// 用HSSFCell对象的getCell()方法取出每一个的值 sheet.getLastRowNum()
 		while (row != null && row.getCell(0).getStringCellValue() != "") {
 			for (int i = 0; i < column; i++) {
-				if (row.getCell(i) != null)
-					cell[i] = row.getCell(i);
+				if (row.getCell(i) != null){
+					row.getCell(i).setCellType(Cell.CELL_TYPE_STRING);
+					cell[i] = row.getCell(i);					
+				}
 				else
 					cell[i] = null;
 			}
 
 			GradeInfo gradeInfo = new GradeInfo();
 			gradeInfo.setClassroom(cell[0].getStringCellValue());
-			gradeInfo.setPeople((int) cell[1].getNumericCellValue());
-			gradeInfo.setMale((int) cell[2].getNumericCellValue());
-			gradeInfo.setFemale((int) cell[3].getNumericCellValue());
-			gradeInfo.setPartyMember((int) cell[4].getNumericCellValue());
-			gradeInfo.setActivist((int) cell[5].getNumericCellValue());
+			gradeInfo.setPeople(Integer.parseInt(cell[1].getStringCellValue()));
+			gradeInfo.setMale(Integer.parseInt(cell[2].getStringCellValue()));
+			gradeInfo.setFemale(Integer.parseInt(cell[3].getStringCellValue()));
+			gradeInfo.setPartyMember(Integer.parseInt(cell[4].getStringCellValue()));
+			gradeInfo.setActivist(Integer.parseInt(cell[5].getStringCellValue()));
 			gradeInfo.setTeacher(cell[6].getStringCellValue());
 			gradeInfo.setMonitor(cell[7].getStringCellValue());
 			gradeInfo.setLeagueSecretary(cell[8].getStringCellValue());

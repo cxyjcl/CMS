@@ -70,6 +70,11 @@ public class PojoToMappController {
 		return "view/component/subcommittee";
 	}
 
+	@RequestMapping("/party")
+	public String party() {
+		return "view/component/party";
+	}
+	
 	@RequestMapping("/extra_file")
 	@ResponseBody
 	public Message addExtraFile(@RequestParam("code") String code,
@@ -77,7 +82,6 @@ public class PojoToMappController {
 			@RequestParam("file") MultipartFile uploadFile, HttpSession session) {
 		try {
 			String table = ListCodeEnum.fromCode(code).getValue();
-			System.out.println(uploadFile.getOriginalFilename());
 			String type= uploadFile.getOriginalFilename().split("\\.")[1];
 			pojoToMapperService.addExtraFile(table,
 					uploadFile.getInputStream(),id,type);			
@@ -150,7 +154,6 @@ public class PojoToMappController {
 	@RequestMapping("/word/download")
 	public void wordModel(HttpServletResponse response,
 			HttpServletRequest request) {
-		String code = request.getParameter("code");
 		String id = request.getParameter("id");
 		String word = null;
 		try {
@@ -166,7 +169,7 @@ public class PojoToMappController {
 		InputStream in;
 		try {
 			response.setHeader("Content-disposition", "attachment; filename="
-					+ new String("excel.xls".getBytes("utf-8"), "ISO8859-1"));
+					+ new String(word.getBytes("utf-8"), "ISO8859-1"));
 			in = new FileInputStream(new File(ctxPath));
 			OutputStream out = new BufferedOutputStream(
 					response.getOutputStream());
@@ -192,12 +195,11 @@ public class PojoToMappController {
 		String ctxPath = request.getSession().getServletContext()
 				.getRealPath("/")
 				+ "WEB-INF\\excel\\" + excelName;
-		System.out.println(ctxPath);
 		response.setContentType("application/x-msdownload;");
 		InputStream in;
 		try {
 			response.setHeader("Content-disposition", "attachment; filename="
-					+ new String("excel.xls".getBytes("utf-8"), "ISO8859-1"));
+					+ new String(excelName.getBytes("utf-8"), "ISO8859-1"));
 			in = new FileInputStream(new File(ctxPath));
 			OutputStream out = new BufferedOutputStream(
 					response.getOutputStream());

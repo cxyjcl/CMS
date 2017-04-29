@@ -57,8 +57,10 @@ public class ExcelMoneyInfo {
 		// 用HSSFCell对象的getCell()方法取出每一个的值 sheet.getLastRowNum()
 		while (row != null && row.getCell(1).getStringCellValue() != "") {
 			for (int i = 0; i < column; i++) {
-				if (row.getCell(i) != null)
-					cell[i] = row.getCell(i);
+				if (row.getCell(i) != null){
+					row.getCell(i).setCellType(Cell.CELL_TYPE_STRING);
+					cell[i] = row.getCell(i);					
+				}
 				else
 					cell[i] = null;
 			}
@@ -66,10 +68,9 @@ public class ExcelMoneyInfo {
 			MoneyInfo moneyInfo = new MoneyInfo();
 			moneyInfo.setMoneyName(cell[0].getStringCellValue());
 			moneyInfo.setName(cell[1].getStringCellValue());
-			moneyInfo.setStudentId((int) cell[2].getNumericCellValue());
+			moneyInfo.setStudentId(Integer.parseInt(cell[2].getStringCellValue()));
 			moneyInfo.setClassroom(cell[3].getStringCellValue());
 			moneyInfo.setGrade(cell[4].getStringCellValue());
-			row.getCell(5).setCellType(Cell.CELL_TYPE_STRING);
 			moneyInfo.setMoney(cell[5].getStringCellValue());
 			moneyInfo.setRemark(cell[6].getStringCellValue());
 			HashMap<String, Object> map = (HashMap<String, Object>) BeanUtils

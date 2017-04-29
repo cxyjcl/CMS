@@ -17,6 +17,7 @@ import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
 import org.junit.Test;
 
 import com.dcs.pojo.StudentReward;
@@ -52,15 +53,17 @@ public class ExcelStudentReward {
 		// 用HSSFCell对象的getCell()方法取出每一个的值 sheet.getLastRowNum()
 		while (row != null && row.getCell(1).getStringCellValue() != "") {
 			for (int i = 0; i < column; i++) {
-				if (row.getCell(i) != null)
-					cell[i] = row.getCell(i);
+				if (row.getCell(i) != null){
+					row.getCell(i).setCellType(Cell.CELL_TYPE_STRING);
+					cell[i] = row.getCell(i);					
+				}
 				else
 					cell[i] = null;
 			}
 
 			StudentReward studentReward = new StudentReward();
 			studentReward.setName(cell[1].getStringCellValue());
-			studentReward.setStudentId((int) cell[2].getNumericCellValue());
+			studentReward.setStudentId(Integer.parseInt(cell[2].getStringCellValue()));
 			studentReward.setGrade(cell[3].getStringCellValue());
 			studentReward.setClassroom(cell[4].getStringCellValue());
 			studentReward.setRewardName(cell[5].getStringCellValue());

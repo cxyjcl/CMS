@@ -62,8 +62,10 @@ public class ExcelCadresInfo {
 		// 用HSSFCell对象的getCell()方法取出每一个的值 sheet.getLastRowNum()
 		while (row != null && row.getCell(0).getStringCellValue() != "") {
 			for (int i = 0; i < column; i++) {
-				if (row.getCell(i) != null)
-					cell[i] = row.getCell(i);
+				if (row.getCell(i) != null){
+					row.getCell(i).setCellType(Cell.CELL_TYPE_STRING);
+					cell[i] = row.getCell(i);					
+				}
 				else
 					cell[i] = null;
 			}
@@ -71,12 +73,10 @@ public class ExcelCadresInfo {
 			CadresInfo cadresInfo = new CadresInfo();
 			cadresInfo.setNameChairman(cell[0].getStringCellValue());
 			cadresInfo.setFunctionChairman(cell[1].getStringCellValue());
-			row.getCell(2).setCellType(Cell.CELL_TYPE_STRING);
 			cadresInfo.setContactsChairman(cell[2].getStringCellValue());
 			cadresInfo.setDepartmentCharge(cell[3].getStringCellValue());
 			cadresInfo.setNameSecretary(cell[4].getStringCellValue());
 			cadresInfo.setFunctionSecretary(cell[5].getStringCellValue());
-			row.getCell(6).setCellType(Cell.CELL_TYPE_STRING);
 			cadresInfo.setContactsSecretary(cell[6].getStringCellValue());
 			cadresInfo.setStudentOrganization(cell[7].getStringCellValue());
 			cadresInfo.setRemark(cell[8].getStringCellValue());

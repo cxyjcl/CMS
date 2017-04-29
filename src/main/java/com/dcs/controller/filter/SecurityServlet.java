@@ -48,14 +48,10 @@ public class SecurityServlet implements Filter {
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
 		String requestURI = getRequestURI(httpRequest);
 		logger.info(requestURI);
-		System.out.println(requestURI);
 		if (isExclusion(requestURI)) {
-			System.out.println("exclusion:" + requestURI);
-
 			chain.doFilter(httpRequest, httpResponse);
 			return;
 		} else {
-			System.out.println("inclusion:" + requestURI);
 			HttpSession session = httpRequest.getSession();
 			Object attribute = session.getAttribute("user");// 登录人角色
 			if (attribute == null && requestURI.indexOf("login") < 0) {

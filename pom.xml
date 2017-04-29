@@ -376,10 +376,12 @@
 		    </resource>   
 <!-- 		    一个工程中，src/main/resources目录下都是工程的资源文件，并不需要<include>和<exclude>再进行划定
  -->		    <resource>             
-		        <directory>src/main/resources</directory>     
+		        <directory>src/main/resources</directory>  
+		        <filtering>false</filtering>     
 		    </resource>  
 		    <resource>             
-		        <directory>src/main/wbapp</directory>             
+		        <directory>src/main/webapp</directory>  
+		        <filtering>false</filtering>             
 		    </resource>  
 		</resources>
 		<plugins>

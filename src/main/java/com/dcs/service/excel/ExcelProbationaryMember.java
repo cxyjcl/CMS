@@ -21,10 +21,11 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.junit.Test;
 
-import com.dcs.pojo.PartyBuild;
+import com.dcs.pojo.ApplicationMember;
+import com.dcs.pojo.PartyLecture;
 import com.dcs.util.TableUtils;
 
-public class ExcelPartyBuild {
+public class ExcelProbationaryMember {
 	private int rowIndex = 3; // The row index start from 3 row.
 	private final int column = 12; // All column is 12.
 
@@ -56,28 +57,28 @@ public class ExcelPartyBuild {
 		// 用HSSFCell对象的getCell()方法取出每一个的值 sheet.getLastRowNum()
 		while (row != null && row.getCell(2)!=null && row.getCell(2).getStringCellValue() != "") {
 			for (int i = 0; i < column; i++) {
-				if (row.getCell(i) != null)
-					cell[i] = row.getCell(i);
+				if (row.getCell(i) != null){
+					row.getCell(i).setCellType(Cell.CELL_TYPE_STRING);
+					cell[i] = row.getCell(i);					
+				}
 				else
 					cell[i] = null;
 			}
-
-			PartyBuild partyBuild = new PartyBuild();
-			row.getCell(0).setCellType(Cell.CELL_TYPE_STRING);
-			partyBuild.setCode(cell[0].getStringCellValue());
-			partyBuild.setName(cell[1].getStringCellValue());
-			partyBuild.setSex(cell[2].getStringCellValue());
-			partyBuild.setNation(cell[3].getStringCellValue());
-			partyBuild.setBirthday(cell[4].getStringCellValue());
-			partyBuild.setIdCard(cell[5].getStringCellValue());
-			partyBuild.setClassroom(cell[6].getStringCellValue());
-			partyBuild.setProfession(cell[7].getStringCellValue());
-			partyBuild.setStudentLevel(cell[8].getStringCellValue());
-			partyBuild.setStudentJob(cell[9].getStringCellValue());
-			partyBuild.setApplicationDate(cell[10].getStringCellValue());
-			partyBuild.setRegularPartyMemberDate(cell[11].getStringCellValue());
+			PartyLecture partyLecture = new PartyLecture();
+			partyLecture.setCode(cell[0].getStringCellValue());
+			partyLecture.setName(cell[1].getStringCellValue());
+			partyLecture.setSex(cell[2].getStringCellValue());
+			partyLecture.setNation(cell[3].getStringCellValue());
+			partyLecture.setBirthday(cell[4].getStringCellValue());
+			partyLecture.setIdCard(cell[5].getStringCellValue());
+			partyLecture.setClassroom(cell[6].getStringCellValue());
+			partyLecture.setProfession(cell[7].getStringCellValue());
+			partyLecture.setStudentLevel(cell[8].getStringCellValue());
+			partyLecture.setPartyDate(cell[9].getStringCellValue());
+			partyLecture.setApplicationDate(cell[10].getStringCellValue());
+			partyLecture.setRemark(cell[11].getStringCellValue());
 			HashMap<String, Object> map = (HashMap<String, Object>) BeanUtils
-			.describe(partyBuild);
+			.describe(partyLecture);
 			map.remove("class");
 			map = TableUtils.upToLow(map);
 			list.add(map);
@@ -89,10 +90,6 @@ public class ExcelPartyBuild {
 		map.put("title", title);
 		list.add(map);
 		return list;
-	}
-	
-	public static void main(String[] args) throws Exception {
-		System.out.println(new ExcelPartyBuild().upload(new FileInputStream(new File("d://excel.xls"))));
 	}
 
 }

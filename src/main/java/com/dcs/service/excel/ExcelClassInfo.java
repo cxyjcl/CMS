@@ -54,21 +54,21 @@ public class ExcelClassInfo {
 		// 用HSSFCell对象的getCell()方法取出每一个的值 sheet.getLastRowNum()
 		while (row != null && row.getCell(1).getStringCellValue() != "") {
 			for (int i = 0; i < column; i++) {
-				if (row.getCell(i) != null)
-					cell[i] = row.getCell(i);
+				if (row.getCell(i) != null){
+					row.getCell(i).setCellType(Cell.CELL_TYPE_STRING);
+					cell[i] = row.getCell(i);					
+				}
 				else
 					cell[i] = null;
 			}
 
 			ClassInfo classInfo = new ClassInfo();
-			classInfo.setStudentId((int) cell[0].getNumericCellValue());// Integer
+			classInfo.setStudentId(Integer.parseInt(cell[0].getStringCellValue()));// Integer
 			classInfo.setName(cell[1].getStringCellValue());
 			classInfo.setSex(cell[2].getStringCellValue());
 			classInfo.setNativePlace(cell[3].getStringCellValue());
 			classInfo.setBirthPlace(cell[4].getStringCellValue());
-			row.getCell(5).setCellType(Cell.CELL_TYPE_STRING);
 			classInfo.setIdCard(cell[5].getStringCellValue());
-			row.getCell(6).setCellType(Cell.CELL_TYPE_STRING);
 			classInfo.setContacts(cell[6].getStringCellValue());
 			classInfo.setPartyMember(cell[7].getStringCellValue());
 			classInfo.setDuties(cell[8].getStringCellValue());

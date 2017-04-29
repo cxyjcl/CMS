@@ -57,14 +57,15 @@ public class ExcelActivites {
 		// 用HSSFCell对象的getCell()方法取出每一个的值 sheet.getLastRowNum()
 		while (row != null && row.getCell(1).getStringCellValue() != "") {
 			for (int i = 0; i < column; i++) {
-				if (row.getCell(i) != null)
-					cell[i] = row.getCell(i);
+				if (row.getCell(i) != null){
+					row.getCell(i).setCellType(Cell.CELL_TYPE_STRING);
+					cell[i] = row.getCell(i);					
+				}
 				else
 					cell[i] = null;
 			}
 
 			Activities activities = new Activities();
-			row.getCell(0).setCellType(Cell.CELL_TYPE_STRING);
 			activities.setCode(cell[0].getStringCellValue());
 			activities.setTime(cell[1].getStringCellValue());
 			activities.setPlace(cell[2].getStringCellValue());
@@ -85,9 +86,5 @@ public class ExcelActivites {
 		map.put("title", title);
 		list.add(map);
 		return list;
-	}
-
-	public static void main(String[] args) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException, FileNotFoundException, IOException {
-		System.out.println(new ExcelActivites().upload(new FileInputStream(new File("d://excel.xls"))));
 	}
 }

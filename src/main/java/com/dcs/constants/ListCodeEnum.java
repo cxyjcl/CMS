@@ -13,7 +13,7 @@ public enum ListCodeEnum {
 	//辅导员
 	_GradeInfo("10001", "t_grade_info","GradeInfo","年级信息一览表.xls"),//年级信息名单
 	_ClassInfo("10002", "t_class_info","ClassInfo","学生班级信息一览表.xls"),//班级信息名单
-	_PartyBuild("10003", "t_party_build","PartyBuild","年级本学期党建学生名单.xls"),//年级本学期党建学生名单
+	_ApplicationMember("10003", "t_application_member","ApplicationMember","积极分子名单.xls"),//积极分子名单
 	_GloryInfo("10004", "t_glory_info","GloryInfo","年级各种荣誉名单.xls"),//年级各种荣誉名单
 	_ContestInfo("10005","t_contest_info","ContestInfo","学科竞赛统计表.xls"),//年级各种学科竞赛获奖名单
 	_CampusActivities("10006","t_campus_activities","CampusActivities","校园活动获奖名单模板.xls"),//各种校园文化活动获奖名单
@@ -24,6 +24,9 @@ public enum ListCodeEnum {
 	_PlanConclusion("10011","t_word_info","WordInfo",""),//工作计划及总结
 	_GraduateDispatch("10012","t_word_info","WordInfo",""),//毕业生派遣方案（毕业年级）
 	_IndividualAchievement("10013","t_individual_achievement","IndividualAchievement","个人成果及获奖情况.xls"),//个人成果及获奖情况
+	_PartyLecture("10014", "t_party_lecture","PartyLecture","上党校学生名单.xls"),//上党校学生名单
+	_ProbationaryMember("10015", "t_probationary_member","ProbationaryMember","预备党员名单.xls"),//预备党员名单
+	_RegularMember("10016", "t_regular_member","RegularMember","正式党员名单.xls"),//正式党员名单
 	
 	//分团委
 	_CadresInfo("20001","t_cadres_info","CadresInfo","各组织学生干部名单表模板.xls"),//分团委、学生会、协会人员名单
