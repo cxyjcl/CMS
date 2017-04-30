@@ -276,6 +276,8 @@ public class PojoToMappController {
 		ModelAndView view = new ModelAndView();
 		String table = ListCodeEnum.fromCode(code).getValue();
 		String instance = ListCodeEnum.fromCode(code).getInstance();
+		String excelName = ListCodeEnum.fromCode(code).getExcelName().replaceAll("(?:.doc|.xls)", "");
+		view.addObject("excelName",excelName);
 		view.addObject("level",level);
 		try {
 			if (instance.equals("WordInfo")) {
@@ -350,6 +352,8 @@ public class PojoToMappController {
 			page.setTotalSize(size);
 			view.addObject("page", page);
 			view.addObject("code", code);
+			String excelName = ListCodeEnum.fromCode(code.toString()).getExcelName().replaceAll("(?:.doc|.xls)", "");
+			view.addObject("excelName",excelName);
 			String instance = ListCodeEnum.fromCode(code.toString())
 					.getInstance();
 			view.addObject("level", level);

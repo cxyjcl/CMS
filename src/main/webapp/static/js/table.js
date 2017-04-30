@@ -49,10 +49,11 @@ function file(e){
 	          type:"POST",
 	          contentType:false,
 	          processData:false,
+	          dataType: "json",
 	          url:"/dcs/excel/add",
 	          data:file,
 	          success:function(data){
-	        	  alert("上传成功！");
+	        	  alert(data.msg);
 	        	  window.location.reload();
 	          },
 	       	  error:function(data){

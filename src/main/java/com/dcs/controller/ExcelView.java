@@ -43,7 +43,7 @@ public class ExcelView extends AbstractExcelView {
 		List<AttriInfo> paramsAttriInfo = AttributeBuildExcelUtils
 				.parseParamsAttriInfo(params);
 		workbook = ExportExcelUtil.writeExcelFileAccordingParamInfos(workbook,
-				paramsAttriInfo, data2Export, pojoClass,title);
+				paramsAttriInfo, data2Export, pojoClass,title,fileName);
 
 		// web浏览通过MIME类型判断文件是excel类型
 		response.setCharacterEncoding("utf-8");

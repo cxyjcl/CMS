@@ -52,6 +52,7 @@ public class ExcelGradeInfo {
 		row = sheet.getRow(rowIndex);
 		/* 配合表格中的格式，从第rowIndex行开始读取 */
 		// 用HSSFCell对象的getCell()方法取出每一个的值 sheet.getLastRowNum()
+		row.getCell(0).setCellType(Cell.CELL_TYPE_STRING);
 		while (row != null && row.getCell(0).getStringCellValue() != "") {
 			for (int i = 0; i < column; i++) {
 				if (row.getCell(i) != null){
@@ -61,7 +62,6 @@ public class ExcelGradeInfo {
 				else
 					cell[i] = null;
 			}
-
 			GradeInfo gradeInfo = new GradeInfo();
 			gradeInfo.setClassroom(cell[0].getStringCellValue());
 			gradeInfo.setPeople(Integer.parseInt(cell[1].getStringCellValue()));
@@ -94,4 +94,7 @@ public class ExcelGradeInfo {
 		return list;
 	}
 
+	public static void main(String[] args) throws FileNotFoundException, Exception {
+		new ExcelGradeInfo().upload(new FileInputStream(new File("d://excel.xls")));
+	}
 }

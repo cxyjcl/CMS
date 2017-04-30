@@ -21,8 +21,8 @@ public enum ListCodeEnum {
 	_PunishInfo("10008","t_punish_info","PunishInfo","年级受处分学生名单.xls"),//年级受处分学生名单
 	_ChangeInfo("10009","t_change_info","ChangeInfo","年级学籍异动学生名单和原因.xls"),//年级学籍异动学生名单和原因
 	_LectureInfo("10010","t_lecture_info","LectureInfo","机械工程学院讲座统计表.xls"),//年级讲座统计表,学院讲座汇总表
-	_PlanConclusion("10011","t_word_info","WordInfo",""),//工作计划及总结
-	_GraduateDispatch("10012","t_word_info","WordInfo",""),//毕业生派遣方案（毕业年级）
+	_PlanConclusion("10011","t_word_info","WordInfo","工作计划及总结.doc"),//工作计划及总结
+	_GraduateDispatch("10012","t_word_info","WordInfo","毕业生派遣方案（毕业年级）.doc"),//毕业生派遣方案（毕业年级）
 	_IndividualAchievement("10013","t_individual_achievement","IndividualAchievement","个人成果及获奖情况.xls"),//个人成果及获奖情况
 	_PartyLecture("10014", "t_party_lecture","PartyLecture","上党校学生名单.xls"),//上党校学生名单
 	_ProbationaryMember("10015", "t_probationary_member","ProbationaryMember","预备党员名单.xls"),//预备党员名单
@@ -34,21 +34,21 @@ public enum ListCodeEnum {
 	_TotalActivities("20003","t_activities","Activities","学期开展活动汇总表及方案.xls"),//学期开展活动汇总表及方案
 	
 	//学工办
-	_StudentInfo("30001","t_word_info","WordInfo",""),//学期学生信息一览表
-	_PartyBuildFile("30002","t_word_info","WordInfo",""),//党建发文文件
-	_StudentWorkFile("30003","t_word_info","WordInfo",""),//学生工作文件
-	_PartyStudentFile("30004","t_word_info","WordInfo",""),//本学期党员XXX汇总名单
-	_MoneyFile("30005","t_word_info","WordInfo",""),//各类奖助学金汇总名单
-	_CHANGEFile("30006","t_word_info","WordInfo",""),//年度学生学籍异动情况汇总
-	_StudentRewardFile("30007","t_word_info","WordInfo",""),//学生表彰名单
-	_TeacherRewardFile("30008","t_word_info","WordInfo",""),//教师表彰名单
-	_JOBFILE("30009","t_word_info","WordInfo",""),//学期值班表
-	_TESTFile("30010","t_word_info","WordInfo",""),//年度辅导员、班主任测评汇总表
-	_EMPLOYMENTQUALITY("30011","t_word_info","WordInfo",""),//就业质量年度报告
+	_StudentInfo("30001","t_word_info","WordInfo","学期学生信息一览表.doc"),//学期学生信息一览表
+	_PartyBuildFile("30002","t_word_info","WordInfo","党建发文文件.doc"),//党建发文文件
+	_StudentWorkFile("30003","t_word_info","WordInfo","学生工作文件.doc"),//学生工作文件
+	_PartyStudentFile("30004","t_word_info","WordInfo","本学期党员XXX汇总名单.doc"),//本学期党员XXX汇总名单
+	_MoneyFile("30005","t_word_info","WordInfo","各类奖助学金汇总名单.doc"),//各类奖助学金汇总名单
+	_CHANGEFile("30006","t_word_info","WordInfo","年度学生学籍异动情况汇总.doc"),//年度学生学籍异动情况汇总
+	_StudentRewardFile("30007","t_word_info","WordInfo","学生表彰名单.doc"),//学生表彰名单
+	_TeacherRewardFile("30008","t_word_info","WordInfo","教师表彰名单.doc"),//教师表彰名单
+	_JOBFILE("30009","t_word_info","WordInfo","学期值班表.doc"),//学期值班表
+	_TESTFile("30010","t_word_info","WordInfo","年度辅导员、班主任测评汇总表.doc"),//年度辅导员、班主任测评汇总表
+	_EMPLOYMENTQUALITY("30011","t_word_info","WordInfo","就业质量年度报告.doc"),//就业质量年度报告
 	_LectureInfoFile("30012","t_word_info","WordInfo",""),//学院讲座汇总表
-	_WORKPLAN("30013","t_word_info","WordInfo",""),//工作计划及总结
-	_newsFile("30014","t_word_info","WordInfo",""),//新闻上传情况
-	_IndividualAchievementFile("30015","t_word_info","WordInfo","");//个人成果及获奖情况
+	_WORKPLAN("30013","t_word_info","WordInfo","工作计划及总结.doc"),//工作计划及总结
+	_newsFile("30014","t_word_info","WordInfo","新闻上传情况.doc"),//新闻上传情况
+	_IndividualAchievementFile("30015","t_word_info","WordInfo","个人成果及获奖情况.doc");//个人成果及获奖情况
 	
 	private final String code;
 	private final String value;

@@ -39,7 +39,7 @@
 </div>
 <div id="container" class="container">
     <div class="warp clearfix">
-        <div class="title"><span class="text">整体浏览页　> 列表信息</span></div>
+        <div class="title"><span class="text">整体浏览页　> </span> <span class="text"><c:out value="${excelName}"></c:out></span></div>
         <!--<div class="title pull-right text">-->
             <!--<span class="glyphicon glyphicon-arrow-left"></span>-->
             <!--<a id="back" href="#">返回</a>-->

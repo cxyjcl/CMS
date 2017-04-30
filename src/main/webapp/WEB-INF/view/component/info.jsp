@@ -39,7 +39,7 @@
 </div>
 <div id="container" class="container">
     <div class="warp">
-        <div class="title"><span class="text">整体浏览页 > 列表信息 > 详情信息</span></div>
+        <div class="title"><span class="text">整体浏览页 ></span><span class="text"><c:out value="${excelName}"></c:out></span><span class="text"> > 详情信息</span></div>
     </div>
     <div class="clearfix" id="${code}">
     	<c:if test="${level eq sessionScope.userLevel  or sessionScope.user.level eq '管理员'}">

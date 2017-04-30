@@ -62,7 +62,6 @@ th,td{
 .text{
     line-height: 45px;
     height:45px;
-    width:220px;
     display: inline-block;
 }
 #username,#level{
@@ -189,7 +188,6 @@ th,td{
     /* /* overflow: hidden;
     text-overflow: ellipsis; */
    /*  white-space: nowrap; */
-    width: 6em;
-    height:3em;
+    width: 100%;
  
 }
