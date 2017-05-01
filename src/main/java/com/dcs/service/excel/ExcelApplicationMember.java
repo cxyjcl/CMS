@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 
+
+
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -21,13 +23,14 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.junit.Test;
 
+import com.dcs.pojo.ApplicationMember;
 import com.dcs.pojo.ProbationaryMember;
 import com.dcs.pojo.RegularMember;
 import com.dcs.util.TableUtils;
 
 public class ExcelApplicationMember {
 	private int rowIndex = 3; // The row index start from 3 row.
-	private final int column = 12; // All column is 11.
+	private final int column = 11; // All column is 11.
 
 	private HSSFWorkbook workbook;
 	private HSSFSheet sheet;
@@ -65,32 +68,38 @@ public class ExcelApplicationMember {
 				else
 					cell[i] = null;
 			}
-			RegularMember regularMember = new RegularMember();
-			regularMember.setCode(cell[0].getStringCellValue());
-			regularMember.setPartyName(cell[1].getStringCellValue());
-			regularMember.setName(cell[2].getStringCellValue());
-			regularMember.setSex(cell[3].getStringCellValue());
-			regularMember.setNation(cell[4].getStringCellValue());
-			regularMember.setBirthday(cell[5].getStringCellValue());
-			regularMember.setIdCard(cell[6].getStringCellValue());
-			regularMember.setClassroom(cell[7].getStringCellValue());
-			regularMember.setProfession(cell[8].getStringCellValue());
-			regularMember.setStudentLevel(cell[9].getStringCellValue());
-			regularMember.setProbationaryMemberDate(cell[10].getStringCellValue());
-			regularMember.setRegularPartyMemberDate(cell[11].getStringCellValue());
+			ApplicationMember application = new ApplicationMember();
+			application.setCode(cell[0].getStringCellValue());
+			application.setName(cell[1].getStringCellValue());
+			application.setSex(cell[2].getStringCellValue());
+			application.setNation(cell[3].getStringCellValue());
+			application.setBirthday(cell[4].getStringCellValue());
+			application.setIdCard(cell[5].getStringCellValue());
+			application.setClassroom(cell[6].getStringCellValue());
+			application.setProfession(cell[7].getStringCellValue());
+			application.setStudentLevel(cell[8].getStringCellValue());
+			application.setPartyDate(cell[9].getStringCellValue());
+			application.setApplicationDate(cell[10].getStringCellValue());
 			HashMap<String, Object> map = (HashMap<String, Object>) BeanUtils
-			.describe(regularMember);
+			.describe(application);
 			map.remove("class");
 			map = TableUtils.upToLow(map);
 			list.add(map);
 			rowIndex++;
 			row = sheet.getRow(rowIndex);
+			if(row != null && row.getCell(0)!=null){
+				row.getCell(0).setCellType(Cell.CELL_TYPE_STRING);				
+			}
 		}
 		HashMap<String, Object> map = new HashMap();
 		String title = TitleService.excel(workbook);
 		map.put("title", title);
 		list.add(map);
 		return list;
+	}
+	
+	public static void main(String[] args) throws FileNotFoundException, Exception {
+		new ExcelApplicationMember().upload(new FileInputStream(new File("D://excel.xls")));
 	}
 
 }

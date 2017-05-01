@@ -15,6 +15,7 @@ $("#delete").click(function(){
 		    $.ajax({
 		        url: "/dcs/excel/delete",
 		        type: "POST",
+			    dataType: "json",
 		        contentType: "application/x-www-form-urlencoded",
 		        data: _data,
 		        success: function (data) {
@@ -56,7 +57,6 @@ function change(e){
 $("#download").click(function () {
 	var code =  $(this).parent().parent().attr("id");
 	var id =  $(this).parent().attr("id");
-    console.log(id);
 	window.open("/dcs/excel/file/download?code="+code+"&id="+id);
 })
 function file(e){

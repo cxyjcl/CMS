@@ -150,4 +150,10 @@ public class ProbationaryMember {
     public void setDataStatus(String dataStatus) {
         this.dataStatus = dataStatus == null ? null : dataStatus.trim();
     }
+    
+	public String toString() {
+		return "{code=序号,name=姓名,sex=性别,nation=民族,birthday=出生年月,"
+				+"idCard=身份证号码,classroom=班级,profession=专业,studentLevel=学生层次"
+				+ ",applicationDate=成为积极分子时间,lectureNum=党校期数,probationaryDate=确认发展对象时间}";
+	}
 }

@@ -253,6 +253,7 @@ public class PojoToMappController {
 	}
 
 	@RequestMapping("/delete")
+	@ResponseBody
 	public Message deleteInfo( String code,
 			 Integer id, HttpSession session) {
 		User user = (User) session.getAttribute("user");

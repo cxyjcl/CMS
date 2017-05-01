@@ -22,11 +22,12 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.junit.Test;
 
 import com.dcs.pojo.ProbationaryMember;
+import com.dcs.pojo.RegularMember;
 import com.dcs.util.TableUtils;
 
 public class ExcelRegularMember {
 	private int rowIndex = 3; // The row index start from 3 row.
-	private final int column = 12; // All column is 11.
+	private final int column = 11; // All column is 11.
 
 	private HSSFWorkbook workbook;
 	private HSSFSheet sheet;
@@ -55,7 +56,7 @@ public class ExcelRegularMember {
 		/* 配合表格中的格式，从第rowIndex行开始读取 */
 		// 用HSSFCell对象的getCell()方法取出每一个的值 sheet.getLastRowNum()
 		row.getCell(0).setCellType(Cell.CELL_TYPE_STRING);
-		while (row != null && row.getCell(0).getStringCellValue() != "") {
+		while (row != null && row.getCell(0)!=null && row.getCell(0).getStringCellValue() != "") {
 			for (int i = 0; i < column; i++) {
 				if (row.getCell(i) != null){
 					row.getCell(i).setCellType(Cell.CELL_TYPE_STRING);
@@ -64,26 +65,28 @@ public class ExcelRegularMember {
 				else
 					cell[i] = null;
 			}
-			ProbationaryMember probationaryMember = new ProbationaryMember();
-			probationaryMember.setCode(cell[0].getStringCellValue());
-			probationaryMember.setName(cell[1].getStringCellValue());
-			probationaryMember.setSex(cell[2].getStringCellValue());
-			probationaryMember.setNation(cell[3].getStringCellValue());
-			probationaryMember.setBirthday(cell[4].getStringCellValue());
-			probationaryMember.setIdCard(cell[5].getStringCellValue());
-			probationaryMember.setClassroom(cell[6].getStringCellValue());
-			probationaryMember.setProfession(cell[7].getStringCellValue());
-			probationaryMember.setStudentLevel(cell[8].getStringCellValue());
-			probationaryMember.setApplicationDate(cell[9].getStringCellValue());
-			probationaryMember.setLectureNum(cell[10].getStringCellValue());
-			probationaryMember.setProbationaryDate(cell[11].getStringCellValue());
+			RegularMember regularMember = new RegularMember();
+			regularMember.setCode(cell[0].getStringCellValue());
+			regularMember.setName(cell[1].getStringCellValue());
+			regularMember.setSex(cell[2].getStringCellValue());
+			regularMember.setNation(cell[3].getStringCellValue());
+			regularMember.setBirthday(cell[4].getStringCellValue());
+			regularMember.setIdCard(cell[5].getStringCellValue());
+			regularMember.setClassroom(cell[6].getStringCellValue());
+			regularMember.setProfession(cell[7].getStringCellValue());
+			regularMember.setStudentLevel(cell[8].getStringCellValue());
+			regularMember.setProbationaryMemberDate(cell[9].getStringCellValue());
+			regularMember.setRegularPartyMemberDate(cell[10].getStringCellValue());
 			HashMap<String, Object> map = (HashMap<String, Object>) BeanUtils
-			.describe(probationaryMember);
+			.describe(regularMember);
 			map.remove("class");
 			map = TableUtils.upToLow(map);
 			list.add(map);
 			rowIndex++;
 			row = sheet.getRow(rowIndex);
+			if(row != null&&row.getCell(0)!=null){
+				row.getCell(0).setCellType(Cell.CELL_TYPE_STRING);				
+			}
 		}
 		HashMap<String, Object> map = new HashMap();
 		String title = TitleService.excel(workbook);
@@ -91,5 +94,4 @@ public class ExcelRegularMember {
 		list.add(map);
 		return list;
 	}
-
 }

@@ -37,7 +37,7 @@ public enum ListCodeEnum {
 	_StudentInfo("30001","t_word_info","WordInfo","学期学生信息一览表.doc"),//学期学生信息一览表
 	_PartyBuildFile("30002","t_word_info","WordInfo","党建发文文件.doc"),//党建发文文件
 	_StudentWorkFile("30003","t_word_info","WordInfo","学生工作文件.doc"),//学生工作文件
-	_PartyStudentFile("30004","t_word_info","WordInfo","本学期党员XXX汇总名单.doc"),//本学期党员XXX汇总名单
+	_PartyStudentFile("30004","t_word_info","WordInfo","本学期党员转正、预备党员、积极分子、上党校学生汇总名单.doc"),//本学期党员XXX汇总名单
 	_MoneyFile("30005","t_word_info","WordInfo","各类奖助学金汇总名单.doc"),//各类奖助学金汇总名单
 	_CHANGEFile("30006","t_word_info","WordInfo","年度学生学籍异动情况汇总.doc"),//年度学生学籍异动情况汇总
 	_StudentRewardFile("30007","t_word_info","WordInfo","学生表彰名单.doc"),//学生表彰名单

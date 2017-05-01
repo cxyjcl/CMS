@@ -54,7 +54,7 @@ public class ExcelLectureInfo {
 		/* 配合表格中的格式，从第rowIndex行开始读取 */
 		// 用HSSFCell对象的getCell()方法取出每一个的值 sheet.getLastRowNum()
 		row.getCell(0).setCellType(Cell.CELL_TYPE_STRING);
-		while (row != null && row.getCell(0).getStringCellValue() != "") {
+		while (row != null && row.getCell(0)!=null && row.getCell(0).getStringCellValue() != "") {
 			for (int i = 0; i < column; i++) {
 				if (row.getCell(i) != null){
 					row.getCell(i).setCellType(Cell.CELL_TYPE_STRING);
@@ -85,5 +85,7 @@ public class ExcelLectureInfo {
 		list.add(map);
 		return list;
 	}
+	
+	
 
 }

@@ -45,7 +45,7 @@
         <ul class="list-group">
             <li><a href="/dcs/excel/select_list?code=10001&level=1" class="list-group-item">1.年级信息一览表</a></li>
             <li><a href="/dcs/excel/select_list?code=10002&level=1" class="list-group-item">2.班级信息一览表</a></li>
-            <li><a href="/dcs/excel/select_list?code=10003&level=1" class="list-group-item">3.年级本学期党建学生名单</a></li>
+            <li><a href="/dcs/excel/party" class="list-group-item">3.年级本学期党建学生名单</a></li>
             <li><a href="/dcs/excel/select_list?code=10004&level=1" class="list-group-item">4.年级各种荣誉名单</a></li>
             <li><a href="/dcs/excel/select_list?code=10005&level=1" class="list-group-item">5.年级各种学科竞赛获奖名单</a></li>
             <li><a href="/dcs/excel/select_list?code=10006&level=1" class="list-group-item">6.各种校园文化活动获奖名单</a></li>

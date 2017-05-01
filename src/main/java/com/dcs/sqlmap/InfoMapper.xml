@@ -214,9 +214,6 @@
 	</delete>
 	<select id ="selectMax" resultType="java.lang.Integer">
 		SELECT max(info_id) FROM ${table}
-		<if test="dataStatus != null" >
-			where data_status = #{dataStatus};
-      	</if>
 	</select>
 	<select id="selectLimit" resultMap="ListResultMap">
 		SELECT

@@ -11,11 +11,11 @@
 				<![CDATA[${orderType}]]>
 			</if>
 			<if test="orderType == null or orderType == ''">
-				DESC
+				asc
 			</if>
 		</if>
 		<if test="sortField == null "><!-- 不传排序字段的时候 默认按照id 倒序 -->
-			order by id DESC
+			order by id asc
 		</if>
 		<if test="all == null or all==0">
 			<if
@@ -31,11 +31,11 @@
 				<![CDATA[${page.orderType}]]>
 			</if>
 			<if test="page.orderType == null or page.orderType == ''">
-				DESC
+				asc
 			</if>
 		</if>
 		<if test="page.sortField == null "><!-- 不传排序字段的时候 默认按照id 倒序 -->
-			order by id DESC
+			order by id asc
 		</if>
 		<if test="page.all == null or page.all==0">
 			<if
@@ -51,11 +51,11 @@
 				<![CDATA[${page.orderType}]]>
 			</if>
 			<if test="page.orderType == null or page.orderType == ''">
-				DESC
+				asc
 			</if>
 		</if>
 		<if test="page.sortField == null "><!-- 不传排序字段的时候 默认按照id 倒序 -->
-			order by t_list_info.id DESC
+			order by t_list_info.id asc
 		</if>
 		<if test="page.all == null or page.all==0">
 			<if
