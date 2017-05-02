@@ -26,7 +26,7 @@ import com.dcs.pojo.PartyLecture;
 import com.dcs.util.TableUtils;
 
 public class ExcelPartyLecture {
-	private int rowIndex = 3; // The row index start from 3 row.
+	private int rowIndex = 2; // The row index start from 3 row.
 	private final int column = 12; // All column is 12.
 
 	private HSSFWorkbook workbook;

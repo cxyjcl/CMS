@@ -156,20 +156,23 @@ public class PojoToMappController {
 			HttpServletRequest request) {
 		String id = request.getParameter("id");
 		String word = null;
+		String excelName = null;
 		try {
 			word = pojoToMapperService.selectWord(id);
+			excelName= pojoToMapperService.selectExcelName(id);
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+	
 		String ctxPath = request.getSession().getServletContext()
 				.getRealPath("/")
-				+ "WEB-INF\\temp\\" + word;
+				+ "temp\\" + word;
 		response.setContentType("application/x-msdownload;");
 		InputStream in;
 		try {
 			response.setHeader("Content-disposition", "attachment; filename="
-					+ new String(word.getBytes("utf-8"), "ISO8859-1"));
+					+ new String(excelName.getBytes("utf-8"), "ISO8859-1"));
 			in = new FileInputStream(new File(ctxPath));
 			OutputStream out = new BufferedOutputStream(
 					response.getOutputStream());

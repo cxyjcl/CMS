@@ -43,5 +43,7 @@ public interface PojoToMapperService {
 
 	public Integer addExtraFile(String string, InputStream inputStream, Integer id,String type) throws Exception;
 
+	public String selectExcelName(String id) throws Exception;
+
 	
 }

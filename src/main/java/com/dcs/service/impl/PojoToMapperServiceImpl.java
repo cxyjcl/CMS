@@ -215,4 +215,9 @@ public class PojoToMapperServiceImpl implements PojoToMapperService {
 		dao.updateUrl(url,id,table);
 		return null;
 	}
+
+	@Override
+	public String selectExcelName(String id) throws Exception {
+		return dao.selectExcelName(id);
+	}
 }

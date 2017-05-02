@@ -26,8 +26,8 @@ import com.dcs.pojo.RegularMember;
 import com.dcs.util.TableUtils;
 
 public class ExcelRegularMember {
-	private int rowIndex = 3; // The row index start from 3 row.
-	private final int column = 11; // All column is 11.
+	private int rowIndex = 2; // The row index start from 3 row.
+	private final int column = 12; // All column is 11.
 
 	private HSSFWorkbook workbook;
 	private HSSFSheet sheet;
@@ -67,16 +67,17 @@ public class ExcelRegularMember {
 			}
 			RegularMember regularMember = new RegularMember();
 			regularMember.setCode(cell[0].getStringCellValue());
-			regularMember.setName(cell[1].getStringCellValue());
-			regularMember.setSex(cell[2].getStringCellValue());
-			regularMember.setNation(cell[3].getStringCellValue());
-			regularMember.setBirthday(cell[4].getStringCellValue());
-			regularMember.setIdCard(cell[5].getStringCellValue());
-			regularMember.setClassroom(cell[6].getStringCellValue());
-			regularMember.setProfession(cell[7].getStringCellValue());
-			regularMember.setStudentLevel(cell[8].getStringCellValue());
-			regularMember.setProbationaryMemberDate(cell[9].getStringCellValue());
-			regularMember.setRegularPartyMemberDate(cell[10].getStringCellValue());
+			regularMember.setPartyName(cell[1].getStringCellValue());
+			regularMember.setName(cell[2].getStringCellValue());
+			regularMember.setSex(cell[3].getStringCellValue());
+			regularMember.setNation(cell[4].getStringCellValue());
+			regularMember.setBirthday(cell[5].getStringCellValue());
+			regularMember.setIdCard(cell[6].getStringCellValue());
+			regularMember.setClassroom(cell[7].getStringCellValue());
+			regularMember.setProfession(cell[8].getStringCellValue());
+			regularMember.setStudentLevel(cell[9].getStringCellValue());
+			regularMember.setProbationaryMemberDate(cell[10].getStringCellValue());
+			regularMember.setRegularPartyMemberDate(cell[11].getStringCellValue());
 			HashMap<String, Object> map = (HashMap<String, Object>) BeanUtils
 			.describe(regularMember);
 			map.remove("class");

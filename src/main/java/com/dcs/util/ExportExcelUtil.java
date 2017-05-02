@@ -36,7 +36,7 @@ public class ExportExcelUtil {
         Sheet sheet = workbook.getSheetAt(0); 
 		// 写标题栏
 		int j = 0;
-		int i = 3;
+		int i = 2;
 		// 写表格内容
 		for (LinkedHashMap map : data2Export) {
 			Row row = sheet.createRow(i);

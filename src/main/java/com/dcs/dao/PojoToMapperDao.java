@@ -47,4 +47,6 @@ public interface PojoToMapperDao {
 
 	Integer updateUrl(@Param("url")String url,@Param("id") Integer id,@Param("table") String table);
 
+	String selectExcelName(String id);
+
 }

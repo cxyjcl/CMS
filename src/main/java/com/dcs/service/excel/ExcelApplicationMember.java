@@ -29,7 +29,7 @@ import com.dcs.pojo.RegularMember;
 import com.dcs.util.TableUtils;
 
 public class ExcelApplicationMember {
-	private int rowIndex = 3; // The row index start from 3 row.
+	private int rowIndex = 2; // The row index start from 3 row.
 	private final int column = 11; // All column is 11.
 
 	private HSSFWorkbook workbook;

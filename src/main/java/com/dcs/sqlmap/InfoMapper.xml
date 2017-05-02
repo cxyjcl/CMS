@@ -231,8 +231,7 @@
 			t_user as tu1 on tu1.id = t_list_info.reviser,
 			t_user as tu2
 		where tu2.id = t_list_info.creator
-		ORDER BY
-			t_list_info.id DESC
+			ORDER BY  IFNULl(t_list_info.revise_time,t_list_info.create_time) desc
 		LIMIT 0,
 		 10
 	</select>
@@ -248,4 +247,9 @@
 	<update id="updateUrl">
 		update ${table} set url = #{url} where id = #{id}
 	</update>
+	
+	<select id="selectExcelName" resultType="java.lang.String">
+		select excel_name from t_list_info,t_word_info where t_word_info.id = #{id} and list_id = number  and t_word_info.info_id = t_list_info.info_id;
+	</select>
+	
 </mapper>

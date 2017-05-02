@@ -1,32 +1,34 @@
 package com.dcs.pojo;
 
+import com.dcs.util.AttributeBuildExcel;
+
 public class ProbationaryMember {
     private Integer id;
 
     private Integer infoId;
-
+    @AttributeBuildExcel(order=1,excelColumName="序号")
     private String code;
-
+    @AttributeBuildExcel(order=2,excelColumName="姓名")
     private String name;
-
+    @AttributeBuildExcel(order=3,excelColumName="性别")
     private String sex;
-
+    @AttributeBuildExcel(order=4,excelColumName="民族")
     private String nation;
-
+    @AttributeBuildExcel(order=5,excelColumName="出生年月")
     private String birthday;
-
+    @AttributeBuildExcel(order=6,excelColumName="身份证号码")
     private String idCard;
-
+    @AttributeBuildExcel(order=7,excelColumName="班级")
     private String classroom;
-
+    @AttributeBuildExcel(order=8,excelColumName="专业")
     private String profession;
-
+    @AttributeBuildExcel(order=9,excelColumName="学生层次")
     private String studentLevel;
-
+    @AttributeBuildExcel(order=10,excelColumName="成为积极分子时间")
     private String applicationDate;
-
+    @AttributeBuildExcel(order=11,excelColumName="党校期数")
     private String lectureNum;
-
+    @AttributeBuildExcel(order=12,excelColumName="确认发展对象时间")
     private String probationaryDate;
 
     private String dataStatus;
