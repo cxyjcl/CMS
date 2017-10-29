@@ -74,7 +74,7 @@ public class PojoToMapperServiceImpl implements PojoToMapperService {
 	}
 
 	@Override
-	public int insert(String code, InputStream input, ListInfo listInfo)
+	public int insert(String code, InputStream input,String fileName, ListInfo listInfo)
 			throws Exception {
 		ListCodeEnum codeEnum = ListCodeEnum.fromCode(code);
 		String value = codeEnum.getInstance();
@@ -88,10 +88,12 @@ public class PojoToMapperServiceImpl implements PojoToMapperService {
 			WordInfo info = new WordInfo();
 			info.setInfoId(infoId);
 			info.setNumber(code);
+			String type = fileName.split("\\.")[1];
 			String random = infoId+UUID.randomUUID().toString();
 			String url = this.getClass().getResource("/").toURI().getPath().replace("WEB-INF/classes/","temp/"+random);
-			JodUtils.transform(input, url);
-			info.setUrl(random+".doc");
+			System.out.println(url);
+			JodUtils.transform(input, url,type);
+			info.setUrl(random+"."+type);
 		 	int num=dao.insertWord(info);
 			listInfo.setInfoId(infoId);
 			dao.insertList(listInfo);

@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -74,7 +75,7 @@ public class PojoToMappController {
 	public String party() {
 		return "view/component/party";
 	}
-	
+
 	@RequestMapping("/extra_file")
 	@ResponseBody
 	public Message addExtraFile(@RequestParam("code") String code,
@@ -82,25 +83,25 @@ public class PojoToMappController {
 			@RequestParam("file") MultipartFile uploadFile, HttpSession session) {
 		try {
 			String table = ListCodeEnum.fromCode(code).getValue();
-			String type= uploadFile.getOriginalFilename().split("\\.")[1];
+			String type = uploadFile.getOriginalFilename().split("\\.")[1];
 			pojoToMapperService.addExtraFile(table,
-					uploadFile.getInputStream(),id,type);			
+					uploadFile.getInputStream(), id, type);
 			return Message.success("添加成功！");
 		} catch (Exception e) {
 			e.printStackTrace();
-			log.error("id是：" + JSON.toJSONString(code) +"code是"+JSON.toJSONString(code) + "报错信息是："
-					+ e.getStackTrace());
+			log.error("id是：" + JSON.toJSONString(code) + "code是"
+					+ JSON.toJSONString(code) + "报错信息是：" + e.getStackTrace());
 			return Message.error("添加失败！");
 		}
 	}
-	
+
 	@RequestMapping("/add")
 	@ResponseBody
 	public Message addInfo(@RequestParam("code") Integer code,
 			@RequestParam("level") String level,
 			@RequestParam("file") MultipartFile uploadFile, HttpSession session) {
 		User user = (User) session.getAttribute("user");
-		String name= LevelEnum.fromCode(level).getValue();
+		String name = LevelEnum.fromCode(level).getValue();
 		try {
 			ListInfo listInfo = new ListInfo();
 			listInfo.setCreator(user.getId());
@@ -108,8 +109,10 @@ public class PojoToMappController {
 			listInfo.setListId(code);
 			listInfo.setUserLevel(name);
 			String value = ListCodeEnum.fromCode(code.toString()).getValue();
-			pojoToMapperService.insert(code.toString(),
-					uploadFile.getInputStream(), listInfo);			
+//			pojoToMapperService.insert(code.toString(),
+//					uploadFile.getInputStream(), listInfo);
+			String fileName = uploadFile.getOriginalFilename();
+			pojoToMapperService.insert(code.toString(),uploadFile.getInputStream(),fileName, listInfo);
 			return Message.success("添加成功！");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -120,60 +123,63 @@ public class PojoToMappController {
 	}
 
 	@RequestMapping("/file/download")
-    public ModelAndView downloadFile(String code,Integer id,HttpServletResponse response){
+	public ModelAndView downloadFile(String code, Integer id,
+			HttpServletResponse response) {
 		ListCodeEnum codeEnum = ListCodeEnum.fromCode(code);
 		String excelName = codeEnum.getExcelName();
 		String className = codeEnum.getInstance();
 		String fileName = codeEnum.getExcelName();
-        String title = null;
+		String title = null;
 		try {
-			title = pojoToMapperService.selectTitle(code,id);
+			title = pojoToMapperService.selectTitle(code, id);
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-        Map<String, Object> map = new HashMap<String,Object>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		try {
 			Class<?> pojoClass = Class.forName("com.dcs.pojo." + className);
-			List<LinkedHashMap> mapList = pojoToMapperService.selectInfo(
-					code, id,null);
+			List<LinkedHashMap> mapList = pojoToMapperService.selectInfo(code,
+					id, null);
 			map.put("pojoClass", pojoClass);
 			map.put("data2Export", mapList);
 			map.put("title", title);
-			map.put("fileName",fileName);
+			map.put("fileName", fileName);
 			map.put("code", code);
-			ExcelView ve = new ExcelView();  
-	        return new ModelAndView(ve,map);  
+			ExcelView ve = new ExcelView();
+			return new ModelAndView(ve, map);
 		} catch (Exception e) {
 			e.printStackTrace();
-			log.error("报错的excel是"+excelName+"报错信息是："+e.getStackTrace());
+			log.error("报错的excel是" + excelName + "报错信息是：" + e.getStackTrace());
 		}
 		return null;
-    }
+	}
 
 	@RequestMapping("/word/download")
 	public void wordModel(HttpServletResponse response,
 			HttpServletRequest request) {
 		String id = request.getParameter("id");
 		String word = null;
-		String excelName = null;
 		try {
 			word = pojoToMapperService.selectWord(id);
-			excelName= pojoToMapperService.selectExcelName(id);
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-	
-		String ctxPath = request.getSession().getServletContext()
-				.getRealPath("/")
-				+ "temp\\" + word;
+		String url = null;
+		try {
+			url = this.getClass().getResource("/").toURI().getPath().replace("WEB-INF/classes/","temp/" + word);
+		} catch (URISyntaxException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		System.out.println(url);
 		response.setContentType("application/x-msdownload;");
 		InputStream in;
 		try {
 			response.setHeader("Content-disposition", "attachment; filename="
-					+ new String(excelName.getBytes("utf-8"), "ISO8859-1"));
-			in = new FileInputStream(new File(ctxPath));
+					+ new String(word.getBytes("utf-8"), "ISO8859-1"));
+			in = new FileInputStream(new File(url));
 			OutputStream out = new BufferedOutputStream(
 					response.getOutputStream());
 			int byteread = 0;
@@ -188,7 +194,7 @@ public class PojoToMappController {
 			log.error("报错的word是" + word + "报错信息是：" + e.getStackTrace());
 		}
 	}
-	
+
 	// 这是模板下载，即table主页的那个下载。已经写好的
 	@RequestMapping("/model/download")
 	public void downloadModel(HttpServletResponse response,
@@ -257,8 +263,7 @@ public class PojoToMappController {
 
 	@RequestMapping("/delete")
 	@ResponseBody
-	public Message deleteInfo( String code,
-			 Integer id, HttpSession session) {
+	public Message deleteInfo(String code, Integer id, HttpSession session) {
 		User user = (User) session.getAttribute("user");
 		int reviser = user.getId();
 		try {
@@ -274,22 +279,28 @@ public class PojoToMappController {
 	}
 
 	@RequestMapping("/select_info")
-	public ModelAndView selectInfo(String code,String level, Integer id, Page page,
-			HttpServletResponse response) {
+	public ModelAndView selectInfo(String code, String level, Integer id,
+			Page page, HttpServletResponse response) {
 		Message message;
 		ModelAndView view = new ModelAndView();
 		String table = ListCodeEnum.fromCode(code).getValue();
 		String instance = ListCodeEnum.fromCode(code).getInstance();
-		String excelName = ListCodeEnum.fromCode(code).getExcelName().replaceAll("(?:.doc|.xls)", "");
-		view.addObject("excelName",excelName);
-		view.addObject("level",level);
+		String excelName = ListCodeEnum.fromCode(code).getExcelName()
+				.replaceAll("(?:.doc|.xls)", "");
+		view.addObject("excelName", excelName);
+		view.addObject("level", level);
 		try {
 			if (instance.equals("WordInfo")) {
 				String ctxPath = pojoToMapperService.selectWord(id.toString());
+				System.out.println(ctxPath);
 				ctxPath = ctxPath.replace(".doc", ".pdf");
-				view.addObject("path","/dcs/temp/"+ctxPath);
+				ctxPath = ctxPath.replace(".xls", ".pdf");
+				ctxPath = ctxPath.replace(".docx", ".pdf");
+				ctxPath = ctxPath.replace(".xlsx", ".pdf");
+				System.out.println(ctxPath);
+				view.addObject("path", "/dcs/temp/" + ctxPath);
 				view.setViewName("/view/component/pdf");
-			} else{
+			} else {
 				MapVo vo = new MapVo();
 				vo.setPageIndex(page.getPageIndex());
 				LinkedHashMap mapString = pojoToMapperService.selectCol(code);
@@ -356,8 +367,9 @@ public class PojoToMappController {
 			page.setTotalSize(size);
 			view.addObject("page", page);
 			view.addObject("code", code);
-			String excelName = ListCodeEnum.fromCode(code.toString()).getExcelName().replaceAll("(?:.doc|.xls)", "");
-			view.addObject("excelName",excelName);
+			String excelName = ListCodeEnum.fromCode(code.toString())
+					.getExcelName().replaceAll("(?:.doc|.xls)", "");
+			view.addObject("excelName", excelName);
 			String instance = ListCodeEnum.fromCode(code.toString())
 					.getInstance();
 			view.addObject("level", level);
@@ -381,7 +393,7 @@ public class PojoToMappController {
 			Page page) {
 		Message message;
 		ModelAndView view = new ModelAndView();
-		String name= LevelEnum.fromCode(level).getValue();
+		String name = LevelEnum.fromCode(level).getValue();
 		try {
 			List<ListInfoDto> list = pojoToMapperService.findListInfo(value,
 					name, page, code);

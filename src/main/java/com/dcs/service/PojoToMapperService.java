@@ -17,7 +17,7 @@ public interface PojoToMapperService {
 	
 	public List<LinkedHashMap> selectInfo(String code,Integer infoId,Page page) throws Exception;
 
-	public int insert(String code, InputStream inputStream,ListInfo listInfo) throws Exception;
+	public int insert(String code, InputStream inputStream,String fileName, ListInfo listInfo) throws Exception;
 	
 	public List<ListInfoDto> findListInfo(String value,String levels, Page page, String listId)
 			throws Exception;

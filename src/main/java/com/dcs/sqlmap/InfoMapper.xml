@@ -236,7 +236,7 @@
 		 10
 	</select>
 	<select id="selectWord" resultType="java.lang.String">
-		SELECT url FROM t_word_info  where id = #{id}
+		SELECT url FROM t_word_info  where info_id = #{id}
 	</select>
 	<select id="countInfo" resultType="java.lang.Integer">
 		select count(*) from ${table} where info_id = #{id} and data_status = "001"

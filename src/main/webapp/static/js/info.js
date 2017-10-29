@@ -63,8 +63,6 @@ function file(e){
 	 var file = new FormData();   
 	 var code =  $(e).closest("table").attr("id");
 	 var id = $(e).closest("tr").attr("id")
-	 console.log(code);
-	 console.log(id);
 	 file.append("code",code);
 	 file.append("id",id);
 	 file.append("file",document.getElementById('uploadFile').files[0]);

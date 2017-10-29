@@ -43,7 +43,7 @@ function file(e){
 	    var extStart=filepath.lastIndexOf(".");
 	    var ext=filepath.substring(extStart,filepath.length).toUpperCase();
 	    if(ext!=".XLS"&&ext!=".DOC"){
-	       alert("文件仅限于XLS与DOC");
+	       alert("文件仅限于XLS,DOC");
 	    }else{
 	       $.ajax({
 	          type:"POST",

@@ -15,8 +15,8 @@ import com.artofsolving.jodconverter.openoffice.converter.OpenOfficeDocumentConv
 
 
 public class JodUtils {
-	public static void transform(InputStream input,String url) throws Exception{
-		File file = new File(url+".doc");
+	public static void transform(InputStream input,String url, String type) throws Exception{
+		File file = new File(url+"."+type);
 		OutputStream os = new FileOutputStream(file);
 		int bytesRead = 0;
 		byte[] buffer = new byte[8192];
@@ -25,7 +25,7 @@ public class JodUtils {
 		}
 		os.close();
 		input.close();
-		File inputFile = new File(url+".doc");
+		File inputFile = new File(url+"."+type);
 		File outputFile = new File(url+".pdf");
 		// connect to an OpenOffice.org instance running on port 8100 
 		OpenOfficeConnection connection = new SocketOpenOfficeConnection("127.0.0.1",8100);
